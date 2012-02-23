@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, AttendanceAppActivity!</string>
+    <string name="hello">Welcome User!</string>
     <string name="app_name">AttendanceApp</string>
+    <string name="user">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="quit">Quit</string>
 
 </resources>

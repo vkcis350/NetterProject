@@ -3,10 +3,68 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
+    
 
-    <TextView
-        android:layout_width="fill_parent"
+    
+    <TextView android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/hello" />
+    
+    
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width = "wrap_content"
+        android:layout_height="wrap_content">
+
+     	<TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/user" />
+        
+       <EditText android:id="@+id/user"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"/>
+        
+        
+    </LinearLayout>
+    
+    
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width = "wrap_content"
+        android:layout_height="wrap_content">
+       
+	<TextView android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/password" />
+ 
+        
+       <EditText android:id="@+id/password"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:layout_weight="1"
+           android:password="true"/>
+        
+    </LinearLayout>
+        
+    <LinearLayout android:orientation="horizontal"
+        android:layout_width = "wrap_content"
+        android:layout_height="wrap_content">
+    
+ 
+        
+       <Button android:id = "@+id/login"
+           android:text="@string/login"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:onClick="onLoginClick"/>	
+           
+         <Button android:id = "@+id/quit"
+           android:text="@string/quit"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:onClick="onQuitClick"/>	
+        
+    </LinearLayout>
+
+
 
 </LinearLayout>
