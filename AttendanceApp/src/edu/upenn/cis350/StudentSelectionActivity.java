@@ -17,7 +17,7 @@ import android.widget.AdapterView;
 public class StudentSelectionActivity extends Activity {
 
 	 static final String[] NAMES = new String[] {
-		    "Jordan", "Xiao", "Jose", "Vayu", "Sun Yat-Sen", "Charles Darwin", "Mr. Eclipse", "Salvador Dali"
+		    "Jordan", "Xiao", "Jose", "Vayu", "Sun Yat-Sen", "Admiral Nelson", "Mr. Eclipse", "Salvador Dali"
 		  };
 	
 	 @Override
@@ -49,8 +49,20 @@ public class StudentSelectionActivity extends Activity {
 	 }
 	 
 	public void onSelectAllClick(View v){
-		//ListView lv = (ListView) findViewById(R.id.student_list);
-		//for(int x = 0; x < lv.getCount(); x++)
+		ListView lv = (ListView) findViewById(R.id.student_list);
+		for(int x = 0; x < lv.getCount(); x++)
+			lv.setItemChecked(x, true);
+	}
+	
+	public void onDeselectAllClick(View v){
+		ListView lv = (ListView) findViewById(R.id.student_list);
+		for(int x = 0; x < lv.getCount(); x++)
+			lv.setItemChecked(x, false);
+	}
+	
+	public void onContinueClick(View v){
+		Toast.makeText(getApplicationContext(), "Can't Do That Yet",
+		           Toast.LENGTH_SHORT).show();
 	}
 
 }
