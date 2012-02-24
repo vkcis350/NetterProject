@@ -27,7 +27,7 @@ public class AttendanceAppActivity extends Activity {
 		
 		if(validate(userName,pw)){
 			//MODIFY THE FOLLOWING LINE'S CLASS IN ORDER TO OPEN UP ANOTHER CLASS, I'VE JUST USED STUDENTSELECTIONACTIVITY.CLASS FOR EXAMPLE
-			Intent i = new Intent(this,StudentSelectionActivity.class);
+			Intent i = new Intent(this,ActivityListActivity.class);
 			startActivity(i);
 		}else{
 			Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT).show();
