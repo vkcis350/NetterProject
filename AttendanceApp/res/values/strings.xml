@@ -7,5 +7,6 @@
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="quit">Quit</string>
+    <string name="student_select">Select Students</string>
 
 </resources>
