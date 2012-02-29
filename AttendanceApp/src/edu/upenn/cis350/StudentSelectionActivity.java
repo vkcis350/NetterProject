@@ -16,6 +16,7 @@ import android.widget.AdapterView;
 
 public class StudentSelectionActivity extends Activity {
 
+	//For UI TESTING. REMOVE WHEN DATABASE EXISTS.
 	 static final String[] NAMES = new String[] {
 		    "Jordan", "Xiao", "Jose", "Vayu", "Sun Yat-Sen", "Admiral Nelson", "Mr. Eclipse", "Salvador Dali"
 		  };

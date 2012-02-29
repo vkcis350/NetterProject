@@ -1,25 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical" >
+     android:orientation="vertical"
+        android:layout_width = "wrap_content"
+        android:layout_height="wrap_content">
+	
+		<ListView
+			android:id="@+id/activity_list"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
+	    	android:layout_alignParentTop="true"
+	    	android:layout_weight="1.0" >
+		</ListView>
+	
+	<LinearLayout
+	    android:orientation="horizontal"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:gravity="bottom">
+	    
+	    <LinearLayout
+		    android:orientation="horizontal"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:gravity="bottom">
+	    
+       <Button android:id = "@+id/add_activity_button"
+           android:text="Add New"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:onClick="onAddActivtyClick"/>	
+           
+         <Button android:id = "@+id/delete_activity_button"
+           android:text="Remove"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:onClick="onDeleteActivityClick"/>	
+           
+          <Button android:id = "@+id/select_activity_button"
+           android:text="Select"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:onClick="onSelectActivityClick"/>	
+        
+          </LinearLayout>
+          
+    </LinearLayout>
     
-    <Button android:id="@+id/Button1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ActivityName1"
-            android:onClick="onButtonClick" />
-            
-    <Button android:id="@+id/Button2"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ActivityName2"
-            android:onClick="onButtonClick" />
-            
-    <Button android:id="@+id/Button3"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/ActivityName3"
-            android:onClick="onButtonClick" />
-
 </LinearLayout>
