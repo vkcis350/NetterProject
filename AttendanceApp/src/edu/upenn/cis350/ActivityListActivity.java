@@ -16,14 +16,18 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class ActivityListActivity extends Activity{
 
-	//For UI TESTING. REMOVE WHEN DATABASE EXISTS.
+	//For UI TESTING. REMOVE WHEN DATABASE EXISTS.\
+	static final String[] SOME_CLASSES = new String[] {
+		"Android Programming", "Homework", "Something Athletic"};
 	static final String[] CLASSES = new String[] {
 		"Android Programming", "Homework", "Something Athletic", "\"Fun Activity\"", "Overthrowing the Qing", "Defeating Napoleon", "Visiting the Eclpise Family", "I made this one up.", "Snacktime?"
 	};
+	Boolean fullView = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -33,7 +37,7 @@ public class ActivityListActivity extends Activity{
 		ListView lv = (ListView) findViewById(R.id.activity_list);
 		lv.setTextFilterEnabled(true);
 		lv.setChoiceMode(lv.CHOICE_MODE_SINGLE);
-		String[] classArray = CLASSES;
+		String[] classArray = SOME_CLASSES;
 		Arrays.sort(classArray);
 		lv.setAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_single_choice, classArray));
@@ -88,5 +92,29 @@ public class ActivityListActivity extends Activity{
 	{
 		Intent i = new Intent(this,StudentSelectionActivity.class);
 		startActivity(i);
+	}
+	
+	public void onToggleActivityClick(View v)
+	{
+		ListView lv = (ListView) findViewById(R.id.activity_list);
+		Button toggleButton = (Button) findViewById(R.id.toggle_activities);
+		TextView listtype = (TextView) findViewById(R.id.activity_list_type);
+		String[] classArray = CLASSES;
+		if(!fullView)
+		{
+			toggleButton.setText(R.string.toggleActivityPart);
+			listtype.setText(R.string.activitylistFull);
+			fullView = true;
+		}
+		else
+		{
+			toggleButton.setText(R.string.toggleActivityFull);
+			listtype.setText(R.string.activitylistPart);
+			classArray = SOME_CLASSES;
+			fullView = false;
+		}
+		Arrays.sort(classArray);
+		lv.setAdapter(new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_single_choice, classArray));
 	}
 }

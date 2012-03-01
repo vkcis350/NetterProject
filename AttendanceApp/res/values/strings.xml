@@ -11,5 +11,10 @@
     <string name="ActivityName2">Basketball</string> 
     <string name="ActivityName3">Art Class</string> 
     <string name="student_select">Select Students</string>
+    <string name="toggleActivityFull">View All Activities</string>
+    <string name="toggleActivityPart">View Only Frequent Activities</string>
+    <string name="activitylistPart">Frequently Accessed Activities:</string>
+    <string name="activitylistFull">Frequently Accessed Activities:</string>
+    
 
 </resources>
