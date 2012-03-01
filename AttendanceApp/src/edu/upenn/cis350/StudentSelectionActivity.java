@@ -1,5 +1,7 @@
 package edu.upenn.cis350;
 
+import java.util.Arrays;
+
 import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
@@ -8,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
@@ -33,8 +36,10 @@ public class StudentSelectionActivity extends Activity {
 	   ListView lv = (ListView) findViewById(R.id.student_list);
 	   lv.setTextFilterEnabled(true);
 	   lv.setChoiceMode(lv.CHOICE_MODE_MULTIPLE);
+	   String[] nameArray = NAMES;
+	   Arrays.sort(nameArray);
 	   lv.setAdapter(new ArrayAdapter<String>(this,
-	                   android.R.layout.simple_list_item_multiple_choice, NAMES));
+	                   android.R.layout.simple_list_item_multiple_choice, nameArray));
 
 /*
 	   lv.setOnItemClickListener(new OnItemClickListener() {
@@ -62,8 +67,18 @@ public class StudentSelectionActivity extends Activity {
 	}
 	
 	public void onContinueClick(View v){
-		Toast.makeText(getApplicationContext(), "Can't Do That Yet",
-		           Toast.LENGTH_SHORT).show();
+		 PopupMenu popup = new PopupMenu(this, v);
+	     popup.getMenuInflater().inflate(R.menu.studentselectionmenu, popup.getMenu());
+	     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+	    	 public boolean onMenuItemClick(MenuItem item) {
+	    		 Toast.makeText(getApplicationContext(), "Not Yet Implemented",
+	    				 Toast.LENGTH_SHORT).show();
+	             	return true;
+	            }
+	        });
+
+	        popup.show();
+
 	}
 
 }
