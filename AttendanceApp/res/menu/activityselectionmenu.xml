@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/view_students" android:title="View Students"></item>
+        <item android:id="@+id/edit_activity" android:title="Edit Activity"></item>   
+    <item android:id="@+id/remove_activity_from_common" android:title="Remove from Common Activity List"></item>     
+</menu>
