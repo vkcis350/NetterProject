@@ -14,7 +14,7 @@
     <string name="toggleActivityFull">View All Activities</string>
     <string name="toggleActivityPart">View Only Frequent Activities</string>
     <string name="activitylistPart">Frequently Accessed Activities:</string>
-    <string name="activitylistFull">Frequently Accessed Activities:</string>
+    <string name="activitylistFull">All Activities:</string>
     
 
 </resources>

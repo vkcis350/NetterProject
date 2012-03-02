@@ -34,6 +34,7 @@ public class ActivityListActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activities);
 
+		//the list itself
 		ListView lv = (ListView) findViewById(R.id.activity_list);
 		lv.setTextFilterEnabled(true);
 		lv.setChoiceMode(lv.CHOICE_MODE_SINGLE);
@@ -55,6 +56,7 @@ public class ActivityListActivity extends Activity{
 				Toast.LENGTH_SHORT).show();
 	}
 
+	//brings up an options menu
 	public void onSelectActivityClick(View v){
 			ListView lv = (ListView) findViewById(R.id.activity_list);
 		if(lv.getCheckedItemCount() > 0)
@@ -88,12 +90,15 @@ public class ActivityListActivity extends Activity{
 			           Toast.LENGTH_SHORT).show();
 	}
 	
+	//Opens up the student view. Need to implement database interaction
 	public void onViewStudents()
 	{
 		Intent i = new Intent(this,StudentSelectionActivity.class);
 		startActivity(i);
 	}
 	
+	//switches between full list of activities and partial list
+	//currently the activities are just hardcoded
 	public void onToggleActivityClick(View v)
 	{
 		ListView lv = (ListView) findViewById(R.id.activity_list);

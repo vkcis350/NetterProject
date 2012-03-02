@@ -29,10 +29,6 @@ public class StudentSelectionActivity extends Activity {
 	   super.onCreate(savedInstanceState);
 	   setContentView(R.layout.studentselection);
 
-	   //setListAdapter(new ArrayAdapter<String>(this, R.layout.studentselectlist, NAMES));
-
-	   
-	   //ListView lv = getListView();
 	   ListView lv = (ListView) findViewById(R.id.student_list);
 	   lv.setTextFilterEnabled(true);
 	   lv.setChoiceMode(lv.CHOICE_MODE_MULTIPLE);
@@ -41,31 +37,24 @@ public class StudentSelectionActivity extends Activity {
 	   lv.setAdapter(new ArrayAdapter<String>(this,
 	                   android.R.layout.simple_list_item_multiple_choice, nameArray));
 
-/*
-	   lv.setOnItemClickListener(new OnItemClickListener() {
-	     public void onItemClick(AdapterView<?> parent, View view,
-	         int position, long id) {
-	       // When clicked, show a toast with the TextView text
-	       Toast.makeText(getApplicationContext(), ((TextView) view).getText(),
-	           Toast.LENGTH_SHORT).show();
-	     }
-	   });*/
-	   
-	   
+	  	   
 	 }
 	 
+	 //selects all students
 	public void onSelectAllClick(View v){
 		ListView lv = (ListView) findViewById(R.id.student_list);
 		for(int x = 0; x < lv.getCount(); x++)
 			lv.setItemChecked(x, true);
 	}
 	
+	//deselects all students
 	public void onDeselectAllClick(View v){
 		ListView lv = (ListView) findViewById(R.id.student_list);
 		for(int x = 0; x < lv.getCount(); x++)
 			lv.setItemChecked(x, false);
 	}
 	
+	//Brings up options menu
 	public void onContinueClick(View v){
 		 PopupMenu popup = new PopupMenu(this, v);
 	     popup.getMenuInflater().inflate(R.menu.studentselectionmenu, popup.getMenu());
