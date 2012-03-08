@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/check_in_student" android:title="Check In or Out"></item>
-        <item android:id="@+id/leave_student_comment" android:title="Leave Comment"></item>   
+    <item android:id="@+id/check_in_student" android:title="Check In Selection"></item>
+    <item android:id="@+id/check_out_student" android:title="Check Out Selection"></item>
+    <item android:id="@+id/leave_student_comment" android:title="Leave Comment"></item>   
     <item android:id="@+id/update_student" android:title="Update Student Data"></item>     
 </menu>

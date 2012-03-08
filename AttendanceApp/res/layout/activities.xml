@@ -44,13 +44,13 @@
            android:text="Add New"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:onClick="onAddActivtyClick"/>	
+           android:onClick="onAddActivityClick"/>	
            
          <Button android:id = "@+id/delete_activity_button"
            android:text="Remove"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:onClick="onDeleteActivityClick"/>	
+           android:onClick="onRemoveActivityClick"/>	
            
           <Button android:id = "@+id/select_activity_button"
            android:text="Select"

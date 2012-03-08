@@ -15,6 +15,7 @@
     <string name="toggleActivityPart">View Only Frequent Activities</string>
     <string name="activitylistPart">Frequently Accessed Activities:</string>
     <string name="activitylistFull">All Activities:</string>
+     <string name="current_activity">Current Activity</string>
     
 
 </resources>

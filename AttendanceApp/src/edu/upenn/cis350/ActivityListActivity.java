@@ -28,6 +28,10 @@ public class ActivityListActivity extends Activity{
 		"Android Programming", "Homework", "Something Athletic", "\"Fun Activity\"", "Overthrowing the Qing", "Defeating Napoleon", "Visiting the Eclpise Family", "I made this one up.", "Snacktime?"
 	};
 	Boolean fullView = false;
+	
+	//Request codes
+	//for View Student
+	static final int VIEW_STUDENT_REQUEST = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -94,7 +98,22 @@ public class ActivityListActivity extends Activity{
 	public void onViewStudents()
 	{
 		Intent i = new Intent(this,StudentSelectionActivity.class);
-		startActivity(i);
+		startActivityForResult(i,VIEW_STUDENT_REQUEST);
+	}
+	
+	//what happens when you return from other activities (nothing yet)
+	public void onActivityResult(int requestCode, int resultCode,
+            Intent data)
+	{
+		if(requestCode == VIEW_STUDENT_REQUEST)
+		{
+			Toast.makeText(getApplicationContext(), "Welcome back from viewing the student list",
+   				 Toast.LENGTH_SHORT).show();
+		}
+		else
+			Toast.makeText(getApplicationContext(), "I don't know how you got this to show up",
+				 Toast.LENGTH_SHORT).show();
+		//data.
 	}
 	
 	//switches between full list of activities and partial list

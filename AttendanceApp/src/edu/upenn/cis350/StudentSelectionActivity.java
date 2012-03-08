@@ -36,6 +36,8 @@ public class StudentSelectionActivity extends Activity {
 	   Arrays.sort(nameArray);
 	   lv.setAdapter(new ArrayAdapter<String>(this,
 	                   android.R.layout.simple_list_item_multiple_choice, nameArray));
+	   
+	   //savedInstanceState.
 
 	  	   
 	 }
@@ -68,6 +70,21 @@ public class StudentSelectionActivity extends Activity {
 
 	        popup.show();
 
+	}
+
+	//filter which students are shown
+	public void onFilterStudentsClick(View v){
+		 PopupMenu popup = new PopupMenu(this, v);
+	     popup.getMenuInflater().inflate(R.menu.filterstudentsmenu, popup.getMenu());
+	     popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+	    	 public boolean onMenuItemClick(MenuItem item) {
+	    		 Toast.makeText(getApplicationContext(), "Not Yet Implemented",
+	    				 Toast.LENGTH_SHORT).show();
+	             	return true;
+	            }
+	        });
+
+	        popup.show();
 	}
 
 }
