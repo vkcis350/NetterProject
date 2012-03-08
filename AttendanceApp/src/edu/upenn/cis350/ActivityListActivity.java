@@ -25,7 +25,7 @@ public class ActivityListActivity extends Activity{
 	static final String[] SOME_CLASSES = new String[] {
 		"Android Programming", "Homework", "Something Athletic"};
 	static final String[] CLASSES = new String[] {
-		"Android Programming", "Homework", "Something Athletic", "\"Fun Activity\"", "Overthrowing the Qing", "Defeating Napoleon", "Visiting the Eclpise Family", "I made this one up.", "Snacktime?"
+		"Android Programming", "Homework", "Something Athletic", "\"Fun Activity\"", "Overthrowing the Qing", "Defeating Napoleon", "Visiting the Eclipse Family", "I made this one up.", "Snacktime?"
 	};
 	Boolean fullView = false;
 	

@@ -5,6 +5,7 @@ import java.util.Arrays;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -86,6 +87,9 @@ public class StudentSelectionActivity extends Activity {
 				});
 				popup.show();
 			}
+			else
+				Toast.makeText(getApplicationContext(), "Please select some students first.",
+						Toast.LENGTH_SHORT).show();
 
 	}
 
@@ -95,8 +99,8 @@ public class StudentSelectionActivity extends Activity {
 			ListView lv = (ListView) findViewById(R.id.student_list); 
 			int count = lv.getCheckedItemCount();
 			AlertDialog mDialog = new AlertDialog.Builder(this)
-			.setTitle(getResources().getString(R.string.app_name))
-			.setMessage("Are you sure you want to check in " + count + " students to Activity " + "XXXX" + "?")
+			.setTitle("Check in Students")
+			.setMessage("Are you sure you want to check in " + count + " students to Activity " + "[XXXX]" + "?")
 			.setPositiveButton("Yes", null)
 			.setNegativeButton("No", null)
 			.show();
@@ -104,7 +108,20 @@ public class StudentSelectionActivity extends Activity {
 			WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
 			layoutParams.dimAmount = 0.9f;
 			mDialog.getWindow().setAttributes(layoutParams);
-			mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+			//mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+			
+			
+			//what happens when you press the buttons
+			mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
+			      public void onClick(DialogInterface dialog, int which) {  
+			    	  Toast.makeText(getApplicationContext(), "Sure, but this isn't implemented yet",
+								Toast.LENGTH_SHORT).show();
+			    } });
+			mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
+			      public void onClick(DialogInterface dialog, int which) {  
+			    	  Toast.makeText(getApplicationContext(), "Students were not checked in.",
+								Toast.LENGTH_SHORT).show();
+			    } });   
 		}
 		
 		//brings up popup asking to confirm. Actual function not yet implemented
@@ -113,8 +130,8 @@ public class StudentSelectionActivity extends Activity {
 			ListView lv = (ListView) findViewById(R.id.student_list); 
 			int count = lv.getCheckedItemCount();
 			AlertDialog mDialog = new AlertDialog.Builder(this)
-			.setTitle(getResources().getString(R.string.app_name))
-			.setMessage("Are you sure you want to check out " + count + " students from Activity " + "XXXX" + "?")
+			.setTitle("Check out Students")
+			.setMessage("Are you sure you want to check out " + count + " students from Activity " + "[XXXX]" + "?")
 			.setPositiveButton("Yes", null)
 			.setNegativeButton("No", null)
 			.show();
@@ -122,7 +139,19 @@ public class StudentSelectionActivity extends Activity {
 			WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
 			layoutParams.dimAmount = 0.9f;
 			mDialog.getWindow().setAttributes(layoutParams);
-			mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+			//mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+			
+			//what happens when you press the buttons
+			mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
+			      public void onClick(DialogInterface dialog, int which) {  
+			    	  Toast.makeText(getApplicationContext(), "Sure, but this isn't implemented yet",
+								Toast.LENGTH_SHORT).show();
+			    } });
+			mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
+			      public void onClick(DialogInterface dialog, int which) {  
+			    	  Toast.makeText(getApplicationContext(), "Students were not checked out.",
+								Toast.LENGTH_SHORT).show();
+			    } });  
 		}
 
 		//filter which students are shown
