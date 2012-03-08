@@ -25,6 +25,9 @@ public class StudentSelectionActivity extends Activity {
 	static final String[] NAMES = new String[] {
 		"Jordan", "Xiao", "Jose", "Vayu", "Sun Yat-Sen", "Admiral Nelson", "Mr. Eclipse", "Salvador Dali"
 	};
+	
+	//Activity that called this student list
+	String currentActivity;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -39,9 +42,14 @@ public class StudentSelectionActivity extends Activity {
 		lv.setAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_multiple_choice, nameArray));
 
-		//savedInstanceState.
+		Bundle extras = getIntent().getExtras();
+		currentActivity = extras.getString("ACTIVITY_NAME");
 
+		Toast.makeText(getApplicationContext(), currentActivity,
+				Toast.LENGTH_SHORT).show();
 
+		TextView title = (TextView) findViewById(R.id.student_view_activity_name);
+		title.setText(currentActivity);
 	}
 
 	//selects all students
@@ -100,7 +108,7 @@ public class StudentSelectionActivity extends Activity {
 			int count = lv.getCheckedItemCount();
 			AlertDialog mDialog = new AlertDialog.Builder(this)
 			.setTitle("Check in Students")
-			.setMessage("Are you sure you want to check in " + count + " students to Activity " + "[XXXX]" + "?")
+			.setMessage("Are you sure you want to check in " + count + " students to " + currentActivity + "?")
 			.setPositiveButton("Yes", null)
 			.setNegativeButton("No", null)
 			.show();
@@ -131,7 +139,7 @@ public class StudentSelectionActivity extends Activity {
 			int count = lv.getCheckedItemCount();
 			AlertDialog mDialog = new AlertDialog.Builder(this)
 			.setTitle("Check out Students")
-			.setMessage("Are you sure you want to check out " + count + " students from Activity " + "[XXXX]" + "?")
+			.setMessage("Are you sure you want to check out " + count + " students from " + currentActivity + "?")
 			.setPositiveButton("Yes", null)
 			.setNegativeButton("No", null)
 			.show();
