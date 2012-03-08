@@ -52,8 +52,36 @@ public class ActivityListActivity extends Activity{
 	}
 
 	public void onAddActivityClick(View v){
-		Toast.makeText(getApplicationContext(), "Can't Do That Yet. You probably shouldn't be doing that here anyway.",
-				Toast.LENGTH_SHORT).show();
+		ListView lv = (ListView) findViewById(R.id.activity_list);
+		if(lv.getCheckedItemCount() > 0)
+		{
+			PopupMenu popup = new PopupMenu(this, v);
+			popup.getMenuInflater().inflate(R.menu.activityaddmenu, popup.getMenu());
+			popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() 
+			{
+				public boolean onMenuItemClick(MenuItem item) 
+				{
+					switch (item.getItemId()) 
+					{
+					case R.id.add_to_frequently:
+						onAddFrequently();
+						return true;
+					default:
+						Toast.makeText(getApplicationContext(), "Not Yet Implemented",
+								Toast.LENGTH_SHORT).show();
+						return true;
+					}
+				}
+			});
+
+			popup.show();
+
+			//	Intent i = new Intent(this,StudentSelectionActivity.class);
+			//	startActivity(i);
+		}
+		else
+			Toast.makeText(getApplicationContext(), "Select Activity First",
+					Toast.LENGTH_SHORT).show();
 	}
 
 	public void onRemoveActivityClick(View v){
@@ -159,6 +187,35 @@ public class ActivityListActivity extends Activity{
 		
 		reloadList();
 		Toast.makeText(getApplicationContext(), "Removed " + activityName + " from Frequent List.",
+				Toast.LENGTH_SHORT).show();
+		
+	}
+	
+	//adds activity to list of frequently accessed activities
+	//just hardcoded for now
+	public void onAddFrequently()
+	{
+		ListView lv = (ListView) findViewById(R.id.activity_list);
+		String activityName = (String) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
+		ArrayList<String> someClasses = new ArrayList(Arrays.asList(SOME_CLASSES));
+		
+		//in case you selected something not on the frequent list
+		if(someClasses.contains(activityName))
+		{
+			Toast.makeText(getApplicationContext(), activityName + " is already in the Frequent List.",
+					Toast.LENGTH_SHORT).show();
+			return;
+		}
+		
+		int addLoc = someClasses.indexOf(activityName);
+		someClasses.add(activityName);
+		SOME_CLASSES = new String[someClasses.size()];
+		for(int x = 0; x < someClasses.size(); x++)
+			SOME_CLASSES[x] = someClasses.get(x);
+		
+		Arrays.sort(SOME_CLASSES);
+		reloadList();
+		Toast.makeText(getApplicationContext(), "Added " + activityName + " to Frequent List.",
 				Toast.LENGTH_SHORT).show();
 		
 	}
