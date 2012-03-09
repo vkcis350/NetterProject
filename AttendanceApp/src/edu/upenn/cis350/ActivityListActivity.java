@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -12,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -165,7 +168,7 @@ public class ActivityListActivity extends Activity{
 	
 	//removes activity from list of frequently accessed activities
 	//just hardcoded for now
-	public void onRemoveFrequently()
+	public void removeFrequently()
 	{
 		ListView lv = (ListView) findViewById(R.id.activity_list);
 		String activityName = (String) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
@@ -188,12 +191,41 @@ public class ActivityListActivity extends Activity{
 		reloadList();
 		Toast.makeText(getApplicationContext(), "Removed " + activityName + " from Frequent List.",
 				Toast.LENGTH_SHORT).show();
+	}
+	
+	//asks for confirmation
+	public void onRemoveFrequently()
+	{
+		ListView lv = (ListView) findViewById(R.id.activity_list);
+		String activityName = (String) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
 		
+		AlertDialog mDialog = new AlertDialog.Builder(this)
+		.setTitle("Remove from List")
+		.setMessage("Are you sure you want to remove " + activityName + " from the frequent activity list?")
+		.setPositiveButton("Yes", null)
+		.setNegativeButton("No", null)
+		.show();
+
+		WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
+		layoutParams.dimAmount = 0.9f;
+		mDialog.getWindow().setAttributes(layoutParams);
+		//mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+		
+		//what happens when you press the buttons
+		mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
+		      public void onClick(DialogInterface dialog, int which) {  
+		    	  removeFrequently();
+		    } });
+		mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
+		      public void onClick(DialogInterface dialog, int which) {  
+		    	  Toast.makeText(getApplicationContext(), "Activity was not removed.",
+							Toast.LENGTH_SHORT).show();
+		    } });  		
 	}
 	
 	//adds activity to list of frequently accessed activities
 	//just hardcoded for now
-	public void onAddFrequently()
+	public void addFrequently()
 	{
 		ListView lv = (ListView) findViewById(R.id.activity_list);
 		String activityName = (String) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
@@ -218,6 +250,36 @@ public class ActivityListActivity extends Activity{
 		Toast.makeText(getApplicationContext(), "Added " + activityName + " to Frequent List.",
 				Toast.LENGTH_SHORT).show();
 		
+	}
+	
+	//asks for confirmation
+	public void onAddFrequently()
+	{
+		ListView lv = (ListView) findViewById(R.id.activity_list);
+		String activityName = (String) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
+		
+		AlertDialog mDialog = new AlertDialog.Builder(this)
+		.setTitle("Add to List")
+		.setMessage("Are you sure you want to add " + activityName + " to the frequent activity list?")
+		.setPositiveButton("Yes", null)
+		.setNegativeButton("No", null)
+		.show();
+
+		WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
+		layoutParams.dimAmount = 0.9f;
+		mDialog.getWindow().setAttributes(layoutParams);
+		//mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+		
+		//what happens when you press the buttons
+		mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
+		      public void onClick(DialogInterface dialog, int which) {  
+		    	  addFrequently();
+		    } });
+		mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
+		      public void onClick(DialogInterface dialog, int which) {  
+		    	  Toast.makeText(getApplicationContext(), "Activity was not added.",
+							Toast.LENGTH_SHORT).show();
+		    } });  		
 	}
 
 	//what happens when you return from other activities (nothing yet)
