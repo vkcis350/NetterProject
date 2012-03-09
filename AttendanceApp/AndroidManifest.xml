@@ -21,6 +21,8 @@
             android:label="Student List" ></activity>
         <activity android:name="ActivityListActivity"
             android:label="Activity List" ></activity>
+        <activity android:name="EditActivityActivity"
+            android:label="Edit Activity" ></activity>
     </application>
 
 </manifest>

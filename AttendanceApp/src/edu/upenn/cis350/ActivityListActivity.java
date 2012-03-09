@@ -34,8 +34,8 @@ public class ActivityListActivity extends Activity{
 	Boolean fullView = false;
 
 	//Request codes
-	//for View Student
 	static final int VIEW_STUDENT_REQUEST = 0;
+	static final int EDIT_ACTIVITY_REQUEST = 1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -136,6 +136,9 @@ public class ActivityListActivity extends Activity{
 					case R.id.view_students:
 						onViewStudents();
 						return true;
+					case R.id.edit_activity:
+						onEditActivity();
+						return true;
 					default:
 						Toast.makeText(getApplicationContext(), "Not Yet Implemented",
 								Toast.LENGTH_SHORT).show();
@@ -164,6 +167,17 @@ public class ActivityListActivity extends Activity{
 		Intent i = new Intent(this,StudentSelectionActivity.class);
 		i.putExtra("ACTIVITY_NAME", activityName);
 		startActivityForResult(i,VIEW_STUDENT_REQUEST);
+	}
+	
+	//opens new window for editing selected activity
+	public void onEditActivity()
+	{
+		ListView lv = (ListView) findViewById(R.id.activity_list);
+		String activityName = (String) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
+
+		Intent i = new Intent(this,EditActivityActivity.class);
+		i.putExtra("ACTIVITY_NAME", activityName);
+		startActivityForResult(i,EDIT_ACTIVITY_REQUEST);
 	}
 	
 	//removes activity from list of frequently accessed activities
@@ -292,6 +306,15 @@ public class ActivityListActivity extends Activity{
 		{
 			Toast.makeText(getApplicationContext(), "Welcome back from viewing the student list",
 					Toast.LENGTH_SHORT).show();
+		}
+		else if(requestCode == EDIT_ACTIVITY_REQUEST)
+		{
+			if(resultCode == RESULT_OK) //if okayed edit
+				Toast.makeText(getApplicationContext(), "Welcome back from editing an activity",
+						Toast.LENGTH_SHORT).show();
+			else //if canceled edit
+				Toast.makeText(getApplicationContext(), "You did not edit that activity",
+						Toast.LENGTH_SHORT).show();
 		}
 		else
 			Toast.makeText(getApplicationContext(), "I don't know how you got this to show up",
