@@ -77,4 +77,16 @@ public class ActivityListTest extends
 		assertTrue(size > 3);
 	}
 	
+	public void testRemoveFromFrequent()
+	{
+		activity.runOnUiThread(new Runnable() {
+			public void run() {
+				togglebutton.performClick();
+				togglebutton.performClick();
+				togglebutton.performClick();
+				togglebutton.performClick();
+				togglebutton.performClick();
+			}
+		});
+	}
 }
