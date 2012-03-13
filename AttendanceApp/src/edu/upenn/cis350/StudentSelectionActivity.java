@@ -226,6 +226,8 @@ public class StudentSelectionActivity extends Activity {
 		public void reloadList()
 		{
 			ListView lv = (ListView) findViewById(R.id.student_list);
+			for(int x = 0; x < lv.getCount(); x++)
+				lv.setItemChecked(x, false);
 			String[] nameArray = NAMES;
 			if(currentList == CHECKED_IN_STUDENTS)
 			{

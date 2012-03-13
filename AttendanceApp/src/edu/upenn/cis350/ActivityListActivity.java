@@ -333,6 +333,8 @@ public class ActivityListActivity extends Activity{
 	public void reloadList()
 	{
 		ListView lv = (ListView) findViewById(R.id.activity_list);
+		for(int x = 0; x < lv.getCount(); x++)
+			lv.setItemChecked(x, false);
 		Button toggleButton = (Button) findViewById(R.id.toggle_activities);
 		TextView listtype = (TextView) findViewById(R.id.activity_list_type);
 		String[] classArray = CLASSES;

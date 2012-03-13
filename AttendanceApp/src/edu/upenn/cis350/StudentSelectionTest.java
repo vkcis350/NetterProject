@@ -72,4 +72,18 @@ public class StudentSelectionTest extends
 		
 		assertEquals(0, listView.getCheckedItemCount());
 	}
+	
+	public void testReloadList() 
+	{
+		activity.runOnUiThread(new Runnable() {
+			public void run() {
+				sbutton.performClick();
+				((StudentSelectionActivity) activity).reloadList();
+			}
+		});
+		
+		getInstrumentation().waitForIdleSync();
+		
+		assertEquals(0, listView.getCheckedItemCount());
+	}
 }
