@@ -3,7 +3,7 @@
 User Stories
 //this is the third test
 1 point = 1 person working for 1 week
-
+/BLat
 MAKE TESTS!
 
 Implementation of classes for core funcionality took forever
