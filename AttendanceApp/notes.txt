@@ -1,0 +1,90 @@
+User Stories
+1 point = 1 person working for 1 week
+
+As a user opening the application, I want to be able to log in (for accountability). 
+3 points (backend)
+
+As a user, I want to be able to select from a list of students and mark their arrival, absence, and departure from activities that I am supervising. 2 points.
+
+As a user, I want to select the activities from a predefined set and I can use the Miscellaneous option to select one-off activities. 0.5 points.
+
+As a user, I want to be able to check in/out multiple students at a time by selecting an activity and then selecting which students I am logging in/out of that activity. 1 point
+
+---> Up to here, need to have functional backend.
+
+As a user, I want to be able to add my own comments to the updates that I perform in order to be able to take note of special circumstances and other such information. 0.5 points.
+
+As a user, I want the times that I have made these inputs to be automatically logged. 0.5 points
+
+As I user, I want to be able to check the status of a student’s pickup clearance. 1 point.
+
+As a user, I want to be able to conduct surveys while I am taking attendance. This should appear as an additional set of questions when I select a student to sign in. 2 points.
+
+As a user I want to be able to use application equally well on tablets and smartphones. 1 point.
+
+As a user, if wifi is not available, I should be able to store updates locally and synchronize with 
+main database when wifi connection is reestablished. 4 points
+
+As a user, I want to be able to log comments for students which may consist of behavior issues or positive comments. 1 point
+
+As a user, I want to be able to generate a report for a student which contains a history of the student’s attendance over the past year. 2 points
+
+As a user, I would like to be able to view the student’s progress report on a website. 2 points (maybe 3).
+
+As a user, I want to be able to view reports by students and by activity. 1 point
+
+
+
+
+Notes from 2/10 Meeting
+Main purpose is to keep track of attendance - Definitely who arrives, and when they leave
+It would be nice to keep track for each individual activity, keep track of who picks them up at the end of the day.
+Secondarily - it would be nice if it could give status reports for each student - definitely behavior issues, but also might as well include positive things too, and general notes, whether homework was completed
+
+There are potential wifi issues. This would affect how we communicate with the database (update realtime vs at the end of the day)
+Mostly for phones, but there will soon be small tablets.
+
+We probably won’t be able to use the actual database when developing this software.
+
+Notes from 2/10 Meeting - Jose Varela
+Idea: app to log administrative data; consistent throughout sites (schools).
+Activities: After school program, snack, HW help
+Logging student attendance: hard due to exceptions like kids leaving early.
+
+Main functionality desired: List of kids set of activities, time-in/out logging for each activity.
+
+Extra: Behavior data through forms.
+
+Users: site directors.
+Lots of written information. Work from 3-6pm at the site.
+
+Features 
+Activity logging
+	HW completion logging w/notes and comments
+Attendance and reporting
+	Per activity
+	Listed by names
+Disciplinary forms
+Pick-up clearence
+Surveys
+Web view
+
+Details
+Attendance taken during snack.
+Actvities vary and are irregular (2-3 special programs)
+40-70 kids at any given time; 100+ in the summer.
+Parents make arrangements for kids to walk home.
+
+Some additional notes --X. L.
+-Site director will possibly use larger tablet 
+-7” tablets likely, Lenovo IdeaPads?
+-sync with Google Docs or temporary database
+-additional features:
+--use photos to take attendance
+--keep track of homework completion
+--reports that could be given to parents (parent involvement)
+
+Supplementary user stories (lower priority)
+-As an instructor, I’d like to be able to mark whether a child completed their homework during a session and be able to report that infromation to parents.
+-As an instructor, I’d like to be able to mark students’ attendance with a grid of photos.
+-As a parent (not necessarily direct user of app), I’d like to receive reports about my child’s progress and homework completion.
