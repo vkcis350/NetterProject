@@ -79,8 +79,6 @@ public class ActivityListActivity extends Activity{
 
 			popup.show();
 
-			//	Intent i = new Intent(this,StudentSelectionActivity.class);
-			//	startActivity(i);
 		}
 		else
 			Toast.makeText(getApplicationContext(), "Select Activity First",
@@ -112,8 +110,6 @@ public class ActivityListActivity extends Activity{
 
 			popup.show();
 
-			//	Intent i = new Intent(this,StudentSelectionActivity.class);
-			//	startActivity(i);
 		}
 		else
 			Toast.makeText(getApplicationContext(), "Select Activity First",
@@ -149,8 +145,6 @@ public class ActivityListActivity extends Activity{
 
 			popup.show();
 
-			//	Intent i = new Intent(this,StudentSelectionActivity.class);
-			//	startActivity(i);
 		}
 		else
 			Toast.makeText(getApplicationContext(), "Select Activity First",

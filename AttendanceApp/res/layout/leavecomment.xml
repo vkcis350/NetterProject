@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+     android:orientation="vertical"
+        android:layout_width = "wrap_content"
+        android:layout_height="wrap_content">
+	    
+    <TextView 
+        android:id = "@+id/activity_list_type"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activitylistPart" />
+    
+    
+		<ListView
+			android:id="@+id/activity_list"
+	    	android:layout_width="fill_parent"
+	    	android:layout_height="wrap_content"
+	    	android:layout_alignParentTop="true"
+	    	android:layout_weight="1.0" >
+		</ListView>
+	
+	<LinearLayout
+	    android:orientation="horizontal"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:gravity="bottom">
+	    
+	    <LinearLayout
+		    android:orientation="horizontal"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:gravity="bottom">
+	    
+       <Button android:id = "@+id/add_activity_button"
+           android:text="Add"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:onClick="onAddActivityClick"/>	
+           
+         <Button android:id = "@+id/delete_activity_button"
+           android:text="Remove"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:onClick="onRemoveActivityClick"/>	
+           
+          <Button android:id = "@+id/select_activity_button"
+           android:text="Select"
+           android:layout_width="fill_parent"
+           android:layout_height="wrap_content"
+           android:onClick="onSelectActivityClick"/>	
+        
+          </LinearLayout>
+          
+    </LinearLayout>
+    
+</LinearLayout>

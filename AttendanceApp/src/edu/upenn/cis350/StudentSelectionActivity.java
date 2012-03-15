@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
+import android.util.SparseBooleanArray;
 import android.view.*;
 import android.widget.AdapterView;
 
@@ -37,6 +39,11 @@ public class StudentSelectionActivity extends Activity {
 	static final int ALL_STUDENTS = 0;
 	static final int CHECKED_IN_STUDENTS = 1;
 	static final int CHECKED_OUT_STUDENTS = 2;
+	
+	//Request codes
+	static final int CHECK_IN_REQUEST = 0;
+	static final int CHECK_OUT_REQUEST = 1;
+	static final int LEAVE_COMMENT_REQUEST = 2;
 	
 	//Activity that called this student list
 	String currentActivity;
@@ -95,6 +102,9 @@ public class StudentSelectionActivity extends Activity {
 							return true;
 						case R.id.check_out_student:
 							onCheckOutStudents();
+							return true;
+						case R.id.leave_student_comment:
+							onLeaveComment();
 							return true;
 						default:
 							Toast.makeText(getApplicationContext(), "Not Yet Implemented",
@@ -172,6 +182,25 @@ public class StudentSelectionActivity extends Activity {
 			    } });  
 		}
 
+		//opens a dialog to leave comments on all selected students
+		public void onLeaveComment()
+		{
+			ListView lv = (ListView) findViewById(R.id.student_list);
+			SparseBooleanArray checked = lv.getCheckedItemPositions();
+			String[] names = new String[lv.getCheckedItemCount()];
+			int count = 0;
+			for(int x = 0; x < checked.size(); x++)
+				if(checked.valueAt(x))
+				{
+					names[count] = (String) lv.getItemAtPosition(x);
+					count++;
+				}
+			
+			Intent i = new Intent(this,StudentCommentActivity.class);
+			i.putExtra("STUDENT_NAMES", names);
+			startActivityForResult(i,LEAVE_COMMENT_REQUEST);
+		}
+		
 		//sets the list view to show all students registered for activity
 		public void viewAllStudents()
 		{
