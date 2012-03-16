@@ -1,0 +1,33 @@
+Which kids to show in the view of each activity?
+Default be absent, so the teacher checksin present.
+Think of useful functionality to have, like a button to mark all present.
+
+Student -> enrollment (field)
+
+All kids -> Organize kids by grade -> By checked in activity/absent
+
+Student profile to store/edit the student information 
+  name, contact info, address, grade level, school teacher,
+  past comments
+  current check in (any teacher can know where the kid is)
+
+Think of 'cool' features
+custom interface
+
+Difference between ovearall attendance (the kid came0 and sub attendance by activity
+
+Workflow for checking in/out/and viewing global roster
+
+View absent also
+
+Simplify default view (and options) and functionality ***
+
+Wording is confusing (we use terms in the meetings and program that are
+not colloquial/straight forward0
+
+Read up Gdocs API
+
+No data plan available! Need to figure out how to store the data locally, and then upload
+when the phone finds wi-fi connection.
+
+Conflicting checkins and other functionality? If not on real time this could be a problem.

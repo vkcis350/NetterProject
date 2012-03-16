@@ -71,7 +71,7 @@ public class ActivityListActivity extends Activity{
 
 	public void onAddActivityClick(View v){
 		ListView lv = (ListView) findViewById(R.id.activity_list);
-		if(lv.getCheckedItemCount() > 0)
+		if(lv.getCheckedItemCount() > 0 || lv.getCheckedItemCount() == 0)
 		{
 			PopupMenu popup = new PopupMenu(this, v);
 			popup.getMenuInflater().inflate(R.menu.activityaddmenu, popup.getMenu());
