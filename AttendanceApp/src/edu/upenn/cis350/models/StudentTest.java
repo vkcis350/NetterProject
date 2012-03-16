@@ -10,21 +10,30 @@ public class StudentTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		test=new Student();
-		test2=new Student();
-		test.setID(id1);
+		test2=new Student(n2);
 		test.setName(n1);
 	}
 
-	public void testSetID() {
+	public void testGetSetID() {
+		assertEquals(test.getID(),-1);
+		test.setID(id1);
 		assertEquals(test.getID(),id1);
 		test.setID(id2);
 		assertEquals(test.getID(),id2);
+		
+		assertEquals(test2.getID(),-1);
+		test.setID(id2);
+		assertEquals(test2.getID(),id2);
+		test.setID(id1);
+		assertEquals(test2.getID(),id1);
 	}
 
-	public void testSetName() {
+	public void testGetSetName() {
 		assertEquals(test.getName(),n1);
 		test.setName(n2);
 		assertEquals(test.getName(),n2);
+		
+		assertEquals(test2.getName(),n2);
 	}
 
 	public void testToString() {
@@ -32,8 +41,8 @@ public class StudentTest extends TestCase {
 		assertEquals(test.toString(),test.getName());
 	}
 
-	public void testCompareTo() {
-
+	public void testCompareTo() { //should match up on id primarily, right?
+		test.setID(id1);
 		test2.setID(id2);
 		test2.setName(n1);
 		assertFalse(test2.equals(test));
