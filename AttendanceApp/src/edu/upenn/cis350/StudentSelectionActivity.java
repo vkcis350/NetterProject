@@ -1,7 +1,10 @@
 package edu.upenn.cis350;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import edu.upenn.cis350.localstore.CheckinDataSource;
@@ -81,7 +84,7 @@ public class StudentSelectionActivity extends Activity {
 		currentActivity = extras.getString("ACTIVITY_NAME");
 		currentActivityID = extras.getLong("ACTIVITY_ID");
 		
-		loadData(); //load data from local DB
+		openData();
 		
 		ListView lv = (ListView) findViewById(R.id.student_list);
 		lv.setTextFilterEnabled(true);
@@ -169,14 +172,52 @@ public class StudentSelectionActivity extends Activity {
 			//what happens when you press the buttons
 			mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
 			      public void onClick(DialogInterface dialog, int which) {  
-			    	  Toast.makeText(getApplicationContext(), "Checked in at time ",
-								Toast.LENGTH_SHORT).show();
+			    	  checkInOutStudents(true);
+			    	  
 			    } });
 			mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
 			      public void onClick(DialogInterface dialog, int which) {  
 			    	  Toast.makeText(getApplicationContext(), "Students were not checked in.",
 								Toast.LENGTH_SHORT).show();
 			    } });   
+		}
+		
+		public void checkInOutStudents(boolean in)
+		{
+			String inOrOut = "out";
+			if (in)
+				inOrOut = "in";
+			Calendar cal = Calendar.getInstance();
+			ListView lv = (ListView) findViewById(R.id.student_list);
+			SparseBooleanArray checked = lv.getCheckedItemPositions();
+			long time = cal.getTimeInMillis();
+			int countSuccessful = 0;
+			for (int i=0; i<checked.size(); i++)
+			{
+				if(checked.valueAt(i))
+				{
+					Student student = (Student) lv.getItemAtPosition( i );
+					Checkin checkin = checkinData.get(CURRENT_SESSION_ID,currentActivityID,student.getID());
+					if (checkin.getInTime()<0 && in )
+					{
+						checkin.setInTime ( time );
+						checkinData.save(checkin);
+						countSuccessful++;
+					}
+					else if ( checkin.getOutTime()<0 && !in )
+					{
+						checkin.setOutTime(time);
+						checkinData.save(checkin);
+						countSuccessful++;
+					}
+					//checkinData.get(sessionID, activityID, studentID)
+					//checkinData.save(checkin);
+				}
+			}
+			DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+			Toast.makeText(getApplicationContext(), "Checked "+ inOrOut + " " + countSuccessful+ " student(s) at "+dateFormat.format(time),
+					Toast.LENGTH_LONG).show();
+			reloadList();
 		}
 		
 		//brings up popup asking to confirm. Actual function not yet implemented
@@ -198,9 +239,8 @@ public class StudentSelectionActivity extends Activity {
 			
 			//what happens when you press the buttons
 			mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
-			      public void onClick(DialogInterface dialog, int which) {  
-			    	  Toast.makeText(getApplicationContext(), "Sure, but this isn't implemented yet",
-								Toast.LENGTH_SHORT).show();
+			      public void onClick(DialogInterface dialog, int which) {
+			    	  checkInOutStudents(false);
 			    } });
 			mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
 			      public void onClick(DialogInterface dialog, int which) {  
@@ -289,6 +329,7 @@ public class StudentSelectionActivity extends Activity {
 		//reloads the list view for this activity
 		public void reloadList()
 		{
+			loadData();
 			ListView lv = (ListView) findViewById(R.id.student_list);
 			for(int x = 0; x < lv.getCount(); x++)
 				lv.setItemChecked(x, false);
@@ -299,8 +340,7 @@ public class StudentSelectionActivity extends Activity {
 			}
 			else if(currentList == CHECKED_OUT_STUDENTS)
 			{
-				//nameArray = CHECKED_OUT_NAMES;
-				//TO CHANGE
+				studentList = outStudents;
 			}
 			//Note: List of students gotten from DB should already be sorted alphabetically
 			
@@ -311,7 +351,7 @@ public class StudentSelectionActivity extends Activity {
 		}
 		
 		
-		public void loadData()
+		public void openData()
 		{
 			studentData = new StudentDataSource(this);
 			studentData.open();
@@ -319,7 +359,10 @@ public class StudentSelectionActivity extends Activity {
 			actData.open();
 			checkinData = new CheckinDataSource(this);
 			checkinData.open();
-			
+		}
+		
+		public void loadData()
+		{
 			Log.d("StudentSelectionActivity","current activity id "+currentActivityID);
 			SchoolActivity currentActivity = (SchoolActivity) actData.get(currentActivityID);
 			
@@ -332,14 +375,9 @@ public class StudentSelectionActivity extends Activity {
 				Log.d("Checkin ", CURRENT_SESSION_ID+" "+currentActivityID+" "+student.getID() );
 				Checkin studentCheckin = checkinData.get(CURRENT_SESSION_ID,currentActivityID,student.getID() );//checkinData.get( CURRENT_SESSION_ID, currentActivityID, studentList.get(i).getID() );
 				if ( studentCheckin.getInTime()>0 && studentCheckin.getOutTime()<0  )
-				{
 					inStudents.add(student);
-				}
-				
 				else if ( studentCheckin.getOutTime()>=0 )
-				{
 					outStudents.add(student);
-				}
 			}
 			
 		}
