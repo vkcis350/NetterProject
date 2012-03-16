@@ -118,6 +118,9 @@ public class ActivityListActivity extends Activity{
 					case R.id.remove_frequently:
 						onRemoveFrequently();
 						return true;
+					case R.id.remove_completely:
+						onRemoveCompletely();
+						return true;
 					default:
 						Toast.makeText(getApplicationContext(), "Not Yet Implemented",
 								Toast.LENGTH_SHORT).show();
@@ -132,6 +135,15 @@ public class ActivityListActivity extends Activity{
 		else
 			Toast.makeText(getApplicationContext(), "Select Activity First",
 					Toast.LENGTH_SHORT).show();
+	}
+	
+	private void onRemoveCompletely() {
+		SchoolActivityDataSource dbsrc = new SchoolActivityDataSource(this);
+		dbsrc.open();
+		
+		//Remove still not implemented, will get to it in the morning.
+		dbsrc.close();
+		
 	}
 
 	//brings up an options menu
