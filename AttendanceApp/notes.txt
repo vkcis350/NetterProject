@@ -10,11 +10,11 @@ Implementation of classes for core funcionality took forever
 
 As a user opening the application, I want to be able to log in (for accountability).
 3 points (backend)
-    TODO:    Integrate with backend
+    TODO:   Integrate with backend
             Populate backend with admin user and pass
 
 As a user, I want to be able to select from a list of students and mark their arrival, absence, and departure from activities that I am supervising. 2 points.
-    TODO: Integrate with backend
+ALL DONE TODO: Integrate with backend
           Lists of students rather than names of students should be sent to backend
           Send timestamp to backend once student has departed
 
@@ -23,7 +23,8 @@ As a user, I want to select the activities from a predefined set and I can use t
           Add miscellaneous activity
          
 As a user, I want to be able to check in/out multiple students at a time by selecting an activity and then selecting which students I am logging in/out of that activity. 1 point
-    TODO: Integrate w/ backend (This will be done w/
+    TODO: Integrate w/ backend
+    
 ---> Up to here, need to have functional backend.
 
 As a user, I want to be able to add my own comments to the updates that I perform in order to be able to take note of special circumstances and other such information. 0.5 points.
@@ -48,13 +49,13 @@ main database when wifi connection is reestablished. 4 points
 As a user, I want to be able to log comments for students which may consist of behavior issues or positive comments. 1 point
     TODO: Second Iteration
    
-As a user, I want to be able to generate a report for a student which contains a history of the student‚Äôs attendance over the past year. 2 points
+As a user, I want to be able to generate a report for a student which contains a history of the studentï¿½ï¿½ï¿½s attendance over the past year. 2 points
     TODO: Second Iteration
    
 As a user, I want to be able to view reports by students and by activity. 1 point
     TODO: This is just an SQL query
 
-As a user, I would like to be able to view the student‚Äôs progress report on a website. 2 points (maybe 3).
+As a user, I would like to be able to view the studentï¿½ï¿½ï¿½s progress report on a website. 2 points (maybe 3).
     Todo: Third iteration
    
 
@@ -68,7 +69,7 @@ Secondarily - it would be nice if it could give status reports for each student 
 There are potential wifi issues. This would affect how we communicate with the database (update realtime vs at the end of the day)
 Mostly for phones, but there will soon be small tablets.
 
-We probably won‚Äôt be able to use the actual database when developing this software.
+We probably wonï¿½ï¿½ï¿½t be able to use the actual database when developing this software.
 
 Notes from 2/10 Meeting - Jose Varela
 Idea: app to log administrative data; consistent throughout sites (schools).
@@ -101,7 +102,7 @@ Parents make arrangements for kids to walk home.
 
 Some additional notes --X. L.
 -Site director will possibly use larger tablet
--7‚Äù tablets likely, Lenovo IdeaPads?
+-7ï¿½ï¿½ï¿½ tablets likely, Lenovo IdeaPads?
 -sync with Google Docs or temporary database
 -additional features:
 --use photos to take attendance
@@ -109,6 +110,6 @@ Some additional notes --X. L.
 --reports that could be given to parents (parent involvement)
 
 Supplementary user stories (lower priority)
--As an instructor, I‚Äôd like to be able to mark whether a child completed their homework during a session and be able to report that infromation to parents.
--As an instructor, I‚Äôd like to be able to mark students‚Äô attendance with a grid of photos.
--As a parent (not necessarily direct user of app), I‚Äôd like to receive reports about my child‚Äôs progress and homework completion.
+-As an instructor, Iï¿½ï¿½ï¿½d like to be able to mark whether a child completed their homework during a session and be able to report that infromation to parents.
+-As an instructor, Iï¿½ï¿½ï¿½d like to be able to mark studentsï¿½ï¿½ï¿½ attendance with a grid of photos.
+-As a parent (not necessarily direct user of app), Iï¿½ï¿½ï¿½d like to receive reports about my childï¿½ï¿½ï¿½s progress and homework completion.
