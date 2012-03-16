@@ -1,6 +1,15 @@
 package edu.upenn.cis350;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import edu.upenn.cis350.localstore.CheckinDataSource;
+import edu.upenn.cis350.localstore.SchoolActivityDataSource;
+import edu.upenn.cis350.localstore.StudentDataSource;
+import edu.upenn.cis350.models.Checkin;
+import edu.upenn.cis350.models.SchoolActivity;
+import edu.upenn.cis350.models.Student;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -17,12 +26,14 @@ import android.widget.PopupMenu;
 import android.widget.Toast;
 import android.widget.TextView;
 import android.widget.ArrayAdapter;
+import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.*;
 import android.widget.AdapterView;
 
 public class StudentSelectionActivity extends Activity {
 
+	/**
 	//For UI TESTING. REMOVE WHEN DATABASE EXISTS.
 	static final String[] NAMES = new String[] {
 		"Jordan", "Xiao", "Jose", "Vayu", "Sun Yat-Sen", "Admiral Nelson", "Mr. Eclipse", "Salvador Dali"
@@ -33,6 +44,7 @@ public class StudentSelectionActivity extends Activity {
 	static final String[] CHECKED_OUT_NAMES = new String[] {
 		"Sun Yat-Sen", "Admiral Nelson", "Mr. Eclipse", "Salvador Dali"
 	};
+	**/
 	
 	//which list view is selected
 	int currentList;
@@ -45,23 +57,38 @@ public class StudentSelectionActivity extends Activity {
 	static final int CHECK_OUT_REQUEST = 1;
 	static final int LEAVE_COMMENT_REQUEST = 2;
 	
+	
+	StudentDataSource studentData; //database access object
+	ArrayList<Student> students;
+	ArrayList<Student> inStudents;
+	ArrayList<Student> outStudents;
+	
 	//Activity that called this student list
 	String currentActivity;
+	long currentActivityID;
+	private SchoolActivityDataSource actData;
+	private CheckinDataSource checkinData;
+	
+	static final int CURRENT_SESSION_ID=0; //TEMPRORARY, later will figure out how to deal with times/sessions of activities
 
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.studentselection);
 
+		Bundle extras = getIntent().getExtras();
+		currentActivity = extras.getString("ACTIVITY_NAME");
+		currentActivityID = extras.getLong("ACTIVITY_ID");
+		
+		loadData(); //load data from local DB
+		
 		ListView lv = (ListView) findViewById(R.id.student_list);
 		lv.setTextFilterEnabled(true);
 		lv.setChoiceMode(lv.CHOICE_MODE_MULTIPLE);
 		currentList = ALL_STUDENTS;
 		reloadList();
-
-		Bundle extras = getIntent().getExtras();
-		currentActivity = extras.getString("ACTIVITY_NAME");
-
+		
 		Toast.makeText(getApplicationContext(), currentActivity,
 				Toast.LENGTH_SHORT).show();
 
@@ -142,7 +169,7 @@ public class StudentSelectionActivity extends Activity {
 			//what happens when you press the buttons
 			mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
 			      public void onClick(DialogInterface dialog, int which) {  
-			    	  Toast.makeText(getApplicationContext(), "Sure, but this isn't implemented yet",
+			    	  Toast.makeText(getApplicationContext(), "Checked in at time ",
 								Toast.LENGTH_SHORT).show();
 			    } });
 			mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
@@ -251,24 +278,77 @@ public class StudentSelectionActivity extends Activity {
 			popup.show();
 		}
 		
+		public void onPause()
+		{
+			super.onPause();
+			studentData.close();
+			actData.close();
+			checkinData.close();
+		}
+		
 		//reloads the list view for this activity
 		public void reloadList()
 		{
 			ListView lv = (ListView) findViewById(R.id.student_list);
 			for(int x = 0; x < lv.getCount(); x++)
 				lv.setItemChecked(x, false);
-			String[] nameArray = NAMES;
+			ArrayList<Student> studentList = students;
 			if(currentList == CHECKED_IN_STUDENTS)
 			{
-				nameArray = CHECKED_IN_NAMES;
+				studentList = inStudents;
 			}
 			else if(currentList == CHECKED_OUT_STUDENTS)
 			{
-				nameArray = CHECKED_OUT_NAMES;
+				//nameArray = CHECKED_OUT_NAMES;
+				//TO CHANGE
 			}
-			Arrays.sort(nameArray);
-			lv.setAdapter(new ArrayAdapter<String>(this,
-					android.R.layout.simple_list_item_single_choice, nameArray));
+			//Note: List of students gotten from DB should already be sorted alphabetically
+			
+			lv.setAdapter(new ArrayAdapter<Student>(this,
+					android.R.layout.simple_list_item_single_choice, studentList));
+			
+			
+		}
+		
+		
+		public void loadData()
+		{
+			studentData = new StudentDataSource(this);
+			studentData.open();
+			actData = new SchoolActivityDataSource(this);
+			actData.open();
+			checkinData = new CheckinDataSource(this);
+			checkinData.open();
+			
+			Log.d("StudentSelectionActivity","current activity id "+currentActivityID);
+			SchoolActivity currentActivity = (SchoolActivity) actData.get(currentActivityID);
+			
+			students = (ArrayList<Student>) studentData.getStudentsByActivity(currentActivity);
+			inStudents = new ArrayList<Student>();
+			outStudents = new ArrayList<Student>();
+			
+			for (Student student : students )
+			{
+				Log.d("Checkin ", CURRENT_SESSION_ID+" "+currentActivityID+" "+student.getID() );
+				Checkin studentCheckin = checkinData.get(CURRENT_SESSION_ID,currentActivityID,student.getID() );//checkinData.get( CURRENT_SESSION_ID, currentActivityID, studentList.get(i).getID() );
+				if ( studentCheckin.getInTime()>0 && studentCheckin.getOutTime()<0  )
+				{
+					inStudents.add(student);
+				}
+				
+				else if ( studentCheckin.getOutTime()>=0 )
+				{
+					outStudents.add(student);
+				}
+			}
+			
+		}
+		
+		public void closeData()
+		{
+			studentData.close();
+			actData.close();
+			checkinData.close();
 		}
 
 	}
