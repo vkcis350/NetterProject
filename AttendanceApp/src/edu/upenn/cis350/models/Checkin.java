@@ -50,6 +50,9 @@ public class Checkin extends Model {
 		return studentID;
 	}
 	
+	public String getComment(){
+		return comment;
+	}
 	
 	public void setInTime(long time) {
 		this.inTime = time;
