@@ -371,7 +371,7 @@ public class ActivityListActivity extends Activity{
 		actData.open();
 		schoolActivities = (ArrayList<SchoolActivity>) actData.getAll();
 		someSchoolActivities = new ArrayList<SchoolActivity>(); //TO CHANGE
-		for (int i=0; i<3; i++)
+		for (int i=0; i<schoolActivities.size(); i++)
 		{
 			someSchoolActivities.add(schoolActivities.get(i));
 		}

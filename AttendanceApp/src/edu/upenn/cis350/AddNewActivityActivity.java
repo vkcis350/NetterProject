@@ -31,6 +31,9 @@ public class AddNewActivityActivity extends Activity {
     	dbsrc.open();
     	dbsrc.create(act);
     	dbsrc.close();
+    	
+    	Intent i = new Intent(this,ActivityListActivity.class);
+		startActivity(i);
 	}
 
 
