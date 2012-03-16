@@ -8,7 +8,8 @@ public abstract class Model {
 	
 	public void setID(long id) {
 		this.id = id;
-		
 	}
+	
+	//we probably want to implement compareTo here (on id) and override in later inherited classes if necessary
 
 }
