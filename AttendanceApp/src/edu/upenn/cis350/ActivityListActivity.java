@@ -141,9 +141,16 @@ public class ActivityListActivity extends Activity{
 		SchoolActivityDataSource dbsrc = new SchoolActivityDataSource(this);
 		dbsrc.open();
 		
-		//Remove still not implemented, will get to it in the morning.
+		ListView lv = (ListView) findViewById(R.id.activity_list);
+		SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
+		
+		dbsrc.delete(activity);
+		someSchoolActivities.remove(activity);
+		schoolActivities.remove(activity);
+		
 		dbsrc.close();
 		
+		reloadList();
 	}
 
 	//brings up an options menu
