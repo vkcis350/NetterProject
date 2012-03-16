@@ -11,6 +11,7 @@ import edu.upenn.cis350.localstore.CheckinDataSource;
 import edu.upenn.cis350.localstore.SchoolActivityDataSource;
 import edu.upenn.cis350.localstore.StudentDataSource;
 import edu.upenn.cis350.models.Checkin;
+import edu.upenn.cis350.models.Model;
 import edu.upenn.cis350.models.SchoolActivity;
 import edu.upenn.cis350.models.Student;
 
@@ -254,17 +255,19 @@ public class StudentSelectionActivity extends Activity {
 		{
 			ListView lv = (ListView) findViewById(R.id.student_list);
 			SparseBooleanArray checked = lv.getCheckedItemPositions();
-			String[] names = new String[lv.getCheckedItemCount()];
-			int count = 0;
+			ArrayList<Student> studentList = new ArrayList<Student>();
+			long[] studentIDs = new long[lv.getCheckedItemCount()];
+			int count=0;
+			
 			for(int x = 0; x < checked.size(); x++)
 				if(checked.valueAt(x))
 				{
-					names[count] = (String) lv.getItemAtPosition(x);
+					studentIDs[count]=(Long) ((Student) lv.getItemAtPosition(x)).getID();
 					count++;
 				}
 			
 			Intent i = new Intent(this,StudentCommentActivity.class);
-			i.putExtra("STUDENT_NAMES", names);
+			
 			startActivityForResult(i,LEAVE_COMMENT_REQUEST);
 		}
 		

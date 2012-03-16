@@ -10,7 +10,7 @@ import edu.upenn.cis350.models.Student;
 public class TemporaryDbInsert {
 	
 	/**Populate activities and students if database is empty
-	 * Not sure if the database is pushed to Github; anyway, this is necessary for now.
+	 * Used for now since we're not transferring the database
 	 * Database is reset when DATABASE_VERSION in MySQLiteHelper is changed*/
 	
 	static final int SESSION_ID = 0;
@@ -58,17 +58,23 @@ public class TemporaryDbInsert {
 			
 			studentData.addStudentToActivity(s1,a1);
 			studentData.addStudentToActivity(s2,a1);
+			studentData.addStudentToActivity(s3,a1);
+			studentData.addStudentToActivity(s4,a1);
+			studentData.addStudentToActivity(s5,a1);
+			
+			studentData.addStudentToActivity(s5,a2);
+			studentData.addStudentToActivity(s6,a2);
 			
 			Checkin c1 = (Checkin)checkinData.create(SESSION_ID, a1.getID(), s1.getID(), "was here");
 			Checkin c2 = (Checkin)checkinData.create(SESSION_ID, a1.getID(), s2.getID(), "was here");
 			Checkin c3 = (Checkin)checkinData.create(SESSION_ID, a1.getID(), s3.getID(), "was here");
 			Checkin c4 = (Checkin)checkinData.create(SESSION_ID, a1.getID(), s4.getID(), "was here");
-			Checkin c5 = (Checkin)checkinData.create(SESSION_ID, a1.getID(), s5.getID(), "was extremely disruptive");
+			Checkin c5 = (Checkin)checkinData.create(SESSION_ID, a1.getID(), s5.getID(), "disruptive");
 			
 			Calendar cal = Calendar.getInstance();
 			
-			c2.setInTime(cal.getTimeInMillis());
-			checkinData.save(c2);
+			c5.setInTime(cal.getTimeInMillis());
+			checkinData.save(c5);
 			
 		}
 		

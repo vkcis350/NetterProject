@@ -350,8 +350,11 @@ public class ActivityListActivity extends Activity{
 		actData.open();
 		schoolActivities = (ArrayList<SchoolActivity>) actData.getAll();
 		someSchoolActivities = new ArrayList<SchoolActivity>(); //TO CHANGE
-		someSchoolActivities.add(schoolActivities.get(0));
-		//someSchoolActivities.add(schoolActivities.get(1));
+		for (int i=0; i<3; i++)
+		{
+			someSchoolActivities.add(schoolActivities.get(i));
+		}
+
 	}
 	
 	public void reloadList()
