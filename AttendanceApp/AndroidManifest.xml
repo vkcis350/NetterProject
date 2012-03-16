@@ -23,8 +23,10 @@
             android:label="Activity List" ></activity>
         <activity android:name="EditActivityActivity"
             android:label="Edit Activity" ></activity>
-                <activity android:name="StudentCommentActivity"
+        <activity android:name="StudentCommentActivity"
             android:label="Leave Comment" ></activity>
+        <activity android:name="AddNewActivityActivity"
+            android:label="Add New Activity" ></activity>
     </application>
 
 </manifest>

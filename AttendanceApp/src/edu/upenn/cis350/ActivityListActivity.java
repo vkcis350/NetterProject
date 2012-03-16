@@ -84,6 +84,9 @@ public class ActivityListActivity extends Activity{
 					case R.id.add_to_frequently:
 						onAddFrequently();
 						return true;
+					case R.id.add_new_activity:
+						onAddNew();
+						return true;
 					default:
 						Toast.makeText(getApplicationContext(), "Not Yet Implemented",
 								Toast.LENGTH_SHORT).show();
@@ -300,6 +303,12 @@ public class ActivityListActivity extends Activity{
 		    	  Toast.makeText(getApplicationContext(), "Activity was not added.",
 							Toast.LENGTH_SHORT).show();
 		    } });  		
+	}
+	
+	public void onAddNew()
+	{
+		Intent i = new Intent(this,AddNewActivityActivity.class);
+		startActivity(i);
 	}
 
 	//what happens when you return from other activities (nothing yet)
