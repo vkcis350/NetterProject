@@ -34,7 +34,7 @@ public class SchoolActivity extends Model implements Comparable {
 		return name;
 	}
 
-	public int compareTo(Object arg0) {
+	public int compareTo(Object arg0) {//we're comparing on names, probably want to compare on ids
 		// TODO Auto-generated method stub
 		return this.toString().compareTo(arg0.toString());
 	}
