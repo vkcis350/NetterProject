@@ -65,7 +65,7 @@
         android:layout_marginBottom="18dp"
         android:layout_weight="1" 
         android:inputType="phone"
-         android:text="2155555555"/>
+         android:text="(215) 555-5555"/>
     
             <TextView
         android:layout_width="fill_parent"
@@ -81,7 +81,7 @@
         android:layout_marginBottom="18dp"
         android:layout_weight="1" 
          android:inputType="textPostalAddress"
-         android:text="555 5th St. Fivetown, PA"/>
+         android:text="555 5th St. Fivetown, PA 19555"/>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -92,15 +92,13 @@
         android:layout_marginBottom="17dp"
         android:layout_marginRight="16dp"
         android:orientation="horizontal" >
-    </LinearLayout>
+
 
     <Button
         android:id="@+id/save_student_data_edit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/linearLayout1"
-        android:layout_marginRight="16dp"
-        android:layout_toLeftOf="@+id/linearLayout1"
+        android:layout_weight="1" 
         android:onClick="onLoginClick"
         android:text="Save" />
 
@@ -109,6 +107,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="onQuitClick"
+        android:layout_weight="10" 
         android:text="Cancel" />
-
+    </LinearLayout>
 </LinearLayout>
