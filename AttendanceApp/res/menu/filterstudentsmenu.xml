@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu
   xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/list_all_students" android:title="View All"></item>
+    <item android:id="@+id/list_all_students" android:title="View All Alphabetically"></item>
+    <item android:id="@+id/list_all_students_by_grade" android:title="View All by Grade"></item>
     <item android:id="@+id/list_checkedin_students" android:title="View Checked in Only"></item>
     <item android:id="@+id/list_checkedout_students" android:title="View Checked out Only"></item>     
+    <item android:id="@+id/list_absent_students" android:title="View Absent Only"></item>   
 </menu>
