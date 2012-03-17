@@ -439,4 +439,27 @@ public class StudentSelectionActivity extends Activity {
 		checkinData.close();
 	}
 
+	public void onActivityResult(int requestCode, int resultCode,
+			Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if(requestCode == LEAVE_COMMENT_REQUEST)
+		{
+			Toast.makeText(getApplicationContext(), "Welcome back from leaving a comment",
+					Toast.LENGTH_SHORT).show();
+		}
+		else if(requestCode == EDIT_DATA_REQUEST)
+		{
+			if(resultCode == RESULT_OK) //if okayed edit
+				Toast.makeText(getApplicationContext(), "Student Data Saved (not really, not implemented yet)",
+						Toast.LENGTH_SHORT).show();
+			else //if canceled edit
+				Toast.makeText(getApplicationContext(), "You did not edit student data.",
+						Toast.LENGTH_SHORT).show();
+		}
+		else
+			Toast.makeText(getApplicationContext(), "I don't know how you got this to show up",
+					Toast.LENGTH_SHORT).show();
+	}
 }
