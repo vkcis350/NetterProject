@@ -28,15 +28,15 @@ public class CheckinDataSource extends DataSource {
 	@Override
 	protected Model cursorToModel(Cursor c) {
 		Checkin checkin = new Checkin();
-		checkin.setID(c.getLong(0));
-		checkin.setSessionID( c.getLong(1) );
-		checkin.setActivityID( c.getLong(2) );
-		checkin.setStudentID( c.getLong(3) );
+		checkin.setID(c.getLong(MySQLiteHelper.CHECKINS_CHECKIN_ID_INDEX));
+		checkin.setSessionID( c.getLong(MySQLiteHelper.CHECKINS_SESSION_ID_INDEX) );
+		checkin.setActivityID( c.getLong(MySQLiteHelper.CHECKINS_ACTIVITY_ID_INDEX) );
+		checkin.setStudentID( c.getLong(MySQLiteHelper.CHECKINS_STUDENT_ID_INDEX) );
 		
-		checkin.setInTime(c.getLong(4));
-		checkin.setOutTime(c.getLong(5));
+		checkin.setInTime(c.getLong(MySQLiteHelper.CHECKINS_CHECKIN_TIME_INDEX));
+		checkin.setOutTime(c.getLong(MySQLiteHelper.CHECKINS_CHECKOUT_TIME_INDEX ));
 		
-		checkin.setComment(c.getString(6) );
+		checkin.setComment(c.getString(MySQLiteHelper.CHECKINS_CHECKIN_COMMENT_INDEX ) );
 		return checkin;
 		
 	}

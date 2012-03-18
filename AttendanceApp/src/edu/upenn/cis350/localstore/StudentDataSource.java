@@ -32,8 +32,8 @@ public class StudentDataSource extends DataSource {
 	@Override
 	protected Student cursorToModel(Cursor c) {
 		Student student = new Student();
-		student.setID(c.getLong(0));
-		student.setName(c.getString(1));
+		student.setID(c.getLong(MySQLiteHelper.STUDENT_STUDENT_ID_INDEX));
+		student.setName(c.getString(MySQLiteHelper.STUDENT_STUDENT_NAME_INDEX));
 		return student;
 	}
 

@@ -24,9 +24,22 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String COL_CHECKOUT_TIME = "checkout_time";
 	public  static final String COL_CHECKIN_COMMENT = "checkin_comment";
 	
+	public static final int STUDENT_STUDENT_ID_INDEX = 0;
+	public static final int STUDENT_STUDENT_NAME_INDEX = 1;
+	
+	public static final int ACTIVITIES_ACTIVITY_ID_INDEX = 0;
+	public static final int ACTIVITIES_ACTIVITY_NAME_INDEX = 1;
+	
+	public static final int CHECKINS_CHECKIN_ID_INDEX = 0;
+	public static final int CHECKINS_SESSION_ID_INDEX = 1;
+	public static final int CHECKINS_ACTIVITY_ID_INDEX = 2;
+	public static final int CHECKINS_STUDENT_ID_INDEX = 3;
+	public static final int CHECKINS_CHECKIN_TIME_INDEX = 4;
+	public static final int CHECKINS_CHECKOUT_TIME_INDEX = 5;
+	public static final int CHECKINS_CHECKIN_COMMENT_INDEX = 6;
 	
 	private static final String DATABASE_NAME = "attendance.db";
-	private static final int DATABASE_VERSION = 57;
+	private static final int DATABASE_VERSION = 58;
 	
 
 	public MySQLiteHelper(Context context) {
