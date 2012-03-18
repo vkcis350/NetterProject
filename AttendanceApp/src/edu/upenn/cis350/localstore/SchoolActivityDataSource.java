@@ -56,4 +56,9 @@ public class SchoolActivityDataSource extends DataSource {
 				values);
 		activity.setID(insertId);
 	}
+	
+	public ArrayList<SchoolActivity> getAll()
+	{
+		return (ArrayList<SchoolActivity>) getAll(MySQLiteHelper.COL_ACTIVITY_NAME);
+	}
 }

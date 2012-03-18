@@ -32,9 +32,9 @@ public class TemporaryDbInsert {
 		{
 			
 			SchoolActivity a1 = new SchoolActivity("Android Programming");
-			SchoolActivity a2 = new SchoolActivity("Homework");
+			SchoolActivity a2 = new SchoolActivity("Zambian Cultural Festival");
 			SchoolActivity a3 = new SchoolActivity("Napoleonic Wars");
-			SchoolActivity a4 = new SchoolActivity("Xinhai Revolution");
+			SchoolActivity a4 = new SchoolActivity("Homework");
 		
 			Student s1 = new Student("Jordan");
 			Student s2 = new Student("Jose");

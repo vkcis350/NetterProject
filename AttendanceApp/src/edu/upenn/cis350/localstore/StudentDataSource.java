@@ -56,11 +56,12 @@ public class StudentDataSource extends DataSource {
 	{
 		List<Student> students = new ArrayList<Student>();
 		final String MY_QUERY = "SELECT * FROM " +MySQLiteHelper.TABLE_STUDENTS 
-				+ " student INNER JOIN " 
+				+ " INNER JOIN " 
 				+ MySQLiteHelper.TABLE_ENROLLMENT
-				+" enroll ON student."+MySQLiteHelper.COL_STUDENT_ID
+				+" enroll ON "+MySQLiteHelper.TABLE_STUDENTS+"."+MySQLiteHelper.COL_STUDENT_ID
 				+"=enroll."+MySQLiteHelper.COL_STUDENT_ID
-				+" WHERE enroll."+MySQLiteHelper.COL_ACTIVITY_ID+"=?";
+				+" WHERE enroll."+MySQLiteHelper.COL_ACTIVITY_ID+"=?"
+				+" ORDER BY "+MySQLiteHelper.TABLE_STUDENTS+"."+MySQLiteHelper.COL_STUDENT_NAME ;
 
 		Cursor cursor = database.rawQuery(MY_QUERY, new String[]{String.valueOf(act.getID())});
 		
@@ -86,4 +87,10 @@ public class StudentDataSource extends DataSource {
 				values);
 	}
 	
+	
+	public ArrayList<Student> getAll()
+	{
+		
+		return (ArrayList<Student>) getAll(MySQLiteHelper.COL_STUDENT_NAME);
+	}
 }

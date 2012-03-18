@@ -68,6 +68,7 @@ public class StudentSelectionActivity extends Activity {
 	ArrayList<Student> students;
 	ArrayList<Student> inStudents;
 	ArrayList<Student> outStudents;
+	ArrayList<Student> absentStudents;
 
 	//Activity that called this student list
 	String currentActivity;
@@ -219,11 +220,13 @@ public class StudentSelectionActivity extends Activity {
 		SparseBooleanArray checked = lv.getCheckedItemPositions();
 		long time = cal.getTimeInMillis();
 		int countSuccessful = 0;
-		for (int i=0; i<checked.size(); i++)
+		for (int i=0; i<lv.getCount(); i++)
 		{
-			if(checked.valueAt(i))
+			Log.d("value,i ", checked.get(i)+", "+i );
+			if(checked.get(i))
 			{
 				Student student = (Student) lv.getItemAtPosition( i );
+				Log.d("selected student",i+" "+lv.getCount()+"" );
 				Checkin checkin = checkinData.get(CURRENT_SESSION_ID,currentActivityID,student.getID());
 				if (checkin.getInTime()<0 && in )
 				{
@@ -231,7 +234,7 @@ public class StudentSelectionActivity extends Activity {
 					checkinData.save(checkin);
 					countSuccessful++;
 				}
-				else if ( checkin.getOutTime()<0 && !in )
+				else if ( checkin.getOutTime()<0 && checkin.getInTime()>=0 && !in )
 				{
 					checkin.setOutTime(time);
 					checkinData.save(checkin);
@@ -322,8 +325,8 @@ public class StudentSelectionActivity extends Activity {
 	//sets the list view to show only absent students
 	public void viewAbsentStudents()
 	{
-		Toast.makeText(getApplicationContext(), "Not Yet Implemented",
-				Toast.LENGTH_SHORT).show();
+		currentList = ABSENT_STUDENTS;
+		reloadList();
 	}
 
 	//sets the list view to show all by grade
@@ -392,6 +395,11 @@ public class StudentSelectionActivity extends Activity {
 		{
 			studentList = outStudents;
 		}
+		
+		else if(currentList == ABSENT_STUDENTS)
+		{
+			studentList = absentStudents;
+		}
 		//Note: List of students gotten from DB should already be sorted alphabetically
 
 		lv.setAdapter(new ArrayAdapter<Student>(this,
@@ -419,15 +427,17 @@ public class StudentSelectionActivity extends Activity {
 		students = (ArrayList<Student>) studentData.getStudentsByActivity(currentActivity);
 		inStudents = new ArrayList<Student>();
 		outStudents = new ArrayList<Student>();
+		absentStudents = new ArrayList<Student>();
 
 		for (Student student : students )
 		{
-			Log.d("Checkin ", CURRENT_SESSION_ID+" "+currentActivityID+" "+student.getID() );
 			Checkin studentCheckin = checkinData.get(CURRENT_SESSION_ID,currentActivityID,student.getID() );//checkinData.get( CURRENT_SESSION_ID, currentActivityID, studentList.get(i).getID() );
 			if ( studentCheckin.getInTime()>0 && studentCheckin.getOutTime()<0  )
 				inStudents.add(student);
 			else if ( studentCheckin.getOutTime()>=0 )
 				outStudents.add(student);
+			else
+				absentStudents.add(student);
 		}
 
 	}

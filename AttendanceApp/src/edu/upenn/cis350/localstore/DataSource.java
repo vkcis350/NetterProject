@@ -56,10 +56,15 @@ public abstract class DataSource<T extends Model>{
 	
 	public List<T> getAll()
 	{
+		return getAll(null);
+	}
+	
+	public List<T> getAll(String sortByColumn)
+	{
 		List<T> models = new ArrayList<T>();
 		Cursor cursor = database.query(getTables()[PRIMARY_TABLE_INDEX],
 				null, null, null, null, null, 
-				null);
+				sortByColumn);
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
 			T model = cursorToModel(cursor);
