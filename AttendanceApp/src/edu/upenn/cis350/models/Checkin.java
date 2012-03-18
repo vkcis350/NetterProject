@@ -6,9 +6,9 @@ public class Checkin extends Model {
 	private long sessionID;
 	private long activityID;
 	private String comment;
-	private boolean present;
 	private long inTime;
 	private long outTime;
+	
 	
 	public Checkin()
 	{
@@ -69,6 +69,8 @@ public class Checkin extends Model {
 	public long getOutTime() {
 		return outTime;
 	}
+
+	
 	
 
 

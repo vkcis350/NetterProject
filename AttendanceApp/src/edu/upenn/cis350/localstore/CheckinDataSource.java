@@ -68,6 +68,13 @@ public class CheckinDataSource extends DataSource {
 
 	}
 	
+	/**
+	 * returns the Checkin or returns null if none that match the parameters can be found
+	 * @param sessionID
+	 * @param activityID
+	 * @param studentID
+	 * @return
+	 */
 	public Checkin get(long sessionID, long activityID, long studentID)
 	{
 		Cursor c=database.query(MySQLiteHelper.TABLE_CHECKINS, 
@@ -75,7 +82,10 @@ public class CheckinDataSource extends DataSource {
 				MySQLiteHelper.COL_SESSION_ID+"=?"+" and "+MySQLiteHelper.COL_ACTIVITY_ID+"=?"+" and "+MySQLiteHelper.COL_STUDENT_ID+"=?",
 				new String[]{sessionID+"",activityID+"",studentID+""}, null, null, null);
 		c.moveToFirst();
-		return (Checkin) cursorToModel(c);
+		if (c.getCount()==0)
+			return null;
+		else
+			return (Checkin) cursorToModel(c);
 	}
 	
 	/*

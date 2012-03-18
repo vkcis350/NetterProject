@@ -229,7 +229,7 @@ public class StudentSelectionActivity extends Activity {
 			{
 				Student student = (Student) lv.getItemAtPosition( i );
 				Log.d("selected student",i+" "+lv.getCount()+"" );
-				Checkin checkin = checkinData.get(CURRENT_SESSION_ID,currentActivityID,student.getID());
+				Checkin checkin = checkinData.getOrCreate(CURRENT_SESSION_ID,currentActivityID,student.getID());
 				if (checkin.getInTime()<0 && in )
 				{
 					checkin.setInTime ( time );
@@ -438,13 +438,17 @@ public class StudentSelectionActivity extends Activity {
 
 		for (Student student : students )
 		{
-			Checkin studentCheckin = checkinData.getOrCreate(CURRENT_SESSION_ID,currentActivityID,student.getID() );//checkinData.get( CURRENT_SESSION_ID, currentActivityID, studentList.get(i).getID() );
-			if ( studentCheckin.getInTime()>0 && studentCheckin.getOutTime()<0  )
-				inStudents.add(student);
-			else if ( studentCheckin.getOutTime()>=0 )
-				outStudents.add(student);
-			else
+			Checkin studentCheckin = checkinData.get(CURRENT_SESSION_ID,currentActivityID,student.getID() );//checkinData.get( CURRENT_SESSION_ID, currentActivityID, studentList.get(i).getID() );
+			if (studentCheckin== null)
 				absentStudents.add(student);
+			else if ( studentCheckin.getInTime()>=0 && studentCheckin.getOutTime()<0  )
+				inStudents.add(student);
+			else if ( studentCheckin.getInTime()>=0 && studentCheckin.getOutTime()>=0)
+				outStudents.add(student);
+			else if ( studentCheckin.getInTime()<0 && studentCheckin.getOutTime()<0 )
+				absentStudents.add(student);
+			else
+				throw new IllegalStateException("Illegal student check-in, check-out times.");
 		}
 
 	}
