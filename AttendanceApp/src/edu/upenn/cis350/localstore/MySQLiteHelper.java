@@ -26,7 +26,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	
 	
 	private static final String DATABASE_NAME = "attendance.db";
-	private static final int DATABASE_VERSION = 55;
+	private static final int DATABASE_VERSION = 57;
 	
 
 	public MySQLiteHelper(Context context) {

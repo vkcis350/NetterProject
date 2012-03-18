@@ -49,7 +49,9 @@ public abstract class DataSource<T extends Model>{
 				getIDColumn()+"=?",
 				new String[]{id+""}, null, null, null);
 		c.moveToFirst();
-		return cursorToModel(c);
+		T model = (T)cursorToModel(c);
+		c.close();
+		return model;
 	}
 	
 

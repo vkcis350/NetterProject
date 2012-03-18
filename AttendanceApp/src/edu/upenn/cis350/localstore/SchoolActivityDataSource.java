@@ -22,14 +22,6 @@ public class SchoolActivityDataSource extends DataSource {
 		super(context);
 	}
 	
-	public void open() throws SQLException {
-		database = dbHelper.getWritableDatabase();
-	}
-
-	public void close() {
-		dbHelper.close();
-	}
-
 	protected Model cursorToModel(Cursor cursor) {
 		SchoolActivity act = new SchoolActivity();
 		act.setID(cursor.getLong(0));

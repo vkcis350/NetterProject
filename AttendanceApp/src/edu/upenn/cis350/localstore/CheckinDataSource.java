@@ -82,10 +82,15 @@ public class CheckinDataSource extends DataSource {
 				MySQLiteHelper.COL_SESSION_ID+"=?"+" and "+MySQLiteHelper.COL_ACTIVITY_ID+"=?"+" and "+MySQLiteHelper.COL_STUDENT_ID+"=?",
 				new String[]{sessionID+"",activityID+"",studentID+""}, null, null, null);
 		c.moveToFirst();
+		Checkin checkin;
 		if (c.getCount()==0)
-			return null;
+			checkin = null;
 		else
-			return (Checkin) cursorToModel(c);
+		{
+			checkin = (Checkin) cursorToModel(c);
+		}
+		c.close();
+		return checkin;
 	}
 	
 	/*
@@ -99,13 +104,18 @@ public class CheckinDataSource extends DataSource {
 				MySQLiteHelper.COL_SESSION_ID+"=?"+" and "+MySQLiteHelper.COL_ACTIVITY_ID+"=?"+" and "+MySQLiteHelper.COL_STUDENT_ID+"=?",
 				new String[]{sessionID+"",activityID+"",studentID+""}, null, null, null);
 		
+		Checkin checkin;
 		if (c.getCount()>0)
 		{
 			c.moveToFirst();
-			return (Checkin) cursorToModel(c);
+			checkin = (Checkin) cursorToModel(c);
 		}
 		else
-			return (Checkin)create(sessionID,activityID,studentID,"");
+		{
+			checkin = (Checkin)create(sessionID,activityID,studentID,"");
+		}
+		c.close();
+		return checkin;
 	}
 	
 	public void save(Checkin checkin)

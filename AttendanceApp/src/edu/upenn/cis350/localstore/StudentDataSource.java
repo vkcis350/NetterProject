@@ -71,6 +71,7 @@ public class StudentDataSource extends DataSource {
 			students.add(student);
 			cursor.moveToNext();
 		}
+		cursor.close();
 		return students;
 	}
 	
