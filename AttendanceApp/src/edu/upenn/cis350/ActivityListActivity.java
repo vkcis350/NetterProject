@@ -61,7 +61,6 @@ public class ActivityListActivity extends Activity{
 		lv.setTextFilterEnabled(true);
 		lv.setChoiceMode(lv.CHOICE_MODE_SINGLE);
 		ArrayList<SchoolActivity> classList = someSchoolActivities;
-		Collections.sort(classList);
 		
 		lv.setAdapter(new ArrayAdapter<SchoolActivity>(this,
 				android.R.layout.simple_list_item_single_choice, classList));
@@ -287,7 +286,6 @@ public class ActivityListActivity extends Activity{
 		int addLoc = someSchoolActivities.indexOf(activity);
 		someSchoolActivities.add(activity);
 	
-		Collections.sort(someSchoolActivities);
 		reloadList();
 		Toast.makeText(getApplicationContext(), "Added " + activity + " to Frequent List.",
 				Toast.LENGTH_SHORT).show();
@@ -404,7 +402,6 @@ public class ActivityListActivity extends Activity{
 			listtype.setText(R.string.activitylistPart);
 			classArrayList = someSchoolActivities;//TO CHANGE
 		}
-		Collections.sort(classArrayList);
 		lv.setAdapter(new ArrayAdapter<SchoolActivity>(this,
 				android.R.layout.simple_list_item_single_choice, classArrayList));
 	}
