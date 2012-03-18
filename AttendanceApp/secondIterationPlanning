@@ -8,6 +8,8 @@ All kids -> Organize kids by grade -> By checked in activity/absent
 
 Student profile to store/edit the student information 
   name, contact info, address, grade level, school teacher,
+  [implemented ui]
+  
   past comments
   current check in (any teacher can know where the kid is)
 

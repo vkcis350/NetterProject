@@ -167,6 +167,8 @@ public class StudentSelectionActivity extends Activity {
 			long studentID;
 			//studentID =(Long) ((Student) lv.getItemAtPosition(lv.getCheckedItemPosition())).getID();
 			Intent i = new Intent(this,StudentDataActivity.class);
+			i.putExtra("STUDENT_NAME", "DEFAULT NAME");
+			i.putExtra("STUDENT_ID", "DEFAULT ID");
 			startActivityForResult(i,EDIT_DATA_REQUEST);
 		}
 		else if(lv.getCheckedItemCount() > 1)
@@ -288,7 +290,8 @@ public class StudentSelectionActivity extends Activity {
 			long studentID;
 			//studentID =(Long) ((Student) lv.getItemAtPosition(lv.getCheckedItemPosition())).getID();
 			Intent i = new Intent(this,StudentCommentActivity.class);
-
+			i.putExtra("STUDENT_NAME", "DEFAULT NAME");
+			i.putExtra("STUDENT_ID", "DEFAULT ID");
 			startActivityForResult(i,LEAVE_COMMENT_REQUEST);
 		}
 		else if(lv.getCheckedItemCount() > 1)
@@ -400,10 +403,14 @@ public class StudentSelectionActivity extends Activity {
 		{
 			studentList = absentStudents;
 		}
+		else if(currentList == ALL_STUDENTS)
+		{
+			studentList = students;
+		}
 		//Note: List of students gotten from DB should already be sorted alphabetically
 
 		lv.setAdapter(new ArrayAdapter<Student>(this,
-				android.R.layout.simple_list_item_single_choice, studentList));
+				android.R.layout.simple_list_item_multiple_choice, studentList));
 
 
 	}
