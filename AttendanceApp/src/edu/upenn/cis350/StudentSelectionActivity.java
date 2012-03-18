@@ -431,7 +431,7 @@ public class StudentSelectionActivity extends Activity {
 
 		for (Student student : students )
 		{
-			Checkin studentCheckin = checkinData.get(CURRENT_SESSION_ID,currentActivityID,student.getID() );//checkinData.get( CURRENT_SESSION_ID, currentActivityID, studentList.get(i).getID() );
+			Checkin studentCheckin = checkinData.getOrCreate(CURRENT_SESSION_ID,currentActivityID,student.getID() );//checkinData.get( CURRENT_SESSION_ID, currentActivityID, studentList.get(i).getID() );
 			if ( studentCheckin.getInTime()>0 && studentCheckin.getOutTime()<0  )
 				inStudents.add(student);
 			else if ( studentCheckin.getOutTime()>=0 )

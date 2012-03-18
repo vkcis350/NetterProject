@@ -65,16 +65,8 @@ public class TemporaryDbInsert {
 			studentData.addStudentToActivity(s5,a2);
 			studentData.addStudentToActivity(s6,a2);
 			
-			Checkin c1 = (Checkin)checkinData.create(SESSION_ID, a1.getID(), s1.getID(), "was here");
-			Checkin c2 = (Checkin)checkinData.create(SESSION_ID, a1.getID(), s2.getID(), "was here");
-			Checkin c3 = (Checkin)checkinData.create(SESSION_ID, a1.getID(), s3.getID(), "was here");
-			Checkin c4 = (Checkin)checkinData.create(SESSION_ID, a1.getID(), s4.getID(), "was here");
-			Checkin c5 = (Checkin)checkinData.create(SESSION_ID, a1.getID(), s5.getID(), "disruptive");
-			
 			Calendar cal = Calendar.getInstance();
 			
-			c5.setInTime(cal.getTimeInMillis());
-			checkinData.save(c5);
 			
 		}
 		

@@ -25,9 +25,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public  static final String COL_CHECKIN_COMMENT = "checkin_comment";
 	
 	
-	
 	private static final String DATABASE_NAME = "attendance.db";
-	private static final int DATABASE_VERSION = 50;
+	private static final int DATABASE_VERSION = 52;
 	
 
 	public MySQLiteHelper(Context context) {

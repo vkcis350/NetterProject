@@ -78,6 +78,26 @@ public class CheckinDataSource extends DataSource {
 		return (Checkin) cursorToModel(c);
 	}
 	
+	/*
+	 * If Checkin witch matching parameters exists, get it. If it doesn't create one with -1 and -1
+	 * as check-in and check-out times (i.e., absent).
+	 */
+	public Checkin getOrCreate(long sessionID, long activityID, long studentID)
+	{
+		Cursor c=database.query(MySQLiteHelper.TABLE_CHECKINS, 
+				null, 
+				MySQLiteHelper.COL_SESSION_ID+"=?"+" and "+MySQLiteHelper.COL_ACTIVITY_ID+"=?"+" and "+MySQLiteHelper.COL_STUDENT_ID+"=?",
+				new String[]{sessionID+"",activityID+"",studentID+""}, null, null, null);
+		
+		if (c.getCount()>0)
+		{
+			c.moveToFirst();
+			return (Checkin) cursorToModel(c);
+		}
+		else
+			return (Checkin)create(sessionID,activityID,studentID,"");
+	}
+	
 	public void save(Checkin checkin)
 	{
 		ContentValues values = new ContentValues();
