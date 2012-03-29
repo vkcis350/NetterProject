@@ -53,7 +53,7 @@
            android:onClick="onRemoveActivityClick"/>	
            
           <Button android:id = "@+id/select_activity_button"
-           android:text="Select"
+           android:text="View Students"
            android:layout_width="fill_parent"
            android:layout_height="wrap_content"
            android:onClick="onSelectActivityClick"/>	

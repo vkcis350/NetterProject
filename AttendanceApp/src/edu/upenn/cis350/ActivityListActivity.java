@@ -153,43 +153,7 @@ public class ActivityListActivity extends Activity{
 	}
 
 	//brings up an options menu
-	public void onSelectActivityClick(View v){
-		ListView lv = (ListView) findViewById(R.id.activity_list);
-		if(lv.getCheckedItemCount() > 0)
-		{
-			PopupMenu popup = new PopupMenu(this, v);
-			popup.getMenuInflater().inflate(R.menu.activityselectionmenu, popup.getMenu());
-			popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() 
-			{
-				public boolean onMenuItemClick(MenuItem item) 
-				{
-					switch (item.getItemId()) 
-					{
-					case R.id.view_students:
-						onViewStudents();
-						return true;
-					case R.id.edit_activity:
-						onEditActivity();
-						return true;
-					default:
-						Toast.makeText(getApplicationContext(), "Not Yet Implemented",
-								Toast.LENGTH_SHORT).show();
-						return true;
-					}
-				}
-			});
-
-			popup.show();
-
-		}
-		else
-			Toast.makeText(getApplicationContext(), "Select Activity First",
-					Toast.LENGTH_SHORT).show();
-	}
-
-	//Opens up the student view. Need to implement database interaction
-	//for now, just sends activity name
-	public void onViewStudents()
+	public void onSelectActivityClick(View v)
 	{
 		ListView lv = (ListView) findViewById(R.id.activity_list);
 		SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
@@ -199,19 +163,6 @@ public class ActivityListActivity extends Activity{
 		i.putExtra("ACTIVITY_ID", activity.getID());
 		
 		startActivityForResult(i,VIEW_STUDENT_REQUEST);
-	}
-	
-	//opens new window for editing selected activity
-	public void onEditActivity()
-	{
-		ListView lv = (ListView) findViewById(R.id.activity_list);
-		SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
-		
-		Intent i = new Intent(this,EditActivityActivity.class);
-		i.putExtra("ACTIVITY_NAME", activity.toString());
-		i.putExtra("ACTIVITY_ID", activity.getID());
-		
-		startActivityForResult(i,EDIT_ACTIVITY_REQUEST);
 	}
 	
 	//removes activity from list of frequently accessed activities

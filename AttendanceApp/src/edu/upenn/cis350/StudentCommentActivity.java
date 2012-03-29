@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 import edu.upenn.cis350.R;
 import edu.upenn.cis350.models.Student;
 
@@ -42,6 +43,12 @@ public class StudentCommentActivity extends Activity{
 	{
 		setResult(RESULT_CANCELED);
 		finish();
+	}
+	
+	public void onAddCommentClick(View view)
+	{
+		Toast.makeText(getApplicationContext(), "Okay. I would let you leave a comment, but it hasn't been implemented yet",
+				Toast.LENGTH_SHORT).show();
 	}
 	
 	public void reloadList()
