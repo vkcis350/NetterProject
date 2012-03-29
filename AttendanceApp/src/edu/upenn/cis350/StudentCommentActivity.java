@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -35,6 +36,12 @@ public class StudentCommentActivity extends Activity{
 		lv.setChoiceMode(lv.CHOICE_MODE_NONE);
 		reloadList();
 
+	}
+	
+	public void onCommentBackClick(View view)
+	{
+		setResult(RESULT_CANCELED);
+		finish();
 	}
 	
 	public void reloadList()
