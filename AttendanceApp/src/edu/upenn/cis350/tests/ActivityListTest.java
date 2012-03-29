@@ -1,5 +1,8 @@
-package edu.upenn.cis350;
+package edu.upenn.cis350.tests;
 
+import edu.upenn.cis350.ActivityListActivity;
+import edu.upenn.cis350.R;
+import edu.upenn.cis350.R.id;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
