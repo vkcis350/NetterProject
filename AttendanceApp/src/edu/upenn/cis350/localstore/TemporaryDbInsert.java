@@ -43,7 +43,7 @@ public class TemporaryDbInsert {
 					1911, 12, "3600 Walnut Street , Nanjing");
 			Student s2 = studentData.create(2, "Bonaparte", "Napoleon", "411", 
 					"Duke of Wellington", "Arch Nemesis", 0, 0,
-					1800, 3, "Versailles?");
+					1800, 6, "Versailles?");
 			Student s3 = studentData.create(3177956, "Simms", "Julianna", "215-123-1234", 
 					" ", "Aunt", 0, 0,
 					1810, 5, "123 Some Street, Philadelphia");
@@ -51,6 +51,9 @@ public class TemporaryDbInsert {
 					"Mara Boyles", "Mother", 0, 0,
 					2011, 5, "123 Some Street, Philadelphia");
 			
+			Student s5 = studentData.create(9136389, "Pomeroy", "Shanita", "215-123-1234", 
+					"?", "Neighbor", 0, 0,
+					2011, 3, "123 Some Street, Philadelphia");
 			
 			actData.create(a1);
 			actData.create(a2);

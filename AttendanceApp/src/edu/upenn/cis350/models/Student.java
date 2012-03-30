@@ -61,7 +61,7 @@ public class Student extends Model implements Comparable {
 	
 	public String toString()
 	{
-		return lastName+", "+firstName;
+		return getGrade()+"  "+lastName+", "+firstName;
 	}
 
 

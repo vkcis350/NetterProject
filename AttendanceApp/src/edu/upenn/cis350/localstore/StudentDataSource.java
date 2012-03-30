@@ -145,24 +145,30 @@ public class StudentDataSource extends DataSource {
 	
 	public ArrayList<Student> getAllByGrade()
 	{
-		return (ArrayList<Student>) getAll(MySQLiteHelper.COL_STUDENT_GRADE);
+		return (ArrayList<Student>) getAll(MySQLiteHelper.COL_STUDENT_GRADE
+				+","+MySQLiteHelper.COL_STUDENT_LAST_NAME);
 	}
 	
 	public void toCSV(String filename) throws IOException
 	{
 		ArrayList<Student> students = getAll();
 		Writer output = null;
-		File root = Environment.getExternalStorageDirectory();
 		File file = new File("/data/data/edu.upenn.cis350/students.csv");
 		output = new BufferedWriter(new FileWriter(file));
-		output.write("student id, last name, first name, phone, contact, contact relationship,school id, site id, schoolyear, grade, address");
+		output.write("student id, last name, first name, phone, contact, contact relationship,school id, site id, schoolyear, grade, address\n");
 		for (Student student:students)
 		{
-			output.write( student.getLastName()+","+student.getFirstName()+","
-					+student.getPhone()+","+ student.getContact()+","+ student.getContactRelation()+","+
-					student.getSchoolID()
-					+","+ student.getSiteID()+","+ student.getGrade()+","
-					+ student.getAddress()+"\n");
+			output.write( student.getID()
+					+","+student.getLastName()
+					+","+student.getFirstName()
+					+","+student.getPhone()
+					+","+ student.getContact()
+					+","+ student.getContactRelation()
+					+","+student.getSchoolID()
+					+","+student.getSiteID()
+					+","+student.getSchoolYear()
+					+","+ student.getGrade()
+					+","+ student.getAddress()+"\n");
 		}
 		output.close();	
 	}

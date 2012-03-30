@@ -328,6 +328,7 @@ public class StudentSelectionActivity extends Activity {
 	//sets the list view to show all students registered for activity
 	public void viewAllStudents()
 	{
+		sortOrder = LAST_NAME_ORDER;
 		currentList = ALL_STUDENTS;
 		reloadList();
 	}
@@ -357,6 +358,8 @@ public class StudentSelectionActivity extends Activity {
 	public void viewStudentsByGrade()
 	{
 		sortOrder = GRADE_ORDER;
+		currentList = ALL_STUDENTS;
+		reloadList();
 	}
 
 	//filter which students are shown
@@ -479,7 +482,7 @@ public class StudentSelectionActivity extends Activity {
 			else
 				throw new IllegalStateException("Illegal student check-in, check-out times.");
 		}
-		//write CSV
+		//write students to CSV
 		try {
 			studentData.toCSV("students.csv");
 		} catch (IOException e) {
