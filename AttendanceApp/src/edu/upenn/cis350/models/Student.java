@@ -3,6 +3,7 @@ package edu.upenn.cis350.models;
 public class Student extends Model implements Comparable {
 	private String firstName;
 	private String lastName;
+	private String address;
 	private long id;
 	private String phone;
 	private int grade;
@@ -40,6 +41,22 @@ public class Student extends Model implements Comparable {
 	public void setLastName(String name) {
 		this.lastName = name;
 		
+	}
+	
+	public void setAddress(String address){
+		this.address=address;
+	}
+	
+	public String getAddress(){
+		return address;
+	}
+	
+	public void setGrade(int grade){
+		this.grade=grade;
+	}
+	
+	public int getGrade(){
+		return grade;
 	}
 	
 	public String toString()

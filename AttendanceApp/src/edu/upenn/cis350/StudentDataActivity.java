@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import edu.upenn.cis350.R;
 import edu.upenn.cis350.localstore.CheckinDataSource;
 import edu.upenn.cis350.localstore.SchoolActivityDataSource;
@@ -46,7 +47,16 @@ public class StudentDataActivity extends Activity{
 	}
 	
 	public void populateFields(){
-		EditText nameField = (EditText) findViewById(R.id.student_name_field);
+		TextView nameField = (TextView) findViewById(R.id.student_name_field);
+		nameField.setText(curStudent.toString());
+		EditText gradeField = (EditText) findViewById(R.id.student_grade_field);
+		gradeField.setText(curStudent.getGrade());
+		EditText dTeacherField = (EditText) findViewById(R.id.day_teacher_field);
+		dTeacherField.setText("Day Teacher Name");
+		EditText phoneContField = (EditText) findViewById(R.id.phone_contact_field);
+		phoneContField.setText(curStudent.getPhone());
+		EditText addressContField = (EditText) findViewById(R.id.address_contact_field);
+		addressContField.setText(curStudent.getAddress());
 	}
 	
 	public void onPause()
