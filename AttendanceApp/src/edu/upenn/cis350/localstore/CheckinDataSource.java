@@ -38,7 +38,6 @@ public class CheckinDataSource extends DataSource {
 		
 		checkin.setComment(c.getString(MySQLiteHelper.CHECKINS_CHECKIN_COMMENT_INDEX ) );
 		return checkin;
-		
 	}
 
 	@Override

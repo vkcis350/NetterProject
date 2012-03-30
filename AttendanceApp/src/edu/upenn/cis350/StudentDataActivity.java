@@ -57,7 +57,7 @@ public class StudentDataActivity extends Activity{
 		TextView nameField = (TextView) findViewById(R.id.student_name_field);
 		nameField.setText(curStudent.toString());
 		EditText gradeField = (EditText) findViewById(R.id.student_grade_field);
-		gradeField.setText(curStudent.getGrade());
+		gradeField.setText(curStudent.getGrade()+"");
 		EditText dTeacherField = (EditText) findViewById(R.id.day_teacher_field);
 		dTeacherField.setText("Day Teacher Name");
 		EditText phoneContField = (EditText) findViewById(R.id.phone_contact_field);

@@ -35,19 +35,20 @@ public class StudentDataSource extends DataSource {
 		student.setID(c.getLong(MySQLiteHelper.STUDENT_STUDENT_ID_INDEX));
 		student.setLastName(c.getString(MySQLiteHelper.STUDENT_STUDENT_LAST_NAME_INDEX));
 		student.setFirstName(c.getString(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
-		student.setPhone(c.getString(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
-		student.setContact(c.getString(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
-		student.setContactRelation(c.getString(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
-		
-		student.setSchoolID(c.getLong(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
-		
-		student.setSchoolYear(c.getLong(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
-		student.setSiteID(c.getLong(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
+		student.setPhone(c.getString(MySQLiteHelper.STUDENT_STUDENT_PHONE_INDEX));
+		student.setContact(c.getString(MySQLiteHelper.STUDENT_STUDENT_CONTACT_INDEX));
+		student.setContactRelation(c.getString(MySQLiteHelper.STUDENT_STUDENT_CONTACT_RELATION_INDEX));
+		student.setGrade(c.getInt(MySQLiteHelper.STUDENT_STUDENT_GRADE_INDEX));
+		student.setAddress(c.getString(MySQLiteHelper.STUDENT_STUDENT_ADDRESS_INDEX));
+		student.setSchoolID(c.getLong(MySQLiteHelper.STUDENT_SCHOOL_ID_INDEX));
+		student.setSchoolYear(c.getLong(MySQLiteHelper.STUDENT_SCHOOLYEAR_INDEX));
+		student.setSiteID(c.getLong(MySQLiteHelper.STUDENT_SITE_ID_INDEX));
 		
 		return student;
 	}
 
 	@Override
+	@Deprecated
 	public void create(Model student) {
 		Student s = (Student)student ;
 		ContentValues values = new ContentValues();
@@ -59,7 +60,7 @@ public class StudentDataSource extends DataSource {
 	
 	public Student create(long id, String lastName, String firstName, String phone, 
 			String contact, String contactRelation, long schoolID, long siteID,
-			int schoolYear){
+			int schoolYear, int grade, String address){
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COL_STUDENT_ID, id);
 		values.put(MySQLiteHelper.COL_STUDENT_LAST_NAME, lastName );
@@ -70,6 +71,8 @@ public class StudentDataSource extends DataSource {
 		values.put(MySQLiteHelper.COL_SCHOOL_ID, schoolID);
 		values.put(MySQLiteHelper.COL_SITE_ID, siteID);
 		values.put(MySQLiteHelper.COL_STUDENT_SCHOOLYEAR, schoolYear);
+		values.put(MySQLiteHelper.COL_STUDENT_GRADE, grade);
+		values.put(MySQLiteHelper.COL_STUDENT_ADDRESS, address);
 		long insertId = database.insert(MySQLiteHelper.TABLE_STUDENTS, null,
 				values);
 

@@ -15,6 +15,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String COL_STUDENT_CONTACT = "contact";
 	public static final String COL_STUDENT_CONTACT_RELATION = "contact_relation";
 	public static final String COL_STUDENT_SCHOOLYEAR = "schoolyear";
+	public static final String COL_STUDENT_GRADE= "grade";
+	public static final String COL_STUDENT_ADDRESS= "address";
 
 	public static final String COL_SCHOOL_ID = "school_id";
 	public static final String COL_SITE_ID = "site_id";
@@ -41,6 +43,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int STUDENT_SCHOOL_ID_INDEX = 6;
 	public static final int STUDENT_SITE_ID_INDEX = 7;
 	public static final int STUDENT_SCHOOLYEAR_INDEX = 8;
+	public static final int STUDENT_STUDENT_GRADE_INDEX = 9;
+	public static final int STUDENT_STUDENT_ADDRESS_INDEX = 10;
 	
 	public static final int ACTIVITIES_ACTIVITY_ID_INDEX = 0;
 	public static final int ACTIVITIES_ACTIVITY_NAME_INDEX = 1;
@@ -54,7 +58,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int CHECKINS_CHECKIN_COMMENT_INDEX = 6;
 	
 	private static final String DATABASE_NAME = "attendance.db";
-	private static final int DATABASE_VERSION = 71;
+	private static final int DATABASE_VERSION = 74;
 	
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -72,7 +76,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				+ COL_STUDENT_CONTACT_RELATION + " text,"
 				+ COL_SCHOOL_ID + " integer,"
 				+ COL_SITE_ID + " integer,"
-				+ COL_STUDENT_SCHOOLYEAR + " integer"
+				+ COL_STUDENT_SCHOOLYEAR + " integer,"
+				+ COL_STUDENT_GRADE + " integer,"
+				+ COL_STUDENT_ADDRESS + " text"
 				+");");
 		
 		database.execSQL("create table "

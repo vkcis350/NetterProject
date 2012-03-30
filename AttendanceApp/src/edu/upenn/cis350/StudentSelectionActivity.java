@@ -162,11 +162,21 @@ public class StudentSelectionActivity extends Activity {
 	{
 		
 		ListView lv = (ListView) findViewById(R.id.student_list);
-		if(lv.getCheckedItemCount() == 1)
+		if( lv.getCheckedItemCount() == 1)
 		{
-			long studentID;
-			studentID =(Long) ((Student) lv.getItemAtPosition(lv.getCheckedItemPosition())).getID();
-			Log.d("StudentSelectionActivity","Requested profile for student id "+studentID);
+			long studentID=-1;
+			Log.d( "checked",""+lv.getCheckedItemPosition() );
+			SparseBooleanArray checked = lv.getCheckedItemPositions();
+			for (int i=0; i<lv.getCount(); i++)
+			{
+				if ( checked.get(i) )
+				{
+					studentID =(Long) ((Student) lv.getItemAtPosition(i) ).getID();
+					break;
+				}
+			}
+			
+			Log.d("StudentSelectionActivity","Requested item number "+studentID);
 			
 			Intent i = new Intent(this,StudentDataActivity.class);
 			i.putExtra("STUDENT_ID", studentID);

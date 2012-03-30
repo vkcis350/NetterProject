@@ -40,10 +40,13 @@ public class TemporaryDbInsert {
 		
 			Student s1 = studentData.create(1, "Sun", "Yat-sen", "1-800-ROC-QING", 
 					"Chiang Kai-shek", "eventual successor", 0, 0,
-					1911);
+					1911, 12, "1 Some Street , Beijing or Nanjing");
 			Student s2 = studentData.create(2, "Bonaparte", "Napoleon", "215-898-1234", 
 					"Duke of Wellington", "Arch Nemesis", 0, 0,
-					1911);
+					1911, 3, "Versailles?");
+			Student s3 = studentData.create(2, "Von Metternich", "Klemens", "1800-COLLECT", 
+					"Duke of Wellington", "Arch Nemesis", 0, 0,
+					1911, 3, "Versailles?");
 
 			actData.create(a1);
 			actData.create(a2);
@@ -57,7 +60,7 @@ public class TemporaryDbInsert {
 			
 			for (Student s : students)
 			{
-				Log.d("Student", s.toString());
+				Log.d("Student", s.toString() +" Contact: "+s.getContact());
 			}
 			
 			Calendar cal = Calendar.getInstance();

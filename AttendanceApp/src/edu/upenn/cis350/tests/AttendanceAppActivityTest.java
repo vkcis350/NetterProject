@@ -9,11 +9,9 @@ import android.widget.ListView;
 public class AttendanceAppActivityTest extends
 ActivityInstrumentationTestCase2<AttendanceAppActivity>
 {
-
 	public AttendanceAppActivityTest(Class<AttendanceAppActivity> activityClass) 
 	{
 		super(activityClass);
 		
 	}
-
 }
