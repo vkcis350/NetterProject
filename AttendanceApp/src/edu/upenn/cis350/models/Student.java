@@ -8,9 +8,9 @@ public class Student extends Model implements Comparable {
 	private int grade;
 	private String contact;
 	private String contactRelation;
-	private int schoolID;
-	private int siteID;
-	private int schoolYear;
+	private long schoolID;
+	private long siteID;
+	private long schoolYear;
 	
 	public Student(String name) {
 		this.firstName = name;
@@ -92,32 +92,32 @@ public class Student extends Model implements Comparable {
 		return contactRelation;
 	}
 	
-	public void setSchoolID(int schoolID)
+	public void setSchoolID(long id)
 	{
-		this.schoolID = schoolID;
+		this.schoolID = id;
 	}
 	
-	public int getSchoolID()
+	public long getSchoolID()
 	{
 		return schoolID;
 	}
 	
-	public void setSiteID(int siteID)
+	public void setSiteID(long id)
 	{
-		this.siteID = siteID;
+		this.siteID = id;
 	}
 	
-	public int getSiteID()
+	public long getSiteID()
 	{
 		return siteID;
 	}
 	
-	public void setSchoolYear(int schoolYear)
+	public void setSchoolYear(long l)
 	{
-		this.schoolYear = schoolYear;
+		this.schoolYear = l;
 	}
 	
-	public int getSchoolYear()
+	public long getSchoolYear()
 	{
 		return schoolYear;
 	}

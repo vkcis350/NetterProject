@@ -8,7 +8,7 @@ public class Checkin extends Model {
 	private String comment;
 	private long inTime;
 	private long outTime;
-	
+	private int userId;
 	
 	public Checkin()
 	{

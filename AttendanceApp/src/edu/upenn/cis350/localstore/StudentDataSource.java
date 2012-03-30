@@ -33,7 +33,19 @@ public class StudentDataSource extends DataSource {
 	protected Student cursorToModel(Cursor c) {
 		Student student = new Student();
 		student.setID(c.getLong(MySQLiteHelper.STUDENT_STUDENT_ID_INDEX));
-		student.setName(c.getString(MySQLiteHelper.STUDENT_STUDENT_NAME_INDEX));
+		student.setLastName(c.getString(MySQLiteHelper.STUDENT_STUDENT_LAST_NAME_INDEX));
+		student.setFirstName(c.getString(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
+		student.setPhone(c.getString(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
+		student.setContact(c.getString(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
+		student.setContactRelation(c.getString(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
+		
+		student.setSchoolID(c.getLong(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
+		
+		student.setSchoolYear(c.getLong(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
+		student.setSiteID(c.getLong(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
+		
+		
+		
 		return student;
 	}
 
@@ -41,10 +53,31 @@ public class StudentDataSource extends DataSource {
 	public void create(Model student) {
 		Student s = (Student)student ;
 		ContentValues values = new ContentValues();
-		values.put(MySQLiteHelper.COL_STUDENT_NAME, s.getName() );
+		values.put(MySQLiteHelper.COL_STUDENT_LAST_NAME, s.getLastName() );
 		long insertId = database.insert(MySQLiteHelper.TABLE_STUDENTS, null,
 				values);
 		s.setID(insertId);
+	}
+	
+	public void create(long id, String lastName, String firstName, String phone, 
+			String contact, String contactRelation, long schoolID, long siteID,
+			int schoolYear){
+		Student s = new Student();
+		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COL_STUDENT_ID, id);
+		values.put(MySQLiteHelper.COL_STUDENT_LAST_NAME, lastName );
+		values.put(MySQLiteHelper.COL_STUDENT_FIRST_NAME, firstName);
+		values.put(MySQLiteHelper.COL_STUDENT_PHONE, phone);
+		values.put(MySQLiteHelper.COL_STUDENT_CONTACT, contact);
+		values.put(MySQLiteHelper.COL_STUDENT_CONTACT_RELATION, contactRelation);
+		values.put(MySQLiteHelper.COL_SCHOOL_ID, schoolID);
+		values.put(MySQLiteHelper.COL_SITE_ID, siteID);
+		values.put(MySQLiteHelper.COL_STUDENT_SCHOOLYEAR, schoolYear);
+		long insertId = database.insert(MySQLiteHelper.TABLE_STUDENTS, null,
+				values);
+		s.setID(insertId);
+		
+		
 	}
 	
 	/**
@@ -61,7 +94,7 @@ public class StudentDataSource extends DataSource {
 				+" enroll ON "+MySQLiteHelper.TABLE_STUDENTS+"."+MySQLiteHelper.COL_STUDENT_ID
 				+"=enroll."+MySQLiteHelper.COL_STUDENT_ID
 				+" WHERE enroll."+MySQLiteHelper.COL_ACTIVITY_ID+"=?"
-				+" ORDER BY "+MySQLiteHelper.TABLE_STUDENTS+"."+MySQLiteHelper.COL_STUDENT_NAME ;
+				+" ORDER BY "+MySQLiteHelper.TABLE_STUDENTS+"."+MySQLiteHelper.COL_STUDENT_LAST_NAME ;
 
 		Cursor cursor = database.rawQuery(MY_QUERY, new String[]{String.valueOf(act.getID())});
 		
@@ -88,10 +121,8 @@ public class StudentDataSource extends DataSource {
 				values);
 	}
 	
-	
 	public ArrayList<Student> getAll()
 	{
-		
-		return (ArrayList<Student>) getAll(MySQLiteHelper.COL_STUDENT_NAME);
+		return (ArrayList<Student>) getAll(MySQLiteHelper.COL_STUDENT_LAST_NAME);
 	}
 }

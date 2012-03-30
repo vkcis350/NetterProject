@@ -9,8 +9,16 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
 	public static final String TABLE_STUDENTS = "student";
 	public static final String COL_STUDENT_ID = "_id";
-	public static final String COL_STUDENT_NAME = "studentName";
+	public static final String COL_STUDENT_LAST_NAME = "last_name";
+	public static final String COL_STUDENT_FIRST_NAME = "first_name";
+	public static final String COL_STUDENT_PHONE = "phone";
+	public static final String COL_STUDENT_CONTACT = "contact";
+	public static final String COL_STUDENT_CONTACT_RELATION = "contact_relation";
+	public static final String COL_STUDENT_SCHOOLYEAR = "schoolyear";
 
+	public static final String COL_SCHOOL_ID = "school_id";
+	public static final String COL_SITE_ID = "site_id";
+	
 	public static final String TABLE_ENROLLMENT = "enrollment";
 	public static final String COL_ACTIVITY_ID ="activity_id";
 	
@@ -25,7 +33,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public  static final String COL_CHECKIN_COMMENT = "checkin_comment";
 	
 	public static final int STUDENT_STUDENT_ID_INDEX = 0;
-	public static final int STUDENT_STUDENT_NAME_INDEX = 1;
+	public static final int STUDENT_STUDENT_LAST_NAME_INDEX = 1;
+	public static final int STUDENT_STUDENT_FIRST_NAME_INDEX = 2;
+	public static final int STUDENT_STUDENT_PHONE_INDEX = 3;
+	public static final int STUDENT_STUDENT_CONTACT_INDEX = 4;
+	public static final int STUDENT_STUDENT_CONTACT_RELATION_INDEX = 5;
+	public static final int STUDENT_SCHOOL_ID_INDEX = 6;
+	public static final int STUDENT_SITE_ID_INDEX = 7;
+	public static final int STUDENT_SCHOOLYEAR_INDEX = 8;
 	
 	public static final int ACTIVITIES_ACTIVITY_ID_INDEX = 0;
 	public static final int ACTIVITIES_ACTIVITY_NAME_INDEX = 1;
@@ -39,9 +54,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int CHECKINS_CHECKIN_COMMENT_INDEX = 6;
 	
 	private static final String DATABASE_NAME = "attendance.db";
-	private static final int DATABASE_VERSION = 58;
+	private static final int DATABASE_VERSION = 59;
 	
-
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
 	}
@@ -49,9 +63,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase database) {
 		database.execSQL("create table "
-				+ TABLE_STUDENTS + "( " + COL_STUDENT_ID
-				+ " integer primary key autoincrement, " + COL_STUDENT_NAME
-				+ " TEXT);");
+				+ TABLE_STUDENTS + "( " 
+				+ COL_STUDENT_ID + " integer primary key, " 
+				+ COL_STUDENT_LAST_NAME + " text"
+				+ COL_STUDENT_FIRST_NAME + " text"
+				+ COL_STUDENT_PHONE + " text"
+				+ COL_STUDENT_CONTACT + " text"
+				+ COL_STUDENT_CONTACT_RELATION + " text"
+				+ COL_SCHOOL_ID + " integer"
+				+ COL_SITE_ID + " integer"
+				+ COL_STUDENT_SCHOOLYEAR + " integer"
+				+");");
 		
 		database.execSQL("create table "
 				+ TABLE_ENROLLMENT + "( " + COL_STUDENT_ID
