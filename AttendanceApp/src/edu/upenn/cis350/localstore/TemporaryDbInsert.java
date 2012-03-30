@@ -1,8 +1,10 @@
 package edu.upenn.cis350.localstore;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.content.Context;
+import android.util.Log;
 import edu.upenn.cis350.models.Checkin;
 import edu.upenn.cis350.models.SchoolActivity;
 import edu.upenn.cis350.models.Student;
@@ -36,21 +38,13 @@ public class TemporaryDbInsert {
 			SchoolActivity a3 = new SchoolActivity("Napoleonic Wars");
 			SchoolActivity a4 = new SchoolActivity("Homework");
 		
-			Student s1 = new Student("Jordan");
-			Student s2 = new Student("Jose");
-			Student s3 = new Student("Vayu");
-			Student s4 = new Student("Xiao");
-			Student s5 = new Student("Sun Yat-sen");
-			Student s6 = new Student("Admiral Nelson");
-			
+			Student s1 = studentData.create(1, "Sun", "Yat-sen", "1-800-ROC-QING", 
+					"Chiang Kai-shek", "eventual successor", 0, 0,
+					1911);
+			Student s2 = studentData.create(2, "Bonaparte", "Napoleon", "215-898-1234", 
+					"Duke of Wellington", "Arch Nemesis", 0, 0,
+					1911);
 
-			studentData.create( s1 );
-			studentData.create( s2 );
-			studentData.create( s3 );
-			studentData.create( s4 );
-			studentData.create( s5 );
-			studentData.create( s6 );
-			
 			actData.create(a1);
 			actData.create(a2);
 			actData.create(a3);
@@ -58,12 +52,13 @@ public class TemporaryDbInsert {
 			
 			studentData.addStudentToActivity(s1,a1);
 			studentData.addStudentToActivity(s2,a1);
-			studentData.addStudentToActivity(s3,a1);
-			studentData.addStudentToActivity(s4,a1);
-			studentData.addStudentToActivity(s5,a1);
+		
+			ArrayList<Student> students = studentData.getAll();
 			
-			studentData.addStudentToActivity(s5,a2);
-			studentData.addStudentToActivity(s6,a2);
+			for (Student s : students)
+			{
+				Log.d("Student", s.toString());
+			}
 			
 			Calendar cal = Calendar.getInstance();
 			

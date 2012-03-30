@@ -44,8 +44,6 @@ public class StudentDataSource extends DataSource {
 		student.setSchoolYear(c.getLong(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
 		student.setSiteID(c.getLong(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
 		
-		
-		
 		return student;
 	}
 
@@ -59,10 +57,9 @@ public class StudentDataSource extends DataSource {
 		s.setID(insertId);
 	}
 	
-	public void create(long id, String lastName, String firstName, String phone, 
+	public Student create(long id, String lastName, String firstName, String phone, 
 			String contact, String contactRelation, long schoolID, long siteID,
 			int schoolYear){
-		Student s = new Student();
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COL_STUDENT_ID, id);
 		values.put(MySQLiteHelper.COL_STUDENT_LAST_NAME, lastName );
@@ -75,8 +72,17 @@ public class StudentDataSource extends DataSource {
 		values.put(MySQLiteHelper.COL_STUDENT_SCHOOLYEAR, schoolYear);
 		long insertId = database.insert(MySQLiteHelper.TABLE_STUDENTS, null,
 				values);
-		s.setID(insertId);
+
+		Cursor c=database.query(getTables()[PRIMARY_TABLE_INDEX], 
+				null, 
+				getIDColumn()+"=?",
+				new String[]{id+""}, null, null, null);
+		c.moveToFirst();
 		
+		Student s = cursorToModel(c);
+		
+		c.close();
+		return s;
 		
 	}
 	
