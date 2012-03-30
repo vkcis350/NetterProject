@@ -1,5 +1,6 @@
 package edu.upenn.cis350;
 
+import edu.upenn.cis350.localstore.TemporaryDbInsert;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +16,8 @@ public class AttendanceAppActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+		//load data from sqlite
+		TemporaryDbInsert.insert(this);
 	}
 
 	public void onLoginClick(View v){

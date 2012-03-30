@@ -321,8 +321,7 @@ public class ActivityListActivity extends Activity{
 	
 	public void loadData()
 	{
-		//load data from sqlite
-		TemporaryDbInsert.insert(this);
+		
 		actData = new SchoolActivityDataSource(this);
 		actData.open();
 		schoolActivities = (ArrayList<SchoolActivity>) actData.getAll();
