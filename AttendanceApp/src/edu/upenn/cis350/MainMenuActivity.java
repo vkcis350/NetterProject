@@ -24,8 +24,8 @@ public class MainMenuActivity extends Activity
 	public void onViewAllStudentsClick(View v)
 	{
 		Intent i = new Intent(this,FullStudentListActivity.class);
-		i.putExtra("ACTIVITY_NAME", "ENROLLED STUDENTS");
-		i.putExtra("ACTIVITY_ID", "-1");
+		i.putExtra("ACTIVITY_NAME", "ALL ENROLLED STUDENTS");
+		i.putExtra("ACTIVITY_ID", "0");
 		startActivity(i);
 	}
 }
