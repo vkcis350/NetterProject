@@ -12,6 +12,8 @@ public class FullStudentListActivity extends StudentSelectionActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState) 
 	{
+		//Similar to Student Selection Activity
+		//But with restricted options
 		super.onCreate(savedInstanceState);
 	}
 	

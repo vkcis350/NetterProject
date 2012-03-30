@@ -25,6 +25,7 @@ public class MainMenuActivity extends Activity
 	{
 		Intent i = new Intent(this,FullStudentListActivity.class);
 		i.putExtra("ACTIVITY_NAME", "ALL ENROLLED STUDENTS");
+		//ID 0 is the default "all activities"
 		i.putExtra("ACTIVITY_ID", "0");
 		startActivity(i);
 	}
