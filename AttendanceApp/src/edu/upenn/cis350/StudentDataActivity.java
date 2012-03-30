@@ -1,4 +1,7 @@
 package edu.upenn.cis350;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,13 +16,17 @@ import edu.upenn.cis350.R;
 import edu.upenn.cis350.localstore.CheckinDataSource;
 import edu.upenn.cis350.localstore.SchoolActivityDataSource;
 import edu.upenn.cis350.localstore.StudentDataSource;
+import edu.upenn.cis350.models.Checkin;
 import edu.upenn.cis350.models.Student;
 
 public class StudentDataActivity extends Activity{
 	Student curStudent;
+	Checkin lastCheckinOut;
 	StudentDataSource studentData; //database access object
 	//Need a student id from the last activity
 	//Take that id and populate the student profile.
+	CheckinDataSource checkinData; //database access object
+	SchoolActivityDataSource activityData;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -33,6 +40,12 @@ public class StudentDataActivity extends Activity{
 		openData();
 
 		curStudent=(Student) studentData.get(studentID);
+		
+		
+		
+		lastCheckinOut = checkinData.getMostRecentForStudent(studentID);
+
+		
 		if(curStudent==null){
 			Log.d("StudentDataActivity","Student object is null");
 		}
@@ -55,7 +68,23 @@ public class StudentDataActivity extends Activity{
 	
 	public void populateFields(){
 		TextView nameField = (TextView) findViewById(R.id.student_name_field);
-		nameField.setText(curStudent.toString());
+		nameField.setText(curStudent.getLastName()+", "+curStudent.getFirstName());
+		
+		TextView lastActivity = (TextView) findViewById(R.id.last_activity_field);
+		String lastActivityString = "None";
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		if (lastCheckinOut!=null) {
+			String activityName = activityData.get( lastCheckinOut.getActivityID() ).toString();
+			if ( lastCheckinOut.getInTime() > lastCheckinOut.getOutTime() )
+				lastActivityString = "Checked in to "+activityName+" "+dateFormat.format(lastCheckinOut.getInTime());
+			else if ( lastCheckinOut.getInTime() <= lastCheckinOut.getOutTime() )
+				lastActivityString = "Checked out of "+activityName+" "+dateFormat.format(lastCheckinOut.getOutTime());
+		}
+		
+				
+		lastActivity.setText(lastActivityString);
+		
 		EditText gradeField = (EditText) findViewById(R.id.student_grade_field);
 		gradeField.setText(curStudent.getGrade()+"");
 		
@@ -68,24 +97,28 @@ public class StudentDataActivity extends Activity{
 		EditText addressContField = (EditText) findViewById(R.id.address_contact_field);
 		addressContField.setText(curStudent.getAddress());
 		
-		
-		
 	}
 	
 	public void onPause()
 	{
 		super.onPause();
-		studentData.close();
+		closeData();
 	}
 	
 	public void openData()
 	{
 		studentData = new StudentDataSource(this);
 		studentData.open();
+		checkinData = new CheckinDataSource(this);
+		checkinData.open();
+		activityData = new SchoolActivityDataSource(this);
+		activityData.open();
 	}
 	
 	public void closeData()
 	{
 		studentData.close();
+		checkinData.close();
+		activityData.close();
 	}
 }

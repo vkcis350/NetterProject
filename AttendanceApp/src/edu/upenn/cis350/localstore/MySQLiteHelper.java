@@ -32,7 +32,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String COL_SESSION_ID = "session_id";
 	public static final String COL_CHECKIN_TIME = "checkin_time";
 	public static final String COL_CHECKOUT_TIME = "checkout_time";
-	public  static final String COL_CHECKIN_COMMENT = "checkin_comment";
+	public  static final String COL_CHECKIN_LAST_CHANGE = "checkin_last_change";
 	
 	public static final int STUDENT_STUDENT_ID_INDEX = 0;
 	public static final int STUDENT_STUDENT_LAST_NAME_INDEX = 1;
@@ -55,10 +55,10 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int CHECKINS_STUDENT_ID_INDEX = 3;
 	public static final int CHECKINS_CHECKIN_TIME_INDEX = 4;
 	public static final int CHECKINS_CHECKOUT_TIME_INDEX = 5;
-	public static final int CHECKINS_CHECKIN_COMMENT_INDEX = 6;
+	public static final int CHECKINS_CHECKIN_LAST_CHANGE_INDEX = 6;
 	
 	private static final String DATABASE_NAME = "attendance.db";
-	private static final int DATABASE_VERSION = 80;
+	private static final int DATABASE_VERSION = 81;
 	
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -99,7 +99,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				+ COL_STUDENT_ID + " integer, "
 				+ COL_CHECKIN_TIME + " integer, "
 				+ COL_CHECKOUT_TIME + " integer, "
-				+ COL_CHECKIN_COMMENT + " TEXT" 
+				+ COL_CHECKIN_LAST_CHANGE + " integer" 
 				+ ");");
 	}
 

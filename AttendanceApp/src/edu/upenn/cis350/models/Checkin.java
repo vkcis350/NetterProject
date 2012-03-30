@@ -5,14 +5,13 @@ public class Checkin extends Model {
 	private long studentID;
 	private long sessionID;
 	private long activityID;
-	private String comment;
 	private long inTime;
 	private long outTime;
 	private int userId;
+	private long lastChangeTime;
 	
 	public Checkin()
 	{
-		comment = "None";
 	}
 	
 	public void setStudentID(long studentID)
@@ -30,10 +29,6 @@ public class Checkin extends Model {
 		this.activityID = activityID;
 	}
 	
-	public void setComment(String comment)
-	{
-		this.comment = comment;
-	}
 
 	public long getSessionID() {
 		// TODO Auto-generated method stub
@@ -48,10 +43,6 @@ public class Checkin extends Model {
 	public long getStudentID() {
 		// TODO Auto-generated method stub
 		return studentID;
-	}
-	
-	public String getComment(){
-		return comment;
 	}
 	
 	public void setInTime(long time) {
@@ -69,10 +60,14 @@ public class Checkin extends Model {
 	public long getOutTime() {
 		return outTime;
 	}
-
 	
+	public long getLastChangeTime() {
+		return lastChangeTime;
+	}
 	
-
+	public void setLastChangeTime(long time) {
+		lastChangeTime = time;
+	}
 
 
 }

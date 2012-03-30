@@ -94,14 +94,14 @@ public class StudentSelectionActivity extends Activity {
 		currentActivity = extras.getString("ACTIVITY_NAME");
 		currentActivityID = extras.getLong("ACTIVITY_ID");
 
-		openData();
+		
 
 		ListView lv = (ListView) findViewById(R.id.student_list);
 		lv.setTextFilterEnabled(true);
 		lv.setChoiceMode(lv.CHOICE_MODE_MULTIPLE);
 		currentList = ALL_STUDENTS;
 		sortOrder = LAST_NAME_ORDER;
-		reloadList();
+		
 
 		Toast.makeText(getApplicationContext(), currentActivity,
 				Toast.LENGTH_SHORT).show();
@@ -110,6 +110,18 @@ public class StudentSelectionActivity extends Activity {
 		title.setText(currentActivity);
 		
 
+	}
+	
+	@Override
+	protected void onStart(){
+		super.onStart();
+		
+		
+		/*I moved this stuff to onStart because the database sources were not being reopened
+		 * after going back to this view.
+		 */
+		openData();
+		reloadList();
 	}
 
 	//selects all students
@@ -253,12 +265,14 @@ public class StudentSelectionActivity extends Activity {
 				if (checkin.getInTime()<=0 && in )
 				{
 					checkin.setInTime ( time );
+					checkin.setLastChangeTime(time);
 					checkinData.save(checkin);
 					countSuccessful++;
 				}
 				else if ( checkin.getOutTime()<=0 && checkin.getInTime()>=0 && !in )
 				{
 					checkin.setOutTime(time);
+					checkin.setLastChangeTime(time);
 					checkinData.save(checkin);
 					countSuccessful++;
 				}
@@ -357,6 +371,7 @@ public class StudentSelectionActivity extends Activity {
 	//sets the list view to show all by grade
 	public void viewStudentsByGrade()
 	{
+		Log.d("StudentSelectionActivity","I, viewStudentsByGrade, am indeed being called right now.");
 		sortOrder = GRADE_ORDER;
 		currentList = ALL_STUDENTS;
 		reloadList();
