@@ -47,6 +47,12 @@ public class StudentDataActivity extends Activity{
 	
 	public void populateFields(){
 		EditText nameField = (EditText) findViewById(R.id.student_name_field);
+		nameField.setText(curStudent.toString());
+		EditText gradeField = (EditText) findViewById(R.id.student_grade_field);
+		
+		EditText dTeacherField = (EditText) findViewById(R.id.day_teacher_field);
+		EditText phoneContField = (EditText) findViewById(R.id.phone_contact_field);
+		EditText addressContField = (EditText) findViewById(R.id.address_contact_field);
 	}
 	
 	public void onPause()

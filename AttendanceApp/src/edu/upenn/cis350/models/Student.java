@@ -42,6 +42,14 @@ public class Student extends Model implements Comparable {
 		
 	}
 	
+	public void setGrade(int grade){
+		this.grade=grade;
+	}
+	
+	public int getGrade(){
+		return grade;
+	}
+	
 	public String toString()
 	{
 		return lastName+", "+firstName;
