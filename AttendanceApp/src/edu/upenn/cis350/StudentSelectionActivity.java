@@ -424,6 +424,7 @@ public class StudentSelectionActivity extends Activity {
 	public void reloadList()
 	{
 		loadData();
+		Log.d("StudentSelectionActivity","reloading list");
 		ListView lv = (ListView) findViewById(R.id.student_list);
 		for(int x = 0; x < lv.getCount(); x++)
 			lv.setItemChecked(x, false);
@@ -467,18 +468,27 @@ public class StudentSelectionActivity extends Activity {
 	public void loadData()
 	{
 		Log.d("StudentSelectionActivity","current activity id "+currentActivityID);
+		SchoolActivity currentActivity;
+		if (currentActivityID!=0)
+			currentActivity = (SchoolActivity) actData.get(currentActivityID);
 		//if no activity
+		/*
 		if(currentActivityID == 0)
 			students = (ArrayList<Student>) studentData.getAll();
 		else
 		{
-			SchoolActivity currentActivity = (SchoolActivity) actData.get(currentActivityID);
-			if (sortOrder==LAST_NAME_ORDER)
-				students = (ArrayList<Student>) studentData.getAll();//Changed to displaying all students by default, for now. -XL
-			if (sortOrder==GRADE_ORDER)
-				students = (ArrayList<Student>) studentData.getAllByGrade();//Changed to displaying all students by default, for now. -XL
-			//students = (ArrayList<Student>) studentData.getStudentsByActivity(currentActivity);	
 		}
+		*/
+		//It's getting all students for all activities now. Maybe change back later. -XL
+		
+		if (sortOrder==LAST_NAME_ORDER)
+			students = (ArrayList<Student>) studentData.getAll();//Changed to displaying all students by default, for now. -XL
+		if (sortOrder==GRADE_ORDER)
+		{
+			students = (ArrayList<Student>) studentData.getAllByGrade();//Changed to displaying all students by default, for now. -XL
+
+		}
+				//students = (ArrayList<Student>) studentData.getStudentsByActivity(currentActivity);	
 		inStudents = new ArrayList<Student>();
 		outStudents = new ArrayList<Student>();
 		absentStudents = new ArrayList<Student>();

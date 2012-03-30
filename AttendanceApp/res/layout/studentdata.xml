@@ -17,8 +17,25 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="18dp"
         android:layout_weight="1" 
+        android:textColor="#75B2DD"
+        android:textSize="20sp"
         android:inputType="textPersonName"
         android:text="DEFAULT NAME"/>
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="Last Action:" />
+    
+     <TextView
+         android:id="@+id/last_activity_field"
+         android:layout_width="240dp"
+         android:layout_height="wrap_content"
+         android:gravity="left"
+         android:maxLines="2"
+         android:singleLine="false"
+         android:text="No check-ins." />
 
     <TextView
         android:layout_width="fill_parent"
