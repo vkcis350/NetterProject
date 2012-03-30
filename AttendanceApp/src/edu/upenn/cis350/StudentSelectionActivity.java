@@ -269,7 +269,7 @@ public class StudentSelectionActivity extends Activity {
 					checkinData.save(checkin);
 					countSuccessful++;
 				}
-				else if ( checkin.getOutTime()<=0 && checkin.getInTime()>=0 && !in )
+				else if ( checkin.getOutTime()<=0 && checkin.getInTime()>0 && !in )
 				{
 					checkin.setOutTime(time);
 					checkin.setLastChangeTime(time);

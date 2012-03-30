@@ -61,7 +61,7 @@ public class CheckinDataSource extends DataSource {
 		values.put(MySQLiteHelper.COL_STUDENT_ID, studentID );	
 		values.put(MySQLiteHelper.COL_CHECKIN_TIME, 0 );	
 		values.put(MySQLiteHelper.COL_CHECKOUT_TIME, 0 );
-		values.put(MySQLiteHelper.COL_CHECKIN_LAST_CHANGE, 0 );
+		values.put(MySQLiteHelper.COL_LAST_CHANGE, 0 );
 		
 		long insertId = database.insert(MySQLiteHelper.TABLE_CHECKINS, null,
 				values);
@@ -125,7 +125,7 @@ public class CheckinDataSource extends DataSource {
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COL_CHECKIN_TIME, checkin.getInTime() );
 		values.put(MySQLiteHelper.COL_CHECKOUT_TIME, checkin.getOutTime() );
-		
+		values.put(MySQLiteHelper.COL_LAST_CHANGE, checkin.getLastChangeTime());
 		database.update(MySQLiteHelper.TABLE_CHECKINS, 
 				values, 
 				MySQLiteHelper.COL_SESSION_ID+"=?"+" and "+MySQLiteHelper.COL_ACTIVITY_ID+"=?"+" and "+MySQLiteHelper.COL_STUDENT_ID+"=?",
@@ -153,7 +153,7 @@ public class CheckinDataSource extends DataSource {
 		Cursor cursor=database.query(MySQLiteHelper.TABLE_CHECKINS, 
 				null, 
 				MySQLiteHelper.COL_STUDENT_ID+"=?",
-				new String[]{studentID+""}, null, null, MySQLiteHelper.COL_CHECKIN_LAST_CHANGE);
+				new String[]{studentID+""}, null, null, MySQLiteHelper.COL_LAST_CHANGE+" DESC");
 		Checkin checkin = null;
 		Log.d("CheckinDatasource","Found "+cursor.getCount()+" Checkins for student "+studentID);
 		if (cursor.getCount()>0)
