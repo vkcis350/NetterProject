@@ -167,8 +167,7 @@ public class StudentSelectionActivity extends Activity {
 			long studentID;
 			//studentID =(Long) ((Student) lv.getItemAtPosition(lv.getCheckedItemPosition())).getID();
 			Intent i = new Intent(this,StudentDataActivity.class);
-			i.putExtra("STUDENT_NAME", "DEFAULT NAME");
-			i.putExtra("STUDENT_ID", "DEFAULT ID");
+			i.putExtra("STUDENT_ID", "1");
 			startActivityForResult(i,EDIT_DATA_REQUEST);
 		}
 		else if(lv.getCheckedItemCount() > 1)
@@ -429,9 +428,14 @@ public class StudentSelectionActivity extends Activity {
 	public void loadData()
 	{
 		Log.d("StudentSelectionActivity","current activity id "+currentActivityID);
-		SchoolActivity currentActivity = (SchoolActivity) actData.get(currentActivityID);
-
-		students = (ArrayList<Student>) studentData.getStudentsByActivity(currentActivity);
+		//if no activity
+		if(currentActivityID == 0)
+			students = (ArrayList<Student>) studentData.getAll();
+		else
+		{
+			SchoolActivity currentActivity = (SchoolActivity) actData.get(currentActivityID);
+			students = (ArrayList<Student>) studentData.getStudentsByActivity(currentActivity);	
+		}
 		inStudents = new ArrayList<Student>();
 		outStudents = new ArrayList<Student>();
 		absentStudents = new ArrayList<Student>();
