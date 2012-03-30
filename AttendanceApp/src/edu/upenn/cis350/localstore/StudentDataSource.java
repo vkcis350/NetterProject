@@ -134,4 +134,9 @@ public class StudentDataSource extends DataSource {
 	{
 		return (ArrayList<Student>) getAll(MySQLiteHelper.COL_STUDENT_LAST_NAME);
 	}
+	
+	public ArrayList<Student> getAllByGrade()
+	{
+		return (ArrayList<Student>) getAll(MySQLiteHelper.COL_STUDENT_GRADE);
+	}
 }

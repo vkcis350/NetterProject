@@ -56,8 +56,8 @@ public class CheckinDataSource extends DataSource {
 		values.put(MySQLiteHelper.COL_SESSION_ID, sessionID );
 		values.put(MySQLiteHelper.COL_ACTIVITY_ID, activityID );
 		values.put(MySQLiteHelper.COL_STUDENT_ID, studentID );	
-		values.put(MySQLiteHelper.COL_CHECKIN_TIME, -1 );	
-		values.put(MySQLiteHelper.COL_CHECKOUT_TIME, -1 );
+		values.put(MySQLiteHelper.COL_CHECKIN_TIME, 0 );	
+		values.put(MySQLiteHelper.COL_CHECKOUT_TIME, 0 );
 		values.put(MySQLiteHelper.COL_CHECKIN_COMMENT, comment );
 		
 		long insertId = database.insert(MySQLiteHelper.TABLE_CHECKINS, null,

@@ -57,6 +57,11 @@ public class StudentSelectionActivity extends Activity {
 	static final int CHECKED_OUT_STUDENTS = 2;
 	static final int ABSENT_STUDENTS = 3;
 
+	//sort order
+	int sortOrder;
+	static final int LAST_NAME_ORDER = 0;//default
+	static final int GRADE_ORDER = 1;
+
 	//Request codes
 	static final int CHECK_IN_REQUEST = 0;
 	static final int CHECK_OUT_REQUEST = 1;
@@ -77,7 +82,7 @@ public class StudentSelectionActivity extends Activity {
 	private CheckinDataSource checkinData;
 
 	static final int CURRENT_SESSION_ID=0; //TEMPRORARY, later will figure out how to deal with times/sessions of activities
-
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -94,6 +99,7 @@ public class StudentSelectionActivity extends Activity {
 		lv.setTextFilterEnabled(true);
 		lv.setChoiceMode(lv.CHOICE_MODE_MULTIPLE);
 		currentList = ALL_STUDENTS;
+		sortOrder = LAST_NAME_ORDER;
 		reloadList();
 
 		Toast.makeText(getApplicationContext(), currentActivity,
@@ -241,13 +247,13 @@ public class StudentSelectionActivity extends Activity {
 				Student student = (Student) lv.getItemAtPosition( i );
 				Log.d("selected student",i+" "+lv.getCount()+"" );
 				Checkin checkin = checkinData.getOrCreate(CURRENT_SESSION_ID,currentActivityID,student.getID());
-				if (checkin.getInTime()<0 && in )
+				if (checkin.getInTime()<=0 && in )
 				{
 					checkin.setInTime ( time );
 					checkinData.save(checkin);
 					countSuccessful++;
 				}
-				else if ( checkin.getOutTime()<0 && checkin.getInTime()>=0 && !in )
+				else if ( checkin.getOutTime()<=0 && checkin.getInTime()>=0 && !in )
 				{
 					checkin.setOutTime(time);
 					checkinData.save(checkin);
@@ -347,8 +353,7 @@ public class StudentSelectionActivity extends Activity {
 	//sets the list view to show all by grade
 	public void viewStudentsByGrade()
 	{
-		Toast.makeText(getApplicationContext(), "Not Yet Implemented",
-				Toast.LENGTH_SHORT).show();
+		sortOrder = GRADE_ORDER;
 	}
 
 	//filter which students are shown
@@ -447,7 +452,11 @@ public class StudentSelectionActivity extends Activity {
 		else
 		{
 			SchoolActivity currentActivity = (SchoolActivity) actData.get(currentActivityID);
-			students = (ArrayList<Student>) studentData.getStudentsByActivity(currentActivity);	
+			if (sortOrder==LAST_NAME_ORDER)
+				students = (ArrayList<Student>) studentData.getAll();//Changed to displaying all students by default, for now. -XL
+			if (sortOrder==GRADE_ORDER)
+				students = (ArrayList<Student>) studentData.getAllByGrade();//Changed to displaying all students by default, for now. -XL
+			//students = (ArrayList<Student>) studentData.getStudentsByActivity(currentActivity);	
 		}
 		inStudents = new ArrayList<Student>();
 		outStudents = new ArrayList<Student>();
@@ -456,11 +465,11 @@ public class StudentSelectionActivity extends Activity {
 		for (Student student : students )
 		{
 			Checkin studentCheckin = checkinData.get(CURRENT_SESSION_ID,currentActivityID,student.getID() );//checkinData.get( CURRENT_SESSION_ID, currentActivityID, studentList.get(i).getID() );
-			if (studentCheckin== null)
-				absentStudents.add(student);
-			else if ( studentCheckin.getInTime()>=0 && studentCheckin.getOutTime()<0  )
+			if (studentCheckin==null || (studentCheckin.getInTime()==0 && studentCheckin.getOutTime()==0) )
+				continue;
+			else if ( studentCheckin.getInTime()>0 && studentCheckin.getOutTime()<=0 )
 				inStudents.add(student);
-			else if ( studentCheckin.getInTime()>=0 && studentCheckin.getOutTime()>=0)
+			else if ( studentCheckin.getInTime()>0 && studentCheckin.getOutTime()>0)
 				outStudents.add(student);
 			else if ( studentCheckin.getInTime()<0 && studentCheckin.getOutTime()<0 )
 				absentStudents.add(student);
@@ -481,7 +490,6 @@ public class StudentSelectionActivity extends Activity {
 			Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
-
 		if(requestCode == LEAVE_COMMENT_REQUEST)
 		{
 			Toast.makeText(getApplicationContext(), "Welcome back from leaving a comment",
