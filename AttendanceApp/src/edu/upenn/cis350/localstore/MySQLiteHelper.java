@@ -54,7 +54,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int CHECKINS_CHECKIN_COMMENT_INDEX = 6;
 	
 	private static final String DATABASE_NAME = "attendance.db";
-	private static final int DATABASE_VERSION = 59;
+	private static final int DATABASE_VERSION = 71;
 	
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -65,13 +65,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		database.execSQL("create table "
 				+ TABLE_STUDENTS + "( " 
 				+ COL_STUDENT_ID + " integer primary key, " 
-				+ COL_STUDENT_LAST_NAME + " text"
-				+ COL_STUDENT_FIRST_NAME + " text"
-				+ COL_STUDENT_PHONE + " text"
-				+ COL_STUDENT_CONTACT + " text"
-				+ COL_STUDENT_CONTACT_RELATION + " text"
-				+ COL_SCHOOL_ID + " integer"
-				+ COL_SITE_ID + " integer"
+				+ COL_STUDENT_LAST_NAME + " text,"
+				+ COL_STUDENT_FIRST_NAME + " text,"
+				+ COL_STUDENT_PHONE + " text,"
+				+ COL_STUDENT_CONTACT + " text,"
+				+ COL_STUDENT_CONTACT_RELATION + " text,"
+				+ COL_SCHOOL_ID + " integer,"
+				+ COL_SITE_ID + " integer,"
 				+ COL_STUDENT_SCHOOLYEAR + " integer"
 				+");");
 		
