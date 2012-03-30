@@ -165,9 +165,11 @@ public class StudentSelectionActivity extends Activity {
 		if(lv.getCheckedItemCount() == 1)
 		{
 			long studentID;
-			//studentID =(Long) ((Student) lv.getItemAtPosition(lv.getCheckedItemPosition())).getID();
+			studentID =(Long) ((Student) lv.getItemAtPosition(lv.getCheckedItemPosition())).getID();
+			Log.d("StudentSelectionActivity","Requested profile for student id "+studentID);
+			
 			Intent i = new Intent(this,StudentDataActivity.class);
-			i.putExtra("STUDENT_ID", "1");
+			i.putExtra("STUDENT_ID", studentID);
 			startActivityForResult(i,EDIT_DATA_REQUEST);
 		}
 		else if(lv.getCheckedItemCount() > 1)
@@ -287,10 +289,11 @@ public class StudentSelectionActivity extends Activity {
 		if(lv.getCheckedItemCount() == 1)
 		{
 			long studentID;
-			//studentID =(Long) ((Student) lv.getItemAtPosition(lv.getCheckedItemPosition())).getID();
+			studentID =(Long) ((Student) lv.getItemAtPosition(lv.getCheckedItemPosition())).getID();
 			Intent i = new Intent(this,StudentCommentActivity.class);
 			i.putExtra("STUDENT_NAME", "DEFAULT NAME");
-			i.putExtra("STUDENT_ID", "DEFAULT ID");
+			Log.d("StudentSelectionActivity","Requested profile for student id "+studentID);
+			i.putExtra("STUDENT_ID", new Long(studentID));
 			startActivityForResult(i,LEAVE_COMMENT_REQUEST);
 		}
 		else if(lv.getCheckedItemCount() > 1)

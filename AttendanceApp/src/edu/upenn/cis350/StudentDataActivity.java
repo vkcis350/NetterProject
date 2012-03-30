@@ -2,6 +2,7 @@ package edu.upenn.cis350;
 import java.util.Arrays;
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,10 +27,16 @@ public class StudentDataActivity extends Activity{
 		setContentView(R.layout.studentdata);
 
 		Bundle extras = getIntent().getExtras();
-		long studentID = extras.getLong("STUDENT_ID");
+		long studentID= extras.getLong("STUDENT_ID");
+		//long studentID=Long.parseLong(preStudentID);
+		Log.d("StudentDataActivity","Profile of Student with ID number"+studentID+"loaded");
 		openData();
-		populateFields();
+
 		curStudent=(Student) studentData.get(studentID);
+		if(curStudent==null){
+			Log.d("StudentDataActivity","Student object is null");
+		}
+		populateFields();
 	}
 	
 	public void onSaveDataClick(View v){
