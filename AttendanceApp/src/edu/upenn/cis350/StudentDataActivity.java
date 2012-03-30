@@ -58,12 +58,18 @@ public class StudentDataActivity extends Activity{
 		nameField.setText(curStudent.toString());
 		EditText gradeField = (EditText) findViewById(R.id.student_grade_field);
 		gradeField.setText(curStudent.getGrade()+"");
-		EditText dTeacherField = (EditText) findViewById(R.id.day_teacher_field);
-		dTeacherField.setText("Day Teacher Name");
+		
 		EditText phoneContField = (EditText) findViewById(R.id.phone_contact_field);
 		phoneContField.setText(curStudent.getPhone());
+		//EditText contactField = (EditText) findViewById(R.id.contact_field);
+		//contactField.setText(curStudent.getContact());
+		EditText contactRelField = (EditText) findViewById(R.id.contact_relation_field);
+		contactRelField.setText(curStudent.getContactRelation());
 		EditText addressContField = (EditText) findViewById(R.id.address_contact_field);
 		addressContField.setText(curStudent.getAddress());
+		
+		
+		
 	}
 	
 	public void onPause()

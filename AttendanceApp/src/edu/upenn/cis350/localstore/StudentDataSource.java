@@ -1,5 +1,10 @@
 package edu.upenn.cis350.localstore;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +14,8 @@ import edu.upenn.cis350.models.Model;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Environment;
+import android.util.Log;
 
 public class StudentDataSource extends DataSource {
 	final static String[] TABLES = { MySQLiteHelper.TABLE_STUDENTS, MySQLiteHelper.TABLE_ENROLLMENT};
@@ -73,6 +80,7 @@ public class StudentDataSource extends DataSource {
 		values.put(MySQLiteHelper.COL_STUDENT_SCHOOLYEAR, schoolYear);
 		values.put(MySQLiteHelper.COL_STUDENT_GRADE, grade);
 		values.put(MySQLiteHelper.COL_STUDENT_ADDRESS, address);
+		
 		long insertId = database.insert(MySQLiteHelper.TABLE_STUDENTS, null,
 				values);
 
@@ -138,5 +146,24 @@ public class StudentDataSource extends DataSource {
 	public ArrayList<Student> getAllByGrade()
 	{
 		return (ArrayList<Student>) getAll(MySQLiteHelper.COL_STUDENT_GRADE);
+	}
+	
+	public void toCSV(String filename) throws IOException
+	{
+		ArrayList<Student> students = getAll();
+		Writer output = null;
+		File root = Environment.getExternalStorageDirectory();
+		File file = new File("/data/data/edu.upenn.cis350/students.csv");
+		output = new BufferedWriter(new FileWriter(file));
+		output.write("student id, last name, first name, phone, contact, contact relationship,school id, site id, schoolyear, grade, address");
+		for (Student student:students)
+		{
+			output.write( student.getLastName()+","+student.getFirstName()+","
+					+student.getPhone()+","+ student.getContact()+","+ student.getContactRelation()+","+
+					student.getSchoolID()
+					+","+ student.getSiteID()+","+ student.getGrade()+","
+					+ student.getAddress()+"\n");
+		}
+		output.close();	
 	}
 }

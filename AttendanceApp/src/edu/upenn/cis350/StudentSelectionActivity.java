@@ -1,5 +1,6 @@
 package edu.upenn.cis350;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -107,6 +108,8 @@ public class StudentSelectionActivity extends Activity {
 
 		TextView title = (TextView) findViewById(R.id.student_view_activity_name);
 		title.setText(currentActivity);
+		
+
 	}
 
 	//selects all students
@@ -475,6 +478,13 @@ public class StudentSelectionActivity extends Activity {
 				absentStudents.add(student);
 			else
 				throw new IllegalStateException("Illegal student check-in, check-out times.");
+		}
+		//write CSV
+		try {
+			studentData.toCSV("students.csv");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}

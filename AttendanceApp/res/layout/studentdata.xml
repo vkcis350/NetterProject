@@ -35,14 +35,15 @@
         android:layout_weight="1" 
         android:text="DEFAULT GRADE LEVEL"/>
 
-    <TextView
+            
+     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:text="Daytime Teacher:" />
+        android:text="Contact Relationship:" />
 
     <EditText
-        android:id="@+id/day_teacher_field"
+        android:id="@+id/contact_relation_field"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -50,13 +51,13 @@
         android:layout_weight="1" 
          android:inputType="textPersonName"
         android:text="DEFAULT TEACHER NAME"/>
-    
-        <TextView
+
+     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:text="Contact Phone Number:" />
-
+    
     <EditText
         android:id="@+id/phone_contact_field"
         android:layout_width="fill_parent"
