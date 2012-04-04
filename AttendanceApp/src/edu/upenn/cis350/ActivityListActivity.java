@@ -37,23 +37,23 @@ public class ActivityListActivity extends Activity{
 	static String[] CLASSES = new String[] {
 		"Android Programming", "Homework", "Something Athletic", "\"Fun Activity\"", "Overthrowing the Qing", "Defeating Napoleon", "Visiting the Eclipse Family", "I made this one up.", "Snacktime?"
 	};
-	**/
+	 **/
 	Boolean fullView = false;
 
 	//Request codes
 	static final int VIEW_STUDENT_REQUEST = 0;
 	static final int EDIT_ACTIVITY_REQUEST = 1;
-	
+
 	SchoolActivityDataSource actData; //database access
 	private ArrayList<SchoolActivity> schoolActivities;
 	private ArrayList<SchoolActivity> someSchoolActivities;
-	
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activities);
-		
+
 		loadData();
 
 		//the list itself
@@ -61,7 +61,7 @@ public class ActivityListActivity extends Activity{
 		lv.setTextFilterEnabled(true);
 		lv.setChoiceMode(lv.CHOICE_MODE_SINGLE);
 		ArrayList<SchoolActivity> classList = someSchoolActivities;
-		
+
 		lv.setAdapter(new ArrayAdapter<SchoolActivity>(this,
 				android.R.layout.simple_list_item_single_choice, classList));
 
@@ -135,120 +135,146 @@ public class ActivityListActivity extends Activity{
 			Toast.makeText(getApplicationContext(), "Select Activity First",
 					Toast.LENGTH_SHORT).show();
 	}
-	
+
 	private void onRemoveCompletely() {
 		SchoolActivityDataSource dbsrc = new SchoolActivityDataSource(this);
 		dbsrc.open();
-		
+
 		ListView lv = (ListView) findViewById(R.id.activity_list);
-		SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
-		
-		dbsrc.delete(activity);
-		someSchoolActivities.remove(activity);
-		schoolActivities.remove(activity);
-		
-		dbsrc.close();
-		
-		reloadList();
+		if(lv.getCheckedItemCount() > 0)
+		{
+			SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
+
+			dbsrc.delete(activity);
+			someSchoolActivities.remove(activity);
+			schoolActivities.remove(activity);
+
+			dbsrc.close();
+
+			reloadList();
+		}else
+			Toast.makeText(getApplicationContext(), "Select Activity First",
+					Toast.LENGTH_SHORT).show();
 	}
 
 	//brings up an options menu
 	public void onSelectActivityClick(View v)
 	{
 		ListView lv = (ListView) findViewById(R.id.activity_list);
-		SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
+		if(lv.getCheckedItemCount() > 0)
+		{
+			SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
 
-		Intent i = new Intent(this,StudentSelectionActivity.class);
-		i.putExtra("ACTIVITY_NAME", activity.toString());
-		i.putExtra("ACTIVITY_ID", activity.getID());
-		
-		startActivityForResult(i,VIEW_STUDENT_REQUEST);
+			Intent i = new Intent(this,StudentSelectionActivity.class);
+			i.putExtra("ACTIVITY_NAME", activity.toString());
+			i.putExtra("ACTIVITY_ID", activity.getId());
+
+			startActivityForResult(i,VIEW_STUDENT_REQUEST);
+		}else
+			Toast.makeText(getApplicationContext(), "Select Activity First",
+					Toast.LENGTH_SHORT).show();
 	}
-	
+
 	//removes activity from list of frequently accessed activities
 	//just hardcoded for now
 	public void removeFrequently()
 	{
 		ListView lv = (ListView) findViewById(R.id.activity_list);
-		SchoolActivity schoolActivity = (SchoolActivity) lv.getItemAtPosition(lv.getCheckedItemPosition());
-		
-		//in case you selected something not on the frequent list
-		if(!someSchoolActivities.contains(schoolActivity))
+
+		if(lv.getCheckedItemCount() > 0)
 		{
-			Toast.makeText(getApplicationContext(), schoolActivity + " is not in the Frequent List.",
+			SchoolActivity schoolActivity = (SchoolActivity) lv.getItemAtPosition(lv.getCheckedItemPosition());
+
+			//in case you selected something not on the frequent list
+			if(!someSchoolActivities.contains(schoolActivity))
+			{
+				Toast.makeText(getApplicationContext(), schoolActivity + " is not in the Frequent List.",
+						Toast.LENGTH_SHORT).show();
+				return;
+			}
+
+			someSchoolActivities.remove(schoolActivity);
+
+			//TO DO: Remove activity from persistent frequent list
+
+			reloadList();
+			Toast.makeText(getApplicationContext(), "Removed " + schoolActivity + " from Frequent List.",
 					Toast.LENGTH_SHORT).show();
-			return;
-		}
-		
-		someSchoolActivities.remove(schoolActivity);
-		
-		//TO DO: Remove activity from persistent frequent list
-		
-		reloadList();
-		Toast.makeText(getApplicationContext(), "Removed " + schoolActivity + " from Frequent List.",
-				Toast.LENGTH_SHORT).show();
+		}else
+			Toast.makeText(getApplicationContext(), "Select Activity First",
+					Toast.LENGTH_SHORT).show();
 	}
-	
+
 	//asks for confirmation
 	public void onRemoveFrequently()
 	{
 		ListView lv = (ListView) findViewById(R.id.activity_list);
-		SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
-		
-		AlertDialog mDialog = new AlertDialog.Builder(this)
-		.setTitle("Remove from List")
-		.setMessage("Are you sure you want to remove " + activity + " from the frequent activity list?")
-		.setPositiveButton("Yes", null)
-		.setNegativeButton("No", null)
-		.show();
+		if(lv.getCheckedItemCount() > 0)
+		{
+			SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
 
-		WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
-		layoutParams.dimAmount = 0.9f;
-		mDialog.getWindow().setAttributes(layoutParams);
-		//mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
-		
-		//what happens when you press the buttons
-		mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
-		      public void onClick(DialogInterface dialog, int which) {  
-		    	  removeFrequently();
-		    } });
-		mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
-		      public void onClick(DialogInterface dialog, int which) {  
-		    	  Toast.makeText(getApplicationContext(), "Activity was not removed.",
+			AlertDialog mDialog = new AlertDialog.Builder(this)
+			.setTitle("Remove from List")
+			.setMessage("Are you sure you want to remove " + activity + " from the frequent activity list?")
+			.setPositiveButton("Yes", null)
+			.setNegativeButton("No", null)
+			.show();
+
+			WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
+			layoutParams.dimAmount = 0.9f;
+			mDialog.getWindow().setAttributes(layoutParams);
+			//mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+
+			//what happens when you press the buttons
+			mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
+				public void onClick(DialogInterface dialog, int which) {  
+					removeFrequently();
+				} });
+			mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
+				public void onClick(DialogInterface dialog, int which) {  
+					Toast.makeText(getApplicationContext(), "Activity was not removed.",
 							Toast.LENGTH_SHORT).show();
-		    } });  		
+				} }); 
+		}else Toast.makeText(getApplicationContext(), "Select Activity First",
+				Toast.LENGTH_SHORT).show();
 	}
-	
+
 	//adds activity to list of frequently accessed activities
 	//just hardcoded for now
 	public void addFrequently()
 	{
 		ListView lv = (ListView) findViewById(R.id.activity_list);
-		SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
-		
-		//in case you selected something not on the frequent list
-		if(someSchoolActivities.contains(activity))
+		if(lv.getCheckedItemCount() > 0)
 		{
-			Toast.makeText(getApplicationContext(), activity + " is already in the Frequent List.",
+			SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
+
+			//in case you selected something not on the frequent list
+			if(someSchoolActivities.contains(activity))
+			{
+				Toast.makeText(getApplicationContext(), activity + " is already in the Frequent List.",
+						Toast.LENGTH_SHORT).show();
+				return;
+			}
+
+			int addLoc = someSchoolActivities.indexOf(activity);
+			someSchoolActivities.add(activity);
+
+			reloadList();
+			Toast.makeText(getApplicationContext(), "Added " + activity + " to Frequent List.",
 					Toast.LENGTH_SHORT).show();
-			return;
-		}
-		
-		int addLoc = someSchoolActivities.indexOf(activity);
-		someSchoolActivities.add(activity);
-	
-		reloadList();
-		Toast.makeText(getApplicationContext(), "Added " + activity + " to Frequent List.",
+		}else Toast.makeText(getApplicationContext(), "Select Activity First",
 				Toast.LENGTH_SHORT).show();
-		
 	}
-	
+
 	//asks for confirmation
 	public void onAddFrequently()
 	{
 		ListView lv = (ListView) findViewById(R.id.activity_list);
-		SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
+		if(lv.getCheckedItemCount() > 0)
+		{
 		
+		SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
+
 		AlertDialog mDialog = new AlertDialog.Builder(this)
 		.setTitle("Add to List")
 		.setMessage("Are you sure you want to add " + activity + " to the frequent activity list?")
@@ -260,19 +286,21 @@ public class ActivityListActivity extends Activity{
 		layoutParams.dimAmount = 0.9f;
 		mDialog.getWindow().setAttributes(layoutParams);
 		//mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
-		
+
 		//what happens when you press the buttons
 		mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
-		      public void onClick(DialogInterface dialog, int which) {  
-		    	  addFrequently();
-		    } });
+			public void onClick(DialogInterface dialog, int which) {  
+				addFrequently();
+			} });
 		mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
-		      public void onClick(DialogInterface dialog, int which) {  
-		    	  Toast.makeText(getApplicationContext(), "Activity was not added.",
-							Toast.LENGTH_SHORT).show();
-		    } });  		
+			public void onClick(DialogInterface dialog, int which) {  
+				Toast.makeText(getApplicationContext(), "Activity was not added.",
+						Toast.LENGTH_SHORT).show();
+			} });  
+		}else Toast.makeText(getApplicationContext(), "Select Activity First",
+				Toast.LENGTH_SHORT).show();
 	}
-	
+
 	public void onAddNew()
 	{
 		Intent i = new Intent(this,AddNewActivityActivity.class);
@@ -312,13 +340,13 @@ public class ActivityListActivity extends Activity{
 		fullView = !fullView;
 		reloadList();
 	}
-	
+
 	public void onPause()
 	{
 		super.onPause();
 		actData.close();
 	}
-	
+
 	public void loadData()
 	{
 		actData = new SchoolActivityDataSource(this);
@@ -331,7 +359,7 @@ public class ActivityListActivity extends Activity{
 		}
 
 	}
-	
+
 	public void reloadList()
 	{
 		ListView lv = (ListView) findViewById(R.id.activity_list);

@@ -24,7 +24,7 @@ public class SchoolActivityDataSource extends DataSource {
 	
 	protected Model cursorToModel(Cursor cursor) {
 		SchoolActivity act = new SchoolActivity();
-		act.setID(cursor.getLong(MySQLiteHelper.ACTIVITIES_ACTIVITY_ID_INDEX ));
+		act.setId(cursor.getLong(MySQLiteHelper.ACTIVITIES_ACTIVITY_ID_INDEX ));
 		act.setName(cursor.getString(MySQLiteHelper.ACTIVITIES_ACTIVITY_NAME_INDEX));
 		return act;
 	}
@@ -46,11 +46,12 @@ public class SchoolActivityDataSource extends DataSource {
 		values.put(MySQLiteHelper.COL_ACTIVITY_NAME, activity.getName() );
 		long insertId = database.insert(MySQLiteHelper.TABLE_ACTIVITIES, null,
 				values);
-		activity.setID(insertId);
+		activity.setId(insertId);
 	}
 	
 	public ArrayList<SchoolActivity> getAll()
 	{
 		return (ArrayList<SchoolActivity>) getAll(MySQLiteHelper.COL_ACTIVITY_NAME);
 	}
+	
 }

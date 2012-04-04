@@ -102,15 +102,12 @@ public class MainMenuActivity extends Activity
 		//TODO:clear all local databases according to pre-determined convention
 		//the following lines clear the local databases, additional fxnality needs to be added to populate database w/ current
 		/*
-		actData.open();
 		studentData.open();
-		checkinData.open();
-		actData.deleteAll();
 		studentData.deleteAll();
-		checkinData.deleteAll();
-		actData.close();
+		studentData.importFromjson(string from server)
 		studentData.close();
-		checkinData.close();
+		//repeat w/ checkin and act
+		
 		*/
 
 	}

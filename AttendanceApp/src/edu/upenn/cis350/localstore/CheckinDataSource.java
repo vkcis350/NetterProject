@@ -1,6 +1,7 @@
 package edu.upenn.cis350.localstore;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.upenn.cis350.models.Checkin;
 import edu.upenn.cis350.models.Model;
@@ -31,7 +32,7 @@ public class CheckinDataSource extends DataSource {
 	@Override
 	protected Model cursorToModel(Cursor c) {
 		Checkin checkin = new Checkin();
-		checkin.setID(c.getLong(MySQLiteHelper.CHECKINS_CHECKIN_ID_INDEX));
+		checkin.setId(c.getLong(MySQLiteHelper.CHECKINS_CHECKIN_ID_INDEX));
 		checkin.setSessionID( c.getLong(MySQLiteHelper.CHECKINS_SESSION_ID_INDEX) );
 		checkin.setActivityID( c.getLong(MySQLiteHelper.CHECKINS_ACTIVITY_ID_INDEX) );
 		checkin.setStudentID( c.getLong(MySQLiteHelper.CHECKINS_STUDENT_ID_INDEX) );
@@ -96,7 +97,7 @@ public class CheckinDataSource extends DataSource {
 	}
 	
 	/*
-	 * If Checkin witch matching parameters exists, get it. If it doesn't create one with -1 and -1
+	 * If Checkin with matching parameters exists, get it. If it doesn't create one with -1 and -1
 	 * as check-in and check-out times (i.e., absent).
 	 */
 	public Checkin getOrCreate(long sessionID, long activityID, long studentID)
@@ -165,5 +166,19 @@ public class CheckinDataSource extends DataSource {
 		return checkin;
 		
 	}
+	
+	
 
+//Don't use the following methods for now- the usage of create and save doesn't properly handle the id field
+	public void populateFromList(List<Checkin> objList){
+		for(Checkin obj : objList){
+			create(obj.getSessionID(),obj.getActivityID(),obj.getStudentID());
+			save(obj);
+		}
+	}
+	/**assumes database has been emptied**/
+	@SuppressWarnings("unchecked")
+	public void importFromjson(String json){
+		populateFromList((List<Checkin>)convertJson(json));
+	}
 }

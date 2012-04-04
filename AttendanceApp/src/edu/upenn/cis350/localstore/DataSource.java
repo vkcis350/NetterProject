@@ -27,6 +27,7 @@ public abstract class DataSource<T extends Model>{
 	
 	public abstract void create(T model);
 	
+	
 	public DataSource(Context context) {
 		dbHelper = new MySQLiteHelper(context);
 	}
@@ -40,7 +41,7 @@ public abstract class DataSource<T extends Model>{
 	}
 	
 	public void delete(T model) {
-		long id = ((Model) model).getID();
+		long id = ((Model) model).getId();
 		System.out.println("Comment deleted with id: " + id);
 		database.delete(getTables()[PRIMARY_TABLE_INDEX], getIDColumn()
 				+ " = " + id, null);
@@ -89,13 +90,15 @@ public abstract class DataSource<T extends Model>{
 		return json;
 	}
 	
-	public List<T> importJson(String s){
+	public List<T> convertJson(String s){
 		Gson gson=new Gson();
 		String json = gson.toJson(s);
 		Type collectionType = new TypeToken<List<T>>(){}.getType();
 		List<T> deserialized = gson.fromJson(json, collectionType);
 		return deserialized;
 	}
+	
+	
 	
 	public void deleteAll()
 	{

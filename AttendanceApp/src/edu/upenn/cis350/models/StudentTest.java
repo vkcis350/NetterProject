@@ -15,17 +15,17 @@ public class StudentTest extends TestCase {
 	}
 
 	public void testGetSetID() {
-		assertEquals(test.getID(),-1);
-		test.setID(id1);
-		assertEquals(test.getID(),id1);
-		test.setID(id2);
-		assertEquals(test.getID(),id2);
+		assertEquals(test.getId(),-1);
+		test.setId(id1);
+		assertEquals(test.getId(),id1);
+		test.setId(id2);
+		assertEquals(test.getId(),id2);
 		
-		assertEquals(test2.getID(),-1);
-		test.setID(id2);
-		assertEquals(test2.getID(),id2);
-		test.setID(id1);
-		assertEquals(test2.getID(),id1);
+		assertEquals(test2.getId(),-1);
+		test.setId(id2);
+		assertEquals(test2.getId(),id2);
+		test.setId(id1);
+		assertEquals(test2.getId(),id1);
 	}
 
 	public void testGetSetName() {
@@ -42,11 +42,11 @@ public class StudentTest extends TestCase {
 	}
 
 	public void testCompareTo() { //should match up on id primarily, right?
-		test.setID(id1);
-		test2.setID(id2);
+		test.setId(id1);
+		test2.setId(id2);
 		test2.setFirstName(n1);
 		assertFalse(test2.equals(test));
-		test2.setID(id1);
+		test2.setId(id1);
 		assertTrue(test2.equals(test));
 		test2.setFirstName(n2);
 		assertFalse(test2.equals(test));
