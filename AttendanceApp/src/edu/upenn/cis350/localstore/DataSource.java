@@ -1,7 +1,11 @@
 package edu.upenn.cis350.localstore;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 
 import edu.upenn.cis350.models.Model;
@@ -76,6 +80,21 @@ public abstract class DataSource<T extends Model>{
 		// Make sure to close the cursor
 		cursor.close();
 		return models;
+	}
+	
+	public String exportJson(){
+		List<T> objList=getAll();
+		Gson gson = new Gson();
+		String json = gson.toJson(objList);
+		return json;
+	}
+	
+	public List<T> importJson(String s){
+		Gson gson=new Gson();
+		String json = gson.toJson(s);
+		Type collectionType = new TypeToken<List<T>>(){}.getType();
+		List<T> deserialized = gson.fromJson(json, collectionType);
+		return deserialized;
 	}
 	
 	public void deleteAll()
