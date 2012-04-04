@@ -1,7 +1,7 @@
 package edu.upenn.cis350.models;
 
 public class SchoolActivity extends Model implements Comparable {
-	private long id;
+	//private long id;
 	private String name;
 	
 
@@ -12,11 +12,11 @@ public class SchoolActivity extends Model implements Comparable {
 	public SchoolActivity() {
 		// TODO Auto-generated constructor stub
 	}
-
+/*
 	public long getID() {
 		return id;
 	}
-	
+*/	
 	public String getName() {
 		return name;
 	}
@@ -24,11 +24,11 @@ public class SchoolActivity extends Model implements Comparable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+/*	
 	public void setID(long id) {
 		this.id = id;
 	}
-	
+*/
 	public String toString()
 	{
 		return name;

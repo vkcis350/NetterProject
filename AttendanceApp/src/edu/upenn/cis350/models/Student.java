@@ -4,7 +4,7 @@ public class Student extends Model implements Comparable {
 	private String firstName;
 	private String lastName;
 	private String address;
-	private long id;
+	//private long id;
 	private String phone;
 	private int grade;
 	private String contact;
@@ -68,7 +68,7 @@ public class Student extends Model implements Comparable {
 	public int compareTo(Object arg0) {
 		return this.toString().compareTo( arg0.toString() );
 	}
-	
+/*	
 	public void setID(long id)
 	{
 		this.id=id;
@@ -78,7 +78,7 @@ public class Student extends Model implements Comparable {
 	{
 		return id;
 	}
-	
+*/	
 	public void setPhone(String phone)
 	{
 		this.phone = phone;
@@ -109,9 +109,9 @@ public class Student extends Model implements Comparable {
 		return contactRelation;
 	}
 	
-	public void setSchoolID(long id)
+	public void setSchoolID(long schoolID)
 	{
-		this.schoolID = id;
+		this.schoolID = schoolID;
 	}
 	
 	public long getSchoolID()
@@ -119,9 +119,9 @@ public class Student extends Model implements Comparable {
 		return schoolID;
 	}
 	
-	public void setSiteID(long id)
+	public void setSiteID(long siteID)
 	{
-		this.siteID = id;
+		this.siteID = siteID;
 	}
 	
 	public long getSiteID()
@@ -129,9 +129,9 @@ public class Student extends Model implements Comparable {
 		return siteID;
 	}
 	
-	public void setSchoolYear(long l)
+	public void setSchoolYear(long schoolYear)
 	{
-		this.schoolYear = l;
+		this.schoolYear = schoolYear;
 	}
 	
 	public long getSchoolYear()

@@ -7,11 +7,19 @@ public class Checkin extends Model {
 	private long activityID;
 	private long inTime;
 	private long outTime;
-	private int userId;
+	private long userId;
 	private long lastChangeTime;
 	
 	public Checkin()
 	{
+	}
+	
+	public long getUserID(){
+		return userId;
+	}
+	
+	public void setUserID(long userId){
+		this.userId=userId;
 	}
 	
 	public void setStudentID(long studentID)
