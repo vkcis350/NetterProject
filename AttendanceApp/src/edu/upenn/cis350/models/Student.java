@@ -1,5 +1,5 @@
 package edu.upenn.cis350.models;
-
+//testing new branch
 public class Student extends Model implements Comparable {
 	private String firstName;
 	private String lastName;
