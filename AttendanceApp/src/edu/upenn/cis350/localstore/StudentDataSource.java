@@ -8,6 +8,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.upenn.cis350.models.Checkin;
 import edu.upenn.cis350.models.SchoolActivity;
 import edu.upenn.cis350.models.Student;
 import edu.upenn.cis350.models.Model;
@@ -39,7 +40,7 @@ public class StudentDataSource extends DataSource {
 	@Override
 	protected Student cursorToModel(Cursor c) {
 		Student student = new Student();
-		student.setID(c.getLong(MySQLiteHelper.STUDENT_STUDENT_ID_INDEX));
+		student.setId(c.getLong(MySQLiteHelper.STUDENT_STUDENT_ID_INDEX));
 		student.setLastName(c.getString(MySQLiteHelper.STUDENT_STUDENT_LAST_NAME_INDEX));
 		student.setFirstName(c.getString(MySQLiteHelper.STUDENT_STUDENT_FIRST_NAME_INDEX));
 		student.setPhone(c.getString(MySQLiteHelper.STUDENT_STUDENT_PHONE_INDEX));
@@ -62,12 +63,12 @@ public class StudentDataSource extends DataSource {
 		values.put(MySQLiteHelper.COL_STUDENT_LAST_NAME, s.getLastName() );
 		long insertId = database.insert(MySQLiteHelper.TABLE_STUDENTS, null,
 				values);
-		s.setID(insertId);
+		s.setId(insertId);
 	}
 	
 	public Student create(long id, String lastName, String firstName, String phone, 
 			String contact, String contactRelation, long schoolID, long siteID,
-			int schoolYear, int grade, String address){
+			long schoolYear, int grade, String address){
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COL_STUDENT_ID, id);
 		values.put(MySQLiteHelper.COL_STUDENT_LAST_NAME, lastName );
@@ -113,7 +114,7 @@ public class StudentDataSource extends DataSource {
 				+" WHERE enroll."+MySQLiteHelper.COL_ACTIVITY_ID+"=?"
 				+" ORDER BY "+MySQLiteHelper.TABLE_STUDENTS+"."+MySQLiteHelper.COL_STUDENT_LAST_NAME ;
 
-		Cursor cursor = database.rawQuery(MY_QUERY, new String[]{String.valueOf(act.getID())});
+		Cursor cursor = database.rawQuery(MY_QUERY, new String[]{String.valueOf(act.getId())});
 		
 		cursor.moveToFirst();
 		while (!cursor.isAfterLast()) {
@@ -132,8 +133,8 @@ public class StudentDataSource extends DataSource {
 	 */
 	public void addStudentToActivity(Student student, SchoolActivity act) {
 		ContentValues values = new ContentValues();
-		values.put(MySQLiteHelper.COL_STUDENT_ID, student.getID());
-		values.put(MySQLiteHelper.COL_ACTIVITY_ID, act.getID());
+		values.put(MySQLiteHelper.COL_STUDENT_ID, student.getId());
+		values.put(MySQLiteHelper.COL_ACTIVITY_ID, act.getId());
 		database.insert(MySQLiteHelper.TABLE_ENROLLMENT, null,
 				values);
 	}
@@ -158,7 +159,7 @@ public class StudentDataSource extends DataSource {
 		output.write("student id, last name, first name, phone, contact, contact relationship,school id, site id, schoolyear, grade, address\n");
 		for (Student student:students)
 		{
-			output.write( student.getID()
+			output.write( student.getId()
 					+","+student.getLastName()
 					+","+student.getFirstName()
 					+","+student.getPhone()
@@ -171,5 +172,42 @@ public class StudentDataSource extends DataSource {
 					+","+ student.getAddress()+"\n");
 		}
 		output.close();	
+	}
+	/*
+	public void save(Student student)
+
+	{
+		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COL_STUDENT_ID, student.getID());
+		values.put(MySQLiteHelper.COL_STUDENT_LAST_NAME, student.getLastName() );
+		values.put(MySQLiteHelper.COL_STUDENT_FIRST_NAME, student.getFirstName());
+		values.put(MySQLiteHelper.COL_STUDENT_PHONE, student.getPhone());
+		values.put(MySQLiteHelper.COL_STUDENT_CONTACT, student.getContact());
+		values.put(MySQLiteHelper.COL_STUDENT_CONTACT_RELATION, student.getContactRelation());
+		values.put(MySQLiteHelper.COL_SCHOOL_ID, student.getSchoolID());
+		values.put(MySQLiteHelper.COL_SITE_ID, student.getSiteID());
+		values.put(MySQLiteHelper.COL_STUDENT_SCHOOLYEAR, student.getSchoolYear());
+		values.put(MySQLiteHelper.COL_STUDENT_GRADE, student.getGrade());
+		values.put(MySQLiteHelper.COL_STUDENT_ADDRESS, student.getAddress());
+		database.update(MySQLiteHelper.TABLE_STUDENTS, 
+				values, 
+				MySQLiteHelper.COL_STUDENT_ID+"=?",
+				new String[]{""+student.getID()});
+	}
+	*/
+	
+	/*This should be fine, but dont' use until we meet and figure out how to do this*/
+	public void populateFromList(List<Student> objList){
+		for(Student student : objList){
+			create(student.getId(), student.getLastName(), student.getFirstName(), student.getPhone(), 
+					student.getContact(), student.getContactRelation(), student.getSchoolID(), student.getSiteID(),
+					student.getSchoolYear(), student.getGrade(), student.getAddress());
+		}
+	}
+	
+	/**assumes database has been emptied**/
+	@SuppressWarnings("unchecked")
+	public void importFromjson(String json){
+		populateFromList((List<Student>)convertJson(json));
 	}
 }

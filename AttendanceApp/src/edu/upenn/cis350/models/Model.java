@@ -3,11 +3,11 @@ package edu.upenn.cis350.models;
 public abstract class Model {
 	protected long id;
 	
-	public long getID() {
+	public long getId() {
 		return id;
 	}
 	
-	public void setID(long id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	

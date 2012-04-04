@@ -192,7 +192,7 @@ public class StudentSelectionActivity extends Activity {
 			{
 				if ( checked.get(i) )
 				{
-					studentID =(Long) ((Student) lv.getItemAtPosition(i) ).getID();
+					studentID =(Long) ((Student) lv.getItemAtPosition(i) ).getId();
 					break;
 				}
 			}
@@ -261,7 +261,7 @@ public class StudentSelectionActivity extends Activity {
 			{
 				Student student = (Student) lv.getItemAtPosition( i );
 				Log.d("selected student",i+" "+lv.getCount()+"" );
-				Checkin checkin = checkinData.getOrCreate(CURRENT_SESSION_ID,currentActivityID,student.getID());
+				Checkin checkin = checkinData.getOrCreate(CURRENT_SESSION_ID,currentActivityID,student.getId());
 				if (checkin.getInTime()<=0 && in )
 				{
 					checkin.setInTime ( time );
@@ -322,7 +322,7 @@ public class StudentSelectionActivity extends Activity {
 		if(lv.getCheckedItemCount() == 1)
 		{
 			long studentID;
-			studentID =(Long) ((Student) lv.getItemAtPosition(lv.getCheckedItemPosition())).getID();
+			studentID =(Long) ((Student) lv.getItemAtPosition(lv.getCheckedItemPosition())).getId();
 			Intent i = new Intent(this,StudentCommentActivity.class);
 			i.putExtra("STUDENT_NAME", "DEFAULT NAME");
 			Log.d("StudentSelectionActivity","Requested profile for student id "+studentID);
@@ -495,7 +495,7 @@ public class StudentSelectionActivity extends Activity {
 
 		for (Student student : students )
 		{
-			Checkin studentCheckin = checkinData.get(CURRENT_SESSION_ID,currentActivityID,student.getID() );//checkinData.get( CURRENT_SESSION_ID, currentActivityID, studentList.get(i).getID() );
+			Checkin studentCheckin = checkinData.get(CURRENT_SESSION_ID,currentActivityID,student.getId() );//checkinData.get( CURRENT_SESSION_ID, currentActivityID, studentList.get(i).getID() );
 			if (studentCheckin==null || (studentCheckin.getInTime()==0 && studentCheckin.getOutTime()==0) )
 				continue;
 			else if ( studentCheckin.getInTime()>0 && studentCheckin.getOutTime()<=0 )

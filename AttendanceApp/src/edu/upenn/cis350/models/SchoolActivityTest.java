@@ -11,14 +11,14 @@ public class SchoolActivityTest extends TestCase {
 		super.setUp();
 		test=new SchoolActivity();
 		test2=new SchoolActivity();
-		test.setID(id1);
+		test.setId(id1);
 		test.setName(n1);
 	}
 
 	public void testSetID() {
-		assertEquals(test.getID(),id1);
-		test.setID(id2);
-		assertEquals(test.getID(),id2);
+		assertEquals(test.getId(),id1);
+		test.setId(id2);
+		assertEquals(test.getId(),id2);
 	}
 
 	public void testSetName() {
@@ -34,10 +34,10 @@ public class SchoolActivityTest extends TestCase {
 
 	public void testCompareTo() {
 
-		test2.setID(id2);
+		test2.setId(id2);
 		test2.setName(n1);
 		assertFalse(test2.equals(test));
-		test2.setID(id1);
+		test2.setId(id1);
 		assertTrue(test2.equals(test));
 		test2.setName(n2);
 		assertFalse(test2.equals(test));
