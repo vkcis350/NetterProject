@@ -11,7 +11,7 @@ import android.widget.Toast;
 import edu.upenn.cis350.R;
 import edu.upenn.cis350.models.Student;
 
-public class StudentCommentActivity extends Activity{
+public class StudentCommentActivity extends SyncableActivity{
 
 	//FOR UI TESTING
 	String[] COMMENT_ARRAY = {"Behaved today.", 

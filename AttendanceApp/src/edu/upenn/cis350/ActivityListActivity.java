@@ -28,7 +28,7 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class ActivityListActivity extends Activity{
+public class ActivityListActivity extends SyncableActivity{
 
 	/**
 	//For UI TESTING. REMOVE WHEN DATABASE EXISTS.\

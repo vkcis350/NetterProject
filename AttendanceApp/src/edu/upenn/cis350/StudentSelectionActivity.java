@@ -36,7 +36,7 @@ import android.util.SparseBooleanArray;
 import android.view.*;
 import android.widget.AdapterView;
 
-public class StudentSelectionActivity extends Activity {
+public class StudentSelectionActivity extends SyncableActivity {
 
 	/**
 	//For UI TESTING. REMOVE WHEN DATABASE EXISTS.

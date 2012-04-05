@@ -19,7 +19,7 @@ import edu.upenn.cis350.localstore.StudentDataSource;
 import edu.upenn.cis350.models.Checkin;
 import edu.upenn.cis350.models.Student;
 
-public class StudentDataActivity extends Activity{
+public class StudentDataActivity extends SyncableActivity{
 	Student curStudent;
 	Checkin lastCheckinOut;
 	StudentDataSource studentData; //database access object
