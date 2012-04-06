@@ -35,8 +35,9 @@ public class AddNewActivityActivity extends SyncableActivity {
     	dbsrc.create(act);
     	dbsrc.close();
     	
-    	Intent i = new Intent(this,ActivityListActivity.class);
-		startActivity(i);
+    	//back to last activity
+    	setResult(RESULT_OK);
+    	finish();
 	}
 	
 	public void onCreateActivityClick(View v)
@@ -60,8 +61,6 @@ public class AddNewActivityActivity extends SyncableActivity {
 		mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
 			public void onClick(DialogInterface dialog, int which) {
 				createActivity();
-				Toast.makeText(getApplicationContext(), "Activity created!",
-						Toast.LENGTH_SHORT).show();
 			} });
 		mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
 			public void onClick(DialogInterface dialog, int which) {  

@@ -34,7 +34,7 @@ public class ActivityListActivity extends SyncableActivity{
 
 	//Request codes
 	static final int VIEW_STUDENT_REQUEST = 0;
-	static final int EDIT_ACTIVITY_REQUEST = 1;
+	static final int NEW_ACTIVITY_REQUEST = 1;
 
 	SchoolActivityDataSource actData; //database access
 	private ArrayList<SchoolActivity> schoolActivities;
@@ -297,27 +297,30 @@ public class ActivityListActivity extends SyncableActivity{
 	public void onAddNew()
 	{
 		Intent i = new Intent(this,AddNewActivityActivity.class);
-		startActivity(i);
+		startActivityForResult(i,NEW_ACTIVITY_REQUEST);
 	}
 
-	//what happens when you return from other activities (nothing yet)
+	//what happens when you return from other activities
 	public void onActivityResult(int requestCode, int resultCode,
 			Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
-
 		if(requestCode == VIEW_STUDENT_REQUEST)
 		{
 			Toast.makeText(getApplicationContext(), "Welcome back from viewing the student list",
 					Toast.LENGTH_SHORT).show();
 		}
-		else if(requestCode == EDIT_ACTIVITY_REQUEST)
+		else if(requestCode == NEW_ACTIVITY_REQUEST)
 		{
 			if(resultCode == RESULT_OK) //if okayed edit
-				Toast.makeText(getApplicationContext(), "Welcome back from editing an activity",
+			{
+				loadData();
+				reloadList();
+				Toast.makeText(getApplicationContext(), "New activity added!",
 						Toast.LENGTH_SHORT).show();
+			}
 			else //if canceled edit
-				Toast.makeText(getApplicationContext(), "You did not edit that activity",
+				Toast.makeText(getApplicationContext(), "You did not add a new activity",
 						Toast.LENGTH_SHORT).show();
 		}
 		else
