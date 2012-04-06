@@ -6,17 +6,24 @@
     
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
         android:layout_marginBottom="17dp"
-        android:layout_marginRight="16dp"
         android:orientation="horizontal" >
 
+            <Button
+        android:id="@+id/login"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onLoginClick"
+        android:layout_weight="1"
+        android:text="@string/login" />
+        
         <Button
             android:id="@+id/quit"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:onClick="onQuitClick"
             android:text="@string/quit" />
@@ -65,15 +72,6 @@
         <requestFocus />
         </TextView>
 
-    <Button
-        android:id="@+id/login"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/linearLayout1"
-        android:layout_marginRight="16dp"
-        android:layout_toLeftOf="@+id/linearLayout1"
-        android:onClick="onLoginClick"
-        android:text="@string/login" />
 
     <ImageView
         android:layout_width="wrap_content"

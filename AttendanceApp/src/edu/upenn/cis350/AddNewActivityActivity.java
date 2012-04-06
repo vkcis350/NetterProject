@@ -21,7 +21,7 @@ public class AddNewActivityActivity extends SyncableActivity {
 		setContentView(R.layout.add_new_activity);
 	}
 	
-	public void onCreateActivity(View v)
+	public void onCreateActivityClick(View v)
 	{
 		EditText activity_name = (EditText)findViewById(R.id.newActivityName);
     	String new_activity_name = activity_name.getText().toString();
@@ -34,6 +34,13 @@ public class AddNewActivityActivity extends SyncableActivity {
     	
     	Intent i = new Intent(this,ActivityListActivity.class);
 		startActivity(i);
+	}
+	
+	public void onNotCreateClick(View v)
+	{
+		//back to last activity
+		setResult(RESULT_CANCELED);
+		finish();
 	}
 
 
