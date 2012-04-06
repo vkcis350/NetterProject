@@ -3,10 +3,15 @@ package edu.upenn.cis350;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.UnknownHostException;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
@@ -29,7 +34,7 @@ import android.widget.Toast;
 public class SyncableActivity extends Activity{
 
 	
-	String hostName="https://nettercenter350.appspot.com";
+	String hostName="http://nettercenter350.appspot.com";
 	int port = 1234;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -127,6 +132,7 @@ public class SyncableActivity extends Activity{
 			        }
 			    }).start();
 				
+				//setProp(net.dns1, 8.8.8.8);
 
 
 				//TODO: wait till server sends signal to update current databases
@@ -167,29 +173,31 @@ public class SyncableActivity extends Activity{
 		
 		try {
 			
-			URL u = new URL(hostName);
-			Log.d("xx","hello");
-			Socket x = new Socket("www.google.com",80);
-			Log.d("xx","hello");
+			//URI u = new URI(hostName);
 			DefaultHttpClient httpClient = new DefaultHttpClient();
-			Log.d("xx","hello");
 			HttpPost postMethod = new HttpPost(hostName);
-			Log.d("xx","hello");
-			//postMethod.setHeader( "Content-Type", "application/json" );
-		    ResponseHandler <String> resonseHandler = new BasicResponseHandler();
-			//jsonSocket = new Socket(hostName, 1234);
+			//HttpGet getMethod = new HttpGet(u);
+			postMethod.setHeader( "Content-Type", "application/json" );
+		    //ResponseHandler <String> resonseHandler = new BasicResponseHandler();
+		    StringBuilder allStrings=new StringBuilder();
+		    allStrings.append(studString).append('\n').append(actString).append('\n').append(checkinString);
+			postMethod.setEntity(new ByteArrayEntity(allStrings.toString().getBytes("UTF8")));
+			HttpResponse response = httpClient.execute(postMethod);
+			Log.d("Sync","response: "+response.getStatusLine().toString());
+			
+		    //jsonSocket = new Socket(hostName, 1234);
 			//out = new PrintWriter(jsonSocket.getOutputStream(), true);
-			postMethod.setEntity(new ByteArrayEntity(studString.toString().getBytes("UTF8")));
-			String response = httpClient.execute(postMethod,resonseHandler);
-			Log.e("response :", response);
-			postMethod.setHeader( "Content-Type", "application/json" );
-			postMethod.setEntity(new ByteArrayEntity(checkinString.toString().getBytes("UTF8")));
-			response = httpClient.execute(postMethod,resonseHandler);
-			Log.e("response :", response);
-			postMethod.setHeader( "Content-Type", "application/json" );
-			postMethod.setEntity(new ByteArrayEntity(actString.toString().getBytes("UTF8")));
-			response = httpClient.execute(postMethod,resonseHandler);
-			Log.e("response :", response);
+			//postMethod.setEntity(new ByteArrayEntity(studString.toString().getBytes("UTF8")));
+			//String response = httpClient.execute(postMethod,resonseHandler);
+			//Log.e("response :", response);
+			//postMethod.setHeader( "Content-Type", "application/json" );
+			//postMethod.setEntity(new ByteArrayEntity(checkinString.toString().getBytes("UTF8")));
+			//response = httpClient.execute(postMethod,resonseHandler);
+			//Log.e("response :", response);
+			//postMethod.setHeader( "Content-Type", "application/json" );
+			//postMethod.setEntity(new ByteArrayEntity(actString.toString().getBytes("UTF8")));
+			//response = httpClient.execute(postMethod,resonseHandler);
+			//Log.e("response :", response);
 			
 			//out.println(studString);
 			//out.println(checkinString);
@@ -198,9 +206,9 @@ public class SyncableActivity extends Activity{
 			//jsonSocket.close();
 
 			//in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
-		} catch (UnknownHostException e) {
-			Log.d("MainMenuActivity","Don't know about host "+ hostName);
-			Log.d("MainMenuActivity",e.getMessage());
+		//} catch (UnknownHostException e) {
+			//Log.d("MainMenuActivity","Don't know about host "+ hostName);
+			//Log.d("MainMenuActivity",e.getMessage());
 			//Toast.makeText(getApplicationContext(), "Sync Failed: Host not found",
 			//		Toast.LENGTH_SHORT).show();
 			// System.exit(1);
