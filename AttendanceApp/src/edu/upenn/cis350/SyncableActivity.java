@@ -29,7 +29,7 @@ import android.widget.Toast;
 public class SyncableActivity extends Activity{
 
 	
-	String hostName="http://nettercenter350.appspot.com";
+	String hostName="https://nettercenter350.appspot.com";
 	int port = 1234;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -71,7 +71,7 @@ public class SyncableActivity extends Activity{
 		WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
 		layoutParams.dimAmount = 0.9f;
 		mDialog.getWindow().setAttributes(layoutParams);
-		//mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+		mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 
 		//what happens when you press the buttons
 		mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
@@ -99,7 +99,7 @@ public class SyncableActivity extends Activity{
 		WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
 		layoutParams.dimAmount = 0.9f;
 		mDialog.getWindow().setAttributes(layoutParams);
-		//mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+		mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 
 		//what happens when you press the buttons
 		mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
@@ -166,10 +166,16 @@ public class SyncableActivity extends Activity{
 
 		
 		try {
-			//URL u = new URL(hostName+1234);
+			
+			URL u = new URL(hostName);
+			Log.d("xx","hello");
+			Socket x = new Socket("www.google.com",80);
+			Log.d("xx","hello");
 			DefaultHttpClient httpClient = new DefaultHttpClient();
+			Log.d("xx","hello");
 			HttpPost postMethod = new HttpPost(hostName);
-			postMethod.setHeader( "Content-Type", "application/json" );
+			Log.d("xx","hello");
+			//postMethod.setHeader( "Content-Type", "application/json" );
 		    ResponseHandler <String> resonseHandler = new BasicResponseHandler();
 			//jsonSocket = new Socket(hostName, 1234);
 			//out = new PrintWriter(jsonSocket.getOutputStream(), true);
