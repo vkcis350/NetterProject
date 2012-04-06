@@ -1,27 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     android:orientation="vertical"
-     android:layout_width = "wrap_content"
-     android:layout_height="wrap_content">
-	
-    <EditText
-        android:id = "@+id/newActivityName"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
-	
+	android:orientation="vertical" 
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
+
+	<TextView android:id="@+id/student_name_field"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:layout_marginBottom="18dp"
+		android:textColor="#75B2DD"
+		android:textSize="20sp" 
+		android:text="Enter New Activity's Name" />
+
+	<EditText android:id="@+id/newActivityName"
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content" />
+
 	<LinearLayout
-	    android:orientation="horizontal"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:gravity="bottom">
-	   
-        <Button android:id = "@+id/create_activity_button"
-           android:text="Create"
-           android:layout_width="fill_parent"
-           android:layout_height="wrap_content"
-           android:onClick="onCreateActivity"/>	
-         
-    </LinearLayout>
-    
+		android:orientation="horizontal" 
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+	
+		<Button android:id="@+id/create_activity_button" 
+		    android:text="Create"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:onClick="onCreateActivityClick" />
+		
+		<Button android:id="@+id/back_from_create_activity_button" 
+		    android:text="Cancel"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:onClick="onNotCreateClick" />
+	
+	</LinearLayout>
+
 </LinearLayout>

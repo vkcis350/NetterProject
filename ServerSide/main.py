@@ -23,9 +23,13 @@ import gspreadsheet as gs
 
 class MainHandler(webapp.RequestHandler):
     def get(self):
-        json_obj = {}#json.loads(self.request.get('jsondata'))
-        self.formatAsRow(json_obj)
         gs.send_test()
+        self.response.out.write('''<html>
+                                    <body>
+                                        <h1>Data has been input into the
+        <a href="https://docs.google.com/spreadsheet/ccc?key=0Ap3SpWBg9QDYdEQ3Q2RocVpSN2FEN1h3WGx6VXI3QlE&pli=1#gid=0" >spreadsheet</a></h1>                                
+                                    </body>                              
+                                </html>''')
 
     def formatAsRow(self, json_obj):
         pass

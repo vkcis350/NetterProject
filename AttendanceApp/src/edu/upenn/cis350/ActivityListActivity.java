@@ -30,19 +30,11 @@ import android.widget.Toast;
 
 public class ActivityListActivity extends SyncableActivity{
 
-	/**
-	//For UI TESTING. REMOVE WHEN DATABASE EXISTS.\
-	static String[] SOME_CLASSES = new String[] {
-		"Android Programming", "Homework", "Something Athletic"};
-	static String[] CLASSES = new String[] {
-		"Android Programming", "Homework", "Something Athletic", "\"Fun Activity\"", "Overthrowing the Qing", "Defeating Napoleon", "Visiting the Eclipse Family", "I made this one up.", "Snacktime?"
-	};
-	 **/
 	Boolean fullView = false;
 
 	//Request codes
 	static final int VIEW_STUDENT_REQUEST = 0;
-	static final int EDIT_ACTIVITY_REQUEST = 1;
+	static final int NEW_ACTIVITY_REQUEST = 1;
 
 	SchoolActivityDataSource actData; //database access
 	private ArrayList<SchoolActivity> schoolActivities;
@@ -103,6 +95,7 @@ public class ActivityListActivity extends SyncableActivity{
 	}
 
 	public void onRemoveActivityClick(View v){
+		
 		ListView lv = (ListView) findViewById(R.id.activity_list);
 		if(lv.getCheckedItemCount() > 0)
 		{
@@ -152,7 +145,8 @@ public class ActivityListActivity extends SyncableActivity{
 			dbsrc.close();
 
 			reloadList();
-		}else
+		}
+		else
 			Toast.makeText(getApplicationContext(), "Select Activity First",
 					Toast.LENGTH_SHORT).show();
 	}
@@ -170,13 +164,13 @@ public class ActivityListActivity extends SyncableActivity{
 			i.putExtra("ACTIVITY_ID", activity.getId());
 
 			startActivityForResult(i,VIEW_STUDENT_REQUEST);
-		}else
+		}
+		else
 			Toast.makeText(getApplicationContext(), "Select Activity First",
 					Toast.LENGTH_SHORT).show();
 	}
 
 	//removes activity from list of frequently accessed activities
-	//just hardcoded for now
 	public void removeFrequently()
 	{
 		ListView lv = (ListView) findViewById(R.id.activity_list);
@@ -195,12 +189,11 @@ public class ActivityListActivity extends SyncableActivity{
 
 			someSchoolActivities.remove(schoolActivity);
 
-			//TO DO: Remove activity from persistent frequent list
-
 			reloadList();
 			Toast.makeText(getApplicationContext(), "Removed " + schoolActivity + " from Frequent List.",
 					Toast.LENGTH_SHORT).show();
-		}else
+		}
+		else
 			Toast.makeText(getApplicationContext(), "Select Activity First",
 					Toast.LENGTH_SHORT).show();
 	}
@@ -223,7 +216,7 @@ public class ActivityListActivity extends SyncableActivity{
 			WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
 			layoutParams.dimAmount = 0.9f;
 			mDialog.getWindow().setAttributes(layoutParams);
-			//mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+			mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 
 			//what happens when you press the buttons
 			mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
@@ -235,12 +228,12 @@ public class ActivityListActivity extends SyncableActivity{
 					Toast.makeText(getApplicationContext(), "Activity was not removed.",
 							Toast.LENGTH_SHORT).show();
 				} }); 
-		}else Toast.makeText(getApplicationContext(), "Select Activity First",
+		}
+		else Toast.makeText(getApplicationContext(), "Select Activity First",
 				Toast.LENGTH_SHORT).show();
 	}
 
 	//adds activity to list of frequently accessed activities
-	//just hardcoded for now
 	public void addFrequently()
 	{
 		ListView lv = (ListView) findViewById(R.id.activity_list);
@@ -285,7 +278,7 @@ public class ActivityListActivity extends SyncableActivity{
 		WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
 		layoutParams.dimAmount = 0.9f;
 		mDialog.getWindow().setAttributes(layoutParams);
-		//mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+		mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 
 		//what happens when you press the buttons
 		mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
@@ -304,27 +297,30 @@ public class ActivityListActivity extends SyncableActivity{
 	public void onAddNew()
 	{
 		Intent i = new Intent(this,AddNewActivityActivity.class);
-		startActivity(i);
+		startActivityForResult(i,NEW_ACTIVITY_REQUEST);
 	}
 
-	//what happens when you return from other activities (nothing yet)
+	//what happens when you return from other activities
 	public void onActivityResult(int requestCode, int resultCode,
 			Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
-
 		if(requestCode == VIEW_STUDENT_REQUEST)
 		{
 			Toast.makeText(getApplicationContext(), "Welcome back from viewing the student list",
 					Toast.LENGTH_SHORT).show();
 		}
-		else if(requestCode == EDIT_ACTIVITY_REQUEST)
+		else if(requestCode == NEW_ACTIVITY_REQUEST)
 		{
 			if(resultCode == RESULT_OK) //if okayed edit
-				Toast.makeText(getApplicationContext(), "Welcome back from editing an activity",
+			{
+				loadData();
+				reloadList();
+				Toast.makeText(getApplicationContext(), "New activity added!",
 						Toast.LENGTH_SHORT).show();
+			}
 			else //if canceled edit
-				Toast.makeText(getApplicationContext(), "You did not edit that activity",
+				Toast.makeText(getApplicationContext(), "You did not add a new activity",
 						Toast.LENGTH_SHORT).show();
 		}
 		else
