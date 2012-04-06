@@ -38,19 +38,6 @@ import android.widget.AdapterView;
 
 public class StudentSelectionActivity extends SyncableActivity {
 
-	/**
-	//For UI TESTING. REMOVE WHEN DATABASE EXISTS.
-	static final String[] NAMES = new String[] {
-		"Jordan", "Xiao", "Jose", "Vayu", "Sun Yat-Sen", "Admiral Nelson", "Mr. Eclipse", "Salvador Dali"
-	};
-	static final String[] CHECKED_IN_NAMES = new String[] {
-		"Jordan", "Xiao", "Jose", "Vayu"
-	};
-	static final String[] CHECKED_OUT_NAMES = new String[] {
-		"Sun Yat-Sen", "Admiral Nelson", "Mr. Eclipse", "Salvador Dali"
-	};
-	 **/
-
 	//which list view is selected
 	int currentList;
 	static final int ALL_STUDENTS = 0;
@@ -116,10 +103,6 @@ public class StudentSelectionActivity extends SyncableActivity {
 	protected void onStart(){
 		super.onStart();
 		
-		
-		/*I moved this stuff to onStart because the database sources were not being reopened
-		 * after going back to this view.
-		 */
 		openData();
 		reloadList();
 	}
@@ -477,15 +460,6 @@ public class StudentSelectionActivity extends SyncableActivity {
 		SchoolActivity currentActivity;
 		if (currentActivityID!=0)
 			currentActivity = (SchoolActivity) actData.get(currentActivityID);
-		//if no activity
-		/*
-		if(currentActivityID == 0)
-			students = (ArrayList<Student>) studentData.getAll();
-		else
-		{
-		}
-		*/
-		//It's getting all students for all activities now. Maybe change back later. -XL
 		
 		if (sortOrder==LAST_NAME_ORDER)
 			students = (ArrayList<Student>) studentData.getAll();//Changed to displaying all students by default, for now. -XL
@@ -494,7 +468,6 @@ public class StudentSelectionActivity extends SyncableActivity {
 			students = (ArrayList<Student>) studentData.getAllByGrade();//Changed to displaying all students by default, for now. -XL
 
 		}
-				//students = (ArrayList<Student>) studentData.getStudentsByActivity(currentActivity);	
 		inStudents = new ArrayList<Student>();
 		outStudents = new ArrayList<Student>();
 		absentStudents = new ArrayList<Student>();
