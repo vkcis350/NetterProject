@@ -194,6 +194,7 @@ public class SyncableActivity extends Activity{
 			//in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
 		} catch (UnknownHostException e) {
 			Log.d("MainMenuActivity","Don't know about host "+ hostName);
+			Log.d("MainMenuActivity",e.getMessage());
 			//Toast.makeText(getApplicationContext(), "Sync Failed: Host not found",
 			//		Toast.LENGTH_SHORT).show();
 			// System.exit(1);
