@@ -168,7 +168,7 @@ public class SyncableActivity extends Activity{
 		try {
 			//URL u = new URL(hostName+1234);
 			DefaultHttpClient httpClient = new DefaultHttpClient();
-			HttpPost postMethod = new HttpPost(hostName+":"+port);
+			HttpPost postMethod = new HttpPost(hostName);
 			postMethod.setHeader( "Content-Type", "application/json" );
 		    ResponseHandler <String> resonseHandler = new BasicResponseHandler();
 			//jsonSocket = new Socket(hostName, 1234);
