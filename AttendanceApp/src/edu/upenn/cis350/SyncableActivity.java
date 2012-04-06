@@ -22,7 +22,7 @@ import android.widget.Toast;
 public class SyncableActivity extends Activity{
 
 	
-	String hostName="192.168.1.1";
+	String hostName="nettercenter350.appspot.com";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
