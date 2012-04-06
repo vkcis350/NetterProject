@@ -7,21 +7,32 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import edu.upenn.cis350.R;
+import edu.upenn.cis350.localstore.CheckinDataSource;
+import edu.upenn.cis350.localstore.SchoolActivityDataSource;
+import edu.upenn.cis350.localstore.StudentDataSource;
+import edu.upenn.cis350.models.Checkin;
 import edu.upenn.cis350.models.Student;
 
 public class StudentCommentActivity extends SyncableActivity{
 
-	//FOR UI TESTING
+	/**
+	 * //FOR UI TESTING
 	String[] COMMENT_ARRAY = {"Behaved today.", 
 			"Fought well at Waterloo", 
 			"Lost Wuchang because of him today.", 
 			"Couldn't find Zambia on a map. Unbelievable."};
+	**/
 	
 	String studentName;
 	long studentID;
 	ArrayList<String> comments;
+	StudentDataSource studentData; 
+	CheckinDataSource checkinData;
+	Student student;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,14 +40,29 @@ public class StudentCommentActivity extends SyncableActivity{
 		setContentView(R.layout.leavecomment);
 		
 		Bundle extras = getIntent().getExtras();
-		studentName = extras.getString("STUDENT_NAME");
 		studentID = extras.getLong("STUDENT_ID");
 		
 		ListView lv = (ListView) findViewById(R.id.comment_list);
 		lv.setTextFilterEnabled(true);
 		lv.setChoiceMode(lv.CHOICE_MODE_NONE);
-		reloadList();
+		comments = new ArrayList<String>();
+		
+		
 
+	}
+	
+	@Override
+	protected void onStart(){
+		super.onStart();
+		openData();
+		reloadList();
+		TextView nameField = (TextView) findViewById(R.id.student_name);
+		nameField.setText("Comments for "+student.getLastName()+", "+student.getFirstName());
+	}
+	
+	public void onPause(){
+		super.onPause();
+		closeData();
 	}
 	
 	public void onCommentBackClick(View view)
@@ -53,8 +79,43 @@ public class StudentCommentActivity extends SyncableActivity{
 	
 	public void reloadList()
 	{
+		loadData();
 		ListView lv = (ListView) findViewById(R.id.comment_list);
 		lv.setAdapter(new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, COMMENT_ARRAY));
+				android.R.layout.simple_list_item_1, comments));
 	}
+	
+	public void openData()
+	{
+		studentData = new StudentDataSource(this);
+		studentData.open();
+		checkinData = new CheckinDataSource(this);
+		checkinData.open();
+	}
+	
+	public void loadData()
+	{
+		student = (Student) studentData.get(studentID);
+		ArrayList<Checkin> checkins = checkinData.getByStudent(student.getId());
+		
+		for (Checkin checkin : checkins)
+		{
+			String comment = checkin.getComment();
+			if (!comment.equals(""))
+				comments.add(comment);
+		}
+	}
+
+	private String comment() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void closeData()
+	{
+		studentData.close();
+		checkinData.close();
+	}
+
+
 }
