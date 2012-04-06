@@ -19,7 +19,7 @@ import edu.upenn.cis350.localstore.StudentDataSource;
 import edu.upenn.cis350.models.Checkin;
 import edu.upenn.cis350.models.Student;
 
-public class StudentDataActivity extends Activity{
+public class StudentDataActivity extends SyncableActivity{
 	Student curStudent;
 	Checkin lastCheckinOut;
 	StudentDataSource studentData; //database access object
@@ -74,7 +74,7 @@ public class StudentDataActivity extends Activity{
 		String lastActivityString = "None";
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		if (lastCheckinOut!=null) {
+		if (lastCheckinOut!=null && lastCheckinOut.getInTime()>0 ) {
 			String activityName = activityData.get( lastCheckinOut.getActivityID() ).toString();
 			if ( lastCheckinOut.getInTime() > lastCheckinOut.getOutTime() )
 				lastActivityString = "Checked in to "+activityName+" "+dateFormat.format(lastCheckinOut.getInTime());

@@ -36,7 +36,7 @@ import android.util.SparseBooleanArray;
 import android.view.*;
 import android.widget.AdapterView;
 
-public class StudentSelectionActivity extends Activity {
+public class StudentSelectionActivity extends SyncableActivity {
 
 	/**
 	//For UI TESTING. REMOVE WHEN DATABASE EXISTS.
@@ -186,7 +186,6 @@ public class StudentSelectionActivity extends Activity {
 		if( lv.getCheckedItemCount() == 1)
 		{
 			long studentID=-1;
-			Log.d( "checked",""+lv.getCheckedItemPosition() );
 			SparseBooleanArray checked = lv.getCheckedItemPositions();
 			for (int i=0; i<lv.getCount(); i++)
 			{
@@ -319,13 +318,20 @@ public class StudentSelectionActivity extends Activity {
 	public void onLeaveComment()
 	{
 		ListView lv = (ListView) findViewById(R.id.student_list);
-		if(lv.getCheckedItemCount() == 1)
+		if( lv.getCheckedItemCount() == 1)
 		{
-			long studentID;
-			studentID =(Long) ((Student) lv.getItemAtPosition(lv.getCheckedItemPosition())).getId();
+			long studentID=-1;
+			SparseBooleanArray checked = lv.getCheckedItemPositions();
+			for (int i=0; i<lv.getCount(); i++)
+			{
+				if ( checked.get(i) )
+				{
+					studentID =(Long) ((Student) lv.getItemAtPosition(i) ).getId();
+					break;
+				}
+			}
 			Intent i = new Intent(this,StudentCommentActivity.class);
 			i.putExtra("STUDENT_NAME", "DEFAULT NAME");
-			Log.d("StudentSelectionActivity","Requested profile for student id "+studentID);
 			i.putExtra("STUDENT_ID", new Long(studentID));
 			startActivityForResult(i,LEAVE_COMMENT_REQUEST);
 		}

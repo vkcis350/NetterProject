@@ -9,6 +9,7 @@ public class Checkin extends Model {
 	private long outTime;
 	private long userId;
 	private long lastChangeTime;
+	private String comment;
 	
 	public Checkin()
 	{
@@ -75,6 +76,14 @@ public class Checkin extends Model {
 	
 	public void setLastChangeTime(long time) {
 		lastChangeTime = time;
+	}
+	
+	public String getComment() {
+		return comment;
+	}
+	
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 
 

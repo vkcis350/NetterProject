@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class AddNewActivityActivity extends Activity {
+public class AddNewActivityActivity extends SyncableActivity {
 	SchoolActivityDataSource dbsrc;
 	
 	@Override

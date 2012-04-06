@@ -20,6 +20,10 @@ public class TemporaryDbInsert {
 	
 	public static void insert(Context context)
 	{
+		String[] COMMENT_ARRAY = {"Behaved today.", 
+				"Fought well at Waterloo", 
+				"Lost Wuchang because of him today.", 
+				"Couldn't find Zambia on a map. Unbelievable."};
 
 		
 		SchoolActivityDataSource actData = new SchoolActivityDataSource(context);
@@ -72,6 +76,15 @@ public class TemporaryDbInsert {
 			}
 			
 			Calendar cal = Calendar.getInstance();
+			
+			Checkin c0 = (Checkin) checkinData.create(0, 1, s1.getId());
+			c0.setComment("Lost Wuchang because of him today.");
+			checkinData.save(c0);
+			
+			Checkin c1 = (Checkin) checkinData.create(0, 1, s2.getId());
+			c1.setComment("Fought well at Waterloo.");
+			checkinData.save(c1);
+			
 			
 			
 		}

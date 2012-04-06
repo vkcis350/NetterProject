@@ -40,7 +40,8 @@ public class CheckinDataSource extends DataSource {
 		checkin.setInTime(c.getLong(MySQLiteHelper.CHECKINS_CHECKIN_TIME_INDEX));
 		checkin.setOutTime(c.getLong(MySQLiteHelper.CHECKINS_CHECKOUT_TIME_INDEX ));
 		
-		checkin.setLastChangeTime(c.getLong(MySQLiteHelper.CHECKINS_CHECKIN_LAST_CHANGE_INDEX ) );
+		checkin.setLastChangeTime(c.getLong(MySQLiteHelper.CHECKINS_LAST_CHANGE_INDEX ) );
+		checkin.setComment(c.getString(MySQLiteHelper.CHECKINS_COMMENT_INDEX ) );
 		return checkin;
 	}
 
@@ -127,18 +128,19 @@ public class CheckinDataSource extends DataSource {
 		values.put(MySQLiteHelper.COL_CHECKIN_TIME, checkin.getInTime() );
 		values.put(MySQLiteHelper.COL_CHECKOUT_TIME, checkin.getOutTime() );
 		values.put(MySQLiteHelper.COL_LAST_CHANGE, checkin.getLastChangeTime());
+		values.put(MySQLiteHelper.COL_COMMENT, checkin.getComment());
 		database.update(MySQLiteHelper.TABLE_CHECKINS, 
 				values, 
 				MySQLiteHelper.COL_SESSION_ID+"=?"+" and "+MySQLiteHelper.COL_ACTIVITY_ID+"=?"+" and "+MySQLiteHelper.COL_STUDENT_ID+"=?",
 				new String[]{checkin.getSessionID()+"",checkin.getActivityID()+"",checkin.getStudentID()+""});
 	}
 
-	/** to be completed
+
 	public ArrayList<Checkin> getByStudent(long studentID) {
 		Cursor cursor=database.query(MySQLiteHelper.TABLE_CHECKINS, 
 				null, 
 				MySQLiteHelper.COL_STUDENT_ID+"=?",
-				new String[]{studentID+""}, null, null, MySQLiteHelper.COL_CHECKIN_LAST_CHANGE);
+				new String[]{studentID+""}, null, null, MySQLiteHelper.COL_LAST_CHANGE);
 		ArrayList<Checkin> checkins = new ArrayList<Checkin>();
 		while (cursor.moveToNext())
 		{
@@ -146,9 +148,8 @@ public class CheckinDataSource extends DataSource {
 		}
 		cursor.close();
 		return checkins;
-		// TODO Auto-generated method stub
 	}
-	**/
+	
 	
 	public Checkin getMostRecentForStudent(long studentID) {
 		Cursor cursor=database.query(MySQLiteHelper.TABLE_CHECKINS, 
