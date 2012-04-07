@@ -14,6 +14,7 @@ import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
@@ -181,7 +182,10 @@ public class SyncableActivity extends Activity{
 		    //ResponseHandler <String> resonseHandler = new BasicResponseHandler();
 		    StringBuilder allStrings=new StringBuilder();
 		    allStrings.append(studString).append('\n').append(actString).append('\n').append(checkinString);
-			postMethod.setEntity(new ByteArrayEntity(allStrings.toString().getBytes("UTF8")));
+		    StringEntity messageBody = new StringEntity(allStrings.toString());
+		    //postMethod.setHeader("Content-Length",new )
+		    postMethod.setEntity(new StringEntity(allStrings.toString()));
+		    //postMethod.setHeader("Content-Length",""+messageBody.getContentLength());
 			HttpResponse response = httpClient.execute(postMethod);
 			Log.d("Sync","response: "+response.getStatusLine().toString());
 			
