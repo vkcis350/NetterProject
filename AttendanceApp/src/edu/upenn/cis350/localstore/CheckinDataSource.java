@@ -6,6 +6,7 @@ import java.util.List;
 import edu.upenn.cis350.models.Checkin;
 import edu.upenn.cis350.models.Model;
 import edu.upenn.cis350.models.Student;
+import edu.upenn.cis350.util.DateTimeHelper;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -50,20 +51,21 @@ public class CheckinDataSource extends DataSource {
 		
 	}
 	
-	public Model create(long sessionID, long activityID, long studentID)
+	public Model create(long time, long activityID, long studentID)
 	{
 		Checkin checkin = new Checkin();
-		checkin.setSessionID(sessionID);
+		checkin.setLastChangeTime(time);
+		checkin.setSessionID(0);
 		checkin.setActivityID(activityID);
 		checkin.setStudentID(studentID);
 		
 		ContentValues values = new ContentValues();
-		values.put(MySQLiteHelper.COL_SESSION_ID, sessionID );
+		values.put(MySQLiteHelper.COL_SESSION_ID, 0 );
 		values.put(MySQLiteHelper.COL_ACTIVITY_ID, activityID );
 		values.put(MySQLiteHelper.COL_STUDENT_ID, studentID );	
 		values.put(MySQLiteHelper.COL_CHECKIN_TIME, 0 );	
 		values.put(MySQLiteHelper.COL_CHECKOUT_TIME, 0 );
-		values.put(MySQLiteHelper.COL_LAST_CHANGE, 0 );
+		values.put(MySQLiteHelper.COL_LAST_CHANGE, time );
 		
 		long insertId = database.insert(MySQLiteHelper.TABLE_CHECKINS, null,
 				values);
@@ -92,6 +94,34 @@ public class CheckinDataSource extends DataSource {
 		else
 		{
 			checkin = (Checkin) cursorToModel(c);
+		}
+		c.close();
+		return checkin;
+	}
+	
+	/**
+	 * Get all Checkins where last change time was on the same day as the current time
+	 * @param time
+	 * @param activityID
+	 * @param studentID
+	 * @return
+	 */
+	public Checkin getForDay(long time, long activityID, long studentID)
+	{
+		long beginTime=DateTimeHelper.todayStart();
+		long endTime=DateTimeHelper.plusOneDay(beginTime);
+		Cursor c=database.query(MySQLiteHelper.TABLE_CHECKINS, 
+				null, 
+				MySQLiteHelper.COL_LAST_CHANGE+" between ? and ?"+" and "+MySQLiteHelper.COL_ACTIVITY_ID+"=?"+" and "+MySQLiteHelper.COL_STUDENT_ID+"=?",
+				new String[]{beginTime+"",endTime+"",activityID+"",studentID+""}, null, null, null);
+		c.moveToFirst();
+		Checkin checkin;
+		if (c.getCount()==0)
+			checkin = null;
+		else
+		{
+			checkin = (Checkin) cursorToModel(c);
+			
 		}
 		c.close();
 		return checkin;

@@ -74,7 +74,7 @@ public class StudentDataActivity extends SyncableActivity{
 		String lastActivityString = "None";
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		if (lastCheckinOut!=null && lastCheckinOut.getInTime()>0 ) {
+		if (lastCheckinOut!=null && !lastCheckinOut.defaultState() ) {
 			String activityName = activityData.get( lastCheckinOut.getActivityID() ).toString();
 			if ( lastCheckinOut.getInTime() > lastCheckinOut.getOutTime() )
 				lastActivityString = "Checked in to "+activityName+" "+dateFormat.format(lastCheckinOut.getInTime());

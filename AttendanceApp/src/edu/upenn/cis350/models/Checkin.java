@@ -85,6 +85,32 @@ public class Checkin extends Model {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+	
+	public boolean absent()
+	{
+		return ( getInTime()<0 && getOutTime()<0 );
+	}
+	
+	public boolean checkedIn()
+	{
+		return getInTime()>0 && getOutTime()<=0;
+	}
+	
+	public boolean checkedOut()
+	{
+		return getInTime()>0 && getOutTime()>getInTime();
+	}
+	
+	/**
+	 * 
+	 * @return if the student is in the default state (i.e., never checked in or out)
+	 */
+	public boolean defaultState()
+	{
+		return getInTime()==0 && getOutTime()==0;
+	}
+	
+	
 
 
 }

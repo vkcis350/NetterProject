@@ -79,13 +79,14 @@ public class TemporaryDbInsert {
 			
 			Checkin c0 = (Checkin) checkinData.create(0, 1, s1.getId());
 			c0.setComment("Lost Wuchang because of him today.");
+			long time = System.currentTimeMillis();
+			c0.setInTime(time);
+			c0.setLastChangeTime(time);
 			checkinData.save(c0);
 			
 			Checkin c1 = (Checkin) checkinData.create(0, 1, s2.getId());
 			c1.setComment("Fought well at Waterloo.");
-			checkinData.save(c1);
-			
-			
+			checkinData.save(c1);		
 			
 		}
 		

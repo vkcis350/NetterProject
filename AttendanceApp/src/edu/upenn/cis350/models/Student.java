@@ -139,6 +139,6 @@ public class Student extends Model implements Comparable {
 		return schoolYear;
 	}
 	
-	
+
 
 }

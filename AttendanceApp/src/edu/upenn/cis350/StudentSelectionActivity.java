@@ -243,23 +243,25 @@ public class StudentSelectionActivity extends SyncableActivity {
 			{
 				Student student = (Student) lv.getItemAtPosition( i );
 				Log.d("selected student",i+" "+lv.getCount()+"" );
-				Checkin checkin = checkinData.getOrCreate(CURRENT_SESSION_ID,currentActivityID,student.getId());
-				if (checkin.getInTime()<=0 && in )
+				Checkin checkin = checkinData.getForDay(time,currentActivityID,student.getId());
+				if (checkin==null)
+				{
+					checkin = (Checkin) checkinData.create(time,currentActivityID,student.getId());
+				}
+				if (!checkin.checkedIn() && in )
 				{
 					checkin.setInTime ( time );
 					checkin.setLastChangeTime(time);
 					checkinData.save(checkin);
 					countSuccessful++;
 				}
-				else if ( checkin.getOutTime()<=0 && checkin.getInTime()>0 && !in )
+				else if ( checkin.checkedIn() && !checkin.checkedOut() && !in )
 				{
 					checkin.setOutTime(time);
 					checkin.setLastChangeTime(time);
 					checkinData.save(checkin);
 					countSuccessful++;
 				}
-				//checkinData.get(sessionID, activityID, studentID)
-				//checkinData.save(checkin);
 			}
 		}
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -474,14 +476,15 @@ public class StudentSelectionActivity extends SyncableActivity {
 
 		for (Student student : students )
 		{
-			Checkin studentCheckin = checkinData.get(CURRENT_SESSION_ID,currentActivityID,student.getId() );//checkinData.get( CURRENT_SESSION_ID, currentActivityID, studentList.get(i).getID() );
-			if (studentCheckin==null || (studentCheckin.getInTime()==0 && studentCheckin.getOutTime()==0) )
+			long time = System.currentTimeMillis();
+			Checkin studentCheckin = checkinData.getForDay(time,currentActivityID,student.getId() );
+			if (studentCheckin==null || (studentCheckin.defaultState()) )
 				continue;
-			else if ( studentCheckin.getInTime()>0 && studentCheckin.getOutTime()<=0 )
+			else if ( studentCheckin.checkedIn() )
 				inStudents.add(student);
-			else if ( studentCheckin.getInTime()>0 && studentCheckin.getOutTime()>0)
+			else if ( studentCheckin.checkedOut() )
 				outStudents.add(student);
-			else if ( studentCheckin.getInTime()<0 && studentCheckin.getOutTime()<0 )
+			else if ( studentCheckin.absent() )
 				absentStudents.add(student);
 			else
 				throw new IllegalStateException("Illegal student check-in, check-out times.");
