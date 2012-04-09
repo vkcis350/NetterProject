@@ -463,7 +463,6 @@ public class StudentSelectionActivity extends SyncableActivity {
 	/**
 	 * The purpose of this method is to allow teachers to see students checked into an activity
 	 * for each student in the database, it checks if he/she is in the activity, out of it, or absent for the day and puts the student in the appropriate list
-	 * Lastly, it writes teh students in the database to a locally stored csv file.
 	 */
 	public void loadData()
 	{
@@ -498,14 +497,6 @@ public class StudentSelectionActivity extends SyncableActivity {
 			else
 				throw new IllegalStateException("Illegal student check-in, check-out times.");
 		}
-		//write students to CSV
-		try {
-			studentData.toCSV("students.csv");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	}
 
 	public void closeData()
