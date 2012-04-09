@@ -43,10 +43,12 @@ public class CheckinDataSource extends DataSource {
 		
 		checkin.setLastChangeTime(c.getLong(MySQLiteHelper.CHECKINS_LAST_CHANGE_INDEX ) );
 		checkin.setComment(c.getString(MySQLiteHelper.CHECKINS_COMMENT_INDEX ) );
+		Log.d("CheckinDataSource","Comment "+c.getString(MySQLiteHelper.CHECKINS_COMMENT_INDEX ) );
 		return checkin;
 	}
 
 	@Override
+	@Deprecated
 	public void create(Model model) {
 		
 	}
@@ -58,6 +60,7 @@ public class CheckinDataSource extends DataSource {
 		checkin.setSessionID(0);
 		checkin.setActivityID(activityID);
 		checkin.setStudentID(studentID);
+		checkin.setComment("");
 		
 		ContentValues values = new ContentValues();
 		values.put(MySQLiteHelper.COL_SESSION_ID, 0 );
@@ -66,6 +69,7 @@ public class CheckinDataSource extends DataSource {
 		values.put(MySQLiteHelper.COL_CHECKIN_TIME, 0 );	
 		values.put(MySQLiteHelper.COL_CHECKOUT_TIME, 0 );
 		values.put(MySQLiteHelper.COL_LAST_CHANGE, time );
+		values.put(MySQLiteHelper.COL_COMMENT, "" );
 		
 		long insertId = database.insert(MySQLiteHelper.TABLE_CHECKINS, null,
 				values);

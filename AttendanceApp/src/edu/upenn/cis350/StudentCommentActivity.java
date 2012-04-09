@@ -101,7 +101,7 @@ public class StudentCommentActivity extends SyncableActivity{
 		for (Checkin checkin : checkins)
 		{
 			String comment = checkin.getComment();
-			if (!comment.equals(""))
+			if (comment!=null && !comment.equals(""))
 				comments.add(comment);
 		}
 	}
