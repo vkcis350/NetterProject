@@ -158,9 +158,9 @@ public class SyncableActivity extends Activity{
 	 * **/
 	public void doHttp(){
 		StudentDataSource studentData=new StudentDataSource(this);
-		studentData.open();
-		String studString =studentData.exportJson();
-		studentData.close();
+		studentData.open(); //open database
+		String studString =studentData.exportJson(); //string representation of database contents
+		studentData.close(); //close database
 		Log.d("SyncableActivity","Json of students:"+studString);
 		CheckinDataSource checkinData= new CheckinDataSource(this);
 		checkinData.open();
@@ -172,7 +172,7 @@ public class SyncableActivity extends Activity{
 		String actString = actData.exportJson();
 		actData.close();
 
-		Log.d("SyncableActivity","Json of activities:"+actString);
+		Log.d("SyncableActivity","Json of activities:"+actString); 
 		
 		try {
 			

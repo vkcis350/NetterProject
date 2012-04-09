@@ -256,14 +256,14 @@ public class StudentSelectionActivity extends SyncableActivity {
 				{
 					checkin.setInTime ( time );
 					checkin.setLastChangeTime(time);
-					checkinData.save(checkin);
+					checkinData.save(checkin); //save checkin data to database
 					countSuccessful++;
 				}
 				else if ( checkin.checkedIn() && !checkin.checkedOut() && !in )
 				{
 					checkin.setOutTime(time);
 					checkin.setLastChangeTime(time);
-					checkinData.save(checkin);
+					checkinData.save(checkin);//save checkin data to database
 					countSuccessful++;
 				}
 			}
@@ -271,7 +271,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Toast.makeText(getApplicationContext(), "Checked "+ inOrOut + " " + countSuccessful+ " student(s) at "+dateFormat.format(time),
 				Toast.LENGTH_LONG).show();
-		reloadList();
+		reloadList(); //reload the list the user sees in the UI
 	}
 
 	//brings up popup asking to confirm. Actual function not yet implemented
