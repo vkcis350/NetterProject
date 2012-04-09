@@ -73,20 +73,20 @@ public class StudentDataActivity extends SyncableActivity{
 		TextView nameField = (TextView) findViewById(R.id.student_name_field);
 		nameField.setText(curStudent.getLastName()+", "+curStudent.getFirstName());
 		
-		TextView lastActivity = (TextView) findViewById(R.id.last_activity_field);
-		String lastActivityString = "None";
+		TextView lastAction = (TextView) findViewById(R.id.last_action_field);
+		String lastActionString = "None";
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		
 		if (lastCheckinOut!=null && !lastCheckinOut.defaultState() ) {
 			String activityName = activityData.get( lastCheckinOut.getActivityID() ).toString();
 			if ( lastCheckinOut.getInTime() > lastCheckinOut.getOutTime() )
-				lastActivityString = "Checked in to "+activityName+" "+dateFormat.format(lastCheckinOut.getInTime());
+				lastActionString = "Checked in to "+activityName+" "+dateFormat.format(lastCheckinOut.getInTime());
 			else if ( lastCheckinOut.getInTime() <= lastCheckinOut.getOutTime() )
-				lastActivityString = "Checked out of "+activityName+" "+dateFormat.format(lastCheckinOut.getOutTime());
+				lastActionString = "Checked out of "+activityName+" "+dateFormat.format(lastCheckinOut.getOutTime());
 		}
 		
-				
-		lastActivity.setText(lastActivityString);
+		lastAction.setText(lastActionString);
 		
 		EditText gradeField = (EditText) findViewById(R.id.student_grade_field);
 		gradeField.setText(curStudent.getGrade()+"");
