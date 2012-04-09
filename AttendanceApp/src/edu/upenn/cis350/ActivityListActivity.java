@@ -259,7 +259,10 @@ public class ActivityListActivity extends SyncableActivity{
 				Toast.LENGTH_SHORT).show();
 	}
 
-	//asks for confirmation
+	/**
+	 * This method sets up the UI for adding an activity to a frequently used activities list
+	 * Please refer to addFrequently for the subroutine which this method executes which adds the activity to the frequently used activities list
+	 */
 	public void onAddFrequently()
 	{
 		ListView lv = (ListView) findViewById(R.id.activity_list);

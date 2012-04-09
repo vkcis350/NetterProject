@@ -226,6 +226,10 @@ public class StudentSelectionActivity extends SyncableActivity {
 			} });   
 	}
 
+	/**
+	 * This method checks a student in or out of an activity, based on the input parameter. It timestamps the checkin/out record and displays a count of successfully checkedin/out students at completion.
+	 * @param true if the student is being checked in, false if being checked out
+	 */
 	public void checkInOutStudents(boolean in)
 	{
 		String inOrOut = "out";
@@ -455,7 +459,12 @@ public class StudentSelectionActivity extends SyncableActivity {
 		checkinData = new CheckinDataSource(this);
 		checkinData.open();
 	}
-
+	
+	/**
+	 * The purpose of this method is to allow teachers to see students checked into an activity
+	 * for each student in the database, it checks if he/she is in the activity, out of it, or absent for the day and puts the student in the appropriate list
+	 * Lastly, it writes teh students in the database to a locally stored csv file.
+	 */
 	public void loadData()
 	{
 		Log.d("StudentSelectionActivity","current activity id "+currentActivityID);

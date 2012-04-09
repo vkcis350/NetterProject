@@ -151,76 +151,42 @@ public class SyncableActivity extends Activity{
 
 	}
 	
+	/**
+	 * Since multiple teachers will be using this application to log attendance data,the purpose of this method is to send locally collected data to an external server.
+	 * this method makes a JSON (essentially a string representing the database) of each local database stored within the application and sends it to the web server for permanent storage
+	 * StudentDataSource, CheckinDataSource, and SchoolActivityDataSource are all objects which allow the method to access databases on local storage.
+	 * **/
 	public void doHttp(){
 		StudentDataSource studentData=new StudentDataSource(this);
 		studentData.open();
 		String studString =studentData.exportJson();
 		studentData.close();
-		Log.d("MainMenuActivity","Json of students:"+studString);
+		Log.d("SyncableActivity","Json of students:"+studString);
 		CheckinDataSource checkinData= new CheckinDataSource(this);
 		checkinData.open();
 		String checkinString = checkinData.exportJson();
 		checkinData.close();
-		Log.d("MainMenuActivity","Json of checkins:"+checkinString);
+		Log.d("SyncableActivity","Json of checkins:"+checkinString);
 		SchoolActivityDataSource actData= new SchoolActivityDataSource(this);
 		actData.open();
 		String actString = actData.exportJson();
 		actData.close();
 
-		Log.d("MainMenuActivity","Json of activities:"+actString);
-		//TODO: send JSON to server here, make sure to catch httperror and output error message if transmission fails  
-		//make socket for data transfer to server
-
+		Log.d("SyncableActivity","Json of activities:"+actString);
 		
 		try {
 			
-			//URI u = new URI(hostName);
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			HttpPost postMethod = new HttpPost(hostName);
-			//HttpGet getMethod = new HttpGet(u);
 			postMethod.setHeader( "Content-Type", "application/json" );
-		    //ResponseHandler <String> resonseHandler = new BasicResponseHandler();
 		    StringBuilder allStrings=new StringBuilder();
 		    allStrings.append(studString).append('\n').append(actString).append('\n').append(checkinString);
-		    StringEntity messageBody = new StringEntity(allStrings.toString());
-		    //postMethod.setHeader("Content-Length",new )
 		    postMethod.setEntity(new StringEntity(allStrings.toString()));
-		    //postMethod.setHeader("Content-Length",""+messageBody.getContentLength());
-			HttpResponse response = httpClient.execute(postMethod);
-			Log.d("Sync","response: "+response.getStatusLine().toString());
+		    HttpResponse response = httpClient.execute(postMethod);
+			Log.d("SyncableActivity","response: "+response.getStatusLine().toString());
 			
-		    //jsonSocket = new Socket(hostName, 1234);
-			//out = new PrintWriter(jsonSocket.getOutputStream(), true);
-			//postMethod.setEntity(new ByteArrayEntity(studString.toString().getBytes("UTF8")));
-			//String response = httpClient.execute(postMethod,resonseHandler);
-			//Log.e("response :", response);
-			//postMethod.setHeader( "Content-Type", "application/json" );
-			//postMethod.setEntity(new ByteArrayEntity(checkinString.toString().getBytes("UTF8")));
-			//response = httpClient.execute(postMethod,resonseHandler);
-			//Log.e("response :", response);
-			//postMethod.setHeader( "Content-Type", "application/json" );
-			//postMethod.setEntity(new ByteArrayEntity(actString.toString().getBytes("UTF8")));
-			//response = httpClient.execute(postMethod,resonseHandler);
-			//Log.e("response :", response);
-			
-			//out.println(studString);
-			//out.println(checkinString);
-			//out.println(actString);
-			//out.close();
-			//jsonSocket.close();
-
-			//in = new BufferedReader(new InputStreamReader(echoSocket.getInputStream()));
-		//} catch (UnknownHostException e) {
-			//Log.d("MainMenuActivity","Don't know about host "+ hostName);
-			//Log.d("MainMenuActivity",e.getMessage());
-			//Toast.makeText(getApplicationContext(), "Sync Failed: Host not found",
-			//		Toast.LENGTH_SHORT).show();
-			// System.exit(1);
 		} catch (IOException e) {
-			Log.d("MainMenuActivity","IO connection failed for "+ hostName);
-			//Toast.makeText(getApplicationContext(), "Sync Failed: IO Exception",
-			//		Toast.LENGTH_SHORT).show();
-			// System.exit(1);
+			Log.d("SyncableActivity","IO connection failed for "+ hostName);
 		}
 	}
 }
