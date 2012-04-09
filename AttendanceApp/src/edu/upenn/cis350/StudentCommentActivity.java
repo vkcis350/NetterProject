@@ -2,6 +2,7 @@ package edu.upenn.cis350;
 import java.util.ArrayList;
 import java.util.Arrays;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -18,6 +19,7 @@ import edu.upenn.cis350.models.Student;
 
 public class StudentCommentActivity extends SyncableActivity{
 
+	private static final int COMMENT_FORM_REQUEST = 0;
 	/**
 	 * //FOR UI TESTING
 	String[] COMMENT_ARRAY = {"Behaved today.", 
@@ -45,15 +47,12 @@ public class StudentCommentActivity extends SyncableActivity{
 		ListView lv = (ListView) findViewById(R.id.comment_list);
 		lv.setTextFilterEnabled(true);
 		lv.setChoiceMode(lv.CHOICE_MODE_NONE);
-		comments = new ArrayList<String>();
-		
-		
-
 	}
 	
 	@Override
 	protected void onStart(){
 		super.onStart();
+		comments = new ArrayList<String>();
 		openData();
 		reloadList();
 		TextView nameField = (TextView) findViewById(R.id.student_name);
@@ -73,8 +72,9 @@ public class StudentCommentActivity extends SyncableActivity{
 	
 	public void onAddCommentClick(View view)
 	{
-		Toast.makeText(getApplicationContext(), "Okay. I would let you leave a comment, but it hasn't been implemented yet",
-				Toast.LENGTH_SHORT).show();
+		Intent i = new Intent(this,CommentFormActivity.class);
+		i.putExtra("STUDENT_ID", new Long(studentID));
+		startActivityForResult(i,COMMENT_FORM_REQUEST);
 	}
 	
 	public void reloadList()

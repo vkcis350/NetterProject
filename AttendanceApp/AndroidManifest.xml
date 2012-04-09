@@ -34,6 +34,8 @@
             android:label="Add New Activity" ></activity>
          <activity android:name="StudentDataActivity"
             android:label="Student Data" ></activity>
+         <activity android:name="CommentFormActivity"
+            android:label="Comment Form" ></activity>
     </application>
 
 </manifest>
