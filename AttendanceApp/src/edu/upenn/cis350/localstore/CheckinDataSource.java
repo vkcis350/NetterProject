@@ -43,7 +43,6 @@ public class CheckinDataSource extends DataSource {
 		
 		checkin.setLastChangeTime(c.getLong(MySQLiteHelper.CHECKINS_LAST_CHANGE_INDEX ) );
 		checkin.setComment(c.getString(MySQLiteHelper.CHECKINS_COMMENT_INDEX ) );
-		Log.d("CheckinDataSource","Comment "+c.getString(MySQLiteHelper.CHECKINS_COMMENT_INDEX ) );
 		return checkin;
 	}
 
