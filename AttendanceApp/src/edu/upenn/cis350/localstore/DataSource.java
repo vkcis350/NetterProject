@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 
+import edu.upenn.cis350.models.Checkin;
 import edu.upenn.cis350.models.Model;
 import edu.upenn.cis350.models.SchoolActivity;
 import edu.upenn.cis350.models.Student;
@@ -81,6 +82,18 @@ public abstract class DataSource<T extends Model>{
 		// Make sure to close the cursor
 		cursor.close();
 		return models;
+	}
+	
+	public Model getFirstModel(Cursor cursor)
+	{
+		cursor.moveToFirst();
+		Model model;
+		if (cursor.getCount()==0)
+			model = null;
+		else
+			model = cursorToModel(cursor);
+		cursor.close();
+		return model;
 	}
 	
 	public String exportJson(){

@@ -75,31 +75,6 @@ public class CheckinDataSource extends DataSource {
 	}
 	
 	/**
-	 * returns the Checkin or returns null if none that match the parameters can be found
-	 * @param sessionID
-	 * @param activityID
-	 * @param studentID
-	 * @return
-	 */
-	public Checkin get(long sessionID, long activityID, long studentID)
-	{
-		Cursor c=database.query(MySQLiteHelper.TABLE_CHECKINS, 
-				null, 
-				MySQLiteHelper.COL_SESSION_ID+"=?"+" and "+MySQLiteHelper.COL_ACTIVITY_ID+"=?"+" and "+MySQLiteHelper.COL_STUDENT_ID+"=?",
-				new String[]{sessionID+"",activityID+"",studentID+""}, null, null, null);
-		c.moveToFirst();
-		Checkin checkin;
-		if (c.getCount()==0)
-			checkin = null;
-		else
-		{
-			checkin = (Checkin) cursorToModel(c);
-		}
-		c.close();
-		return checkin;
-	}
-	
-	/**
 	 * Get all Checkins where last change time was on the same day as the current time
 	 * @param time
 	 * @param activityID
@@ -114,43 +89,10 @@ public class CheckinDataSource extends DataSource {
 				null, 
 				MySQLiteHelper.COL_LAST_CHANGE+" between ? and ?"+" and "+MySQLiteHelper.COL_ACTIVITY_ID+"=?"+" and "+MySQLiteHelper.COL_STUDENT_ID+"=?",
 				new String[]{beginTime+"",endTime+"",activityID+"",studentID+""}, null, null, null);
-		c.moveToFirst();
-		Checkin checkin;
-		if (c.getCount()==0)
-			checkin = null;
-		else
-		{
-			checkin = (Checkin) cursorToModel(c);
-			
-		}
-		c.close();
-		return checkin;
+		return (Checkin)getFirstModel(c);
+
 	}
 	
-	/*
-	 * If Checkin with matching parameters exists, get it. If it doesn't create one with -1 and -1
-	 * as check-in and check-out times (i.e., absent).
-	 */
-	public Checkin getOrCreate(long sessionID, long activityID, long studentID)
-	{
-		Cursor c=database.query(MySQLiteHelper.TABLE_CHECKINS, 
-				null, 
-				MySQLiteHelper.COL_SESSION_ID+"=?"+" and "+MySQLiteHelper.COL_ACTIVITY_ID+"=?"+" and "+MySQLiteHelper.COL_STUDENT_ID+"=?",
-				new String[]{sessionID+"",activityID+"",studentID+""}, null, null, null);
-		
-		Checkin checkin;
-		if (c.getCount()>0)
-		{
-			c.moveToFirst();
-			checkin = (Checkin) cursorToModel(c);
-		}
-		else
-		{
-			checkin = (Checkin)create(sessionID,activityID,studentID);
-		}
-		c.close();
-		return checkin;
-	}
 	
 	public void save(Checkin checkin)
 	{
@@ -167,10 +109,7 @@ public class CheckinDataSource extends DataSource {
 
 
 	public ArrayList<Checkin> getByStudent(long studentID) {
-		Cursor cursor=database.query(MySQLiteHelper.TABLE_CHECKINS, 
-				null, 
-				MySQLiteHelper.COL_STUDENT_ID+"=?",
-				new String[]{studentID+""}, null, null, MySQLiteHelper.COL_LAST_CHANGE);
+		Cursor cursor=recentByStudentCursor(studentID);
 		ArrayList<Checkin> checkins = new ArrayList<Checkin>();
 		while (cursor.moveToNext())
 		{
@@ -182,23 +121,19 @@ public class CheckinDataSource extends DataSource {
 	
 	
 	public Checkin getMostRecentForStudent(long studentID) {
-		Cursor cursor=database.query(MySQLiteHelper.TABLE_CHECKINS, 
-				null, 
-				MySQLiteHelper.COL_STUDENT_ID+"=?",
-				new String[]{studentID+""}, null, null, MySQLiteHelper.COL_LAST_CHANGE+" DESC");
+		Cursor cursor=recentByStudentCursor(studentID);
 		Checkin checkin = null;
 		Log.d("CheckinDatasource","Found "+cursor.getCount()+" Checkins for student "+studentID);
-		if (cursor.getCount()>0)
-		{
-			cursor.moveToFirst();
-			checkin = (Checkin)cursorToModel(cursor);
-		}
-		cursor.close();
-		return checkin;
-		
+		return (Checkin)getFirstModel(cursor);
 	}
 	
 	
+	public Cursor recentByStudentCursor(long studentID) {
+		return database.query(MySQLiteHelper.TABLE_CHECKINS, 
+				null, 
+				MySQLiteHelper.COL_STUDENT_ID+"=?",
+				new String[]{studentID+""}, null, null, MySQLiteHelper.COL_LAST_CHANGE+" DESC");
+	}
 
 //Don't use the following methods for now- the usage of create and save doesn't properly handle the id field
 	public void populateFromList(List<Checkin> objList){
