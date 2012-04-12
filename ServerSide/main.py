@@ -15,30 +15,38 @@
 # limitations under the License.
 #
 import simplejson as json
+import logging
 
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 
-import gspreadsheet as gs
+import spreadsheet_upload as sup
+from models import Student 
 
 class MainHandler(webapp.RequestHandler):
     def get(self):
-        gs.send_test()
-        self.response.out.write('''<html>
-                                    <body>
-                                        <h1>Data has been input into the
-        <a href="https://docs.google.com/spreadsheet/ccc?key=0Ap3SpWBg9QDYdEQ3Q2RocVpSN2FEN1h3WGx6VXI3QlE&pli=1#gid=0" >spreadsheet</a></h1>                                
-                                    </body>                              
-                                </html>''')
+        self.post()
 
-    def formatAsRow(self, json_obj):
-        pass
+    def post(self):
+        'Students, activities, checkins separated by new lines'
+        self.splitRequest(self.request.body)
+        students = Student.all()
+        self.response.out.write(str([i.first_name for i in students]))
+    
+    def splitRequest(self, req_body):
+        logging.debug(req_body)
+        req_objs = req_body.splitlines()
+        logging.debug(req_objs)
+        students = json.loads(req_objs[0])
+        #activities = req_objs[1]
+        #checkins = req_objs[2]
+        Student.get_from_json(students)
+    
 
 def main():
     application = webapp.WSGIApplication([('/.*', MainHandler)],
                                          debug=True)
     util.run_wsgi_app(application)
-
 
 if __name__ == '__main__':
     main()
