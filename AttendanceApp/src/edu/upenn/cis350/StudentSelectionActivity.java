@@ -185,6 +185,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 			i.putExtra("STUDENT_ID", studentID);
 			startActivityForResult(i,EDIT_DATA_REQUEST);
 		}
+		
 		else if(lv.getCheckedItemCount() > 1)
 		{
 			Toast.makeText(getApplicationContext(), "Please select just one student.",
@@ -247,11 +248,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 			{
 				Student student = (Student) lv.getItemAtPosition( i );
 				Log.d("selected student",i+" "+lv.getCount()+"" );
-				Checkin checkin = checkinData.getForDay(time,currentActivityID,student.getId());
-				if (checkin==null)
-				{
-					checkin = (Checkin) checkinData.create(time,currentActivityID,student.getId());
-				}
+				Checkin checkin = checkinData.getOrCreate(time,currentActivityID,student.getId());
 				if (!checkin.checkedIn() && in )
 				{
 					checkin.setInTime ( time );
@@ -322,6 +319,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 			Intent i = new Intent(this,StudentCommentActivity.class);
 			i.putExtra("STUDENT_NAME", "DEFAULT NAME");
 			i.putExtra("STUDENT_ID", new Long(studentID));
+			i.putExtra("ACTIVITY_ID", currentActivityID);
 			startActivityForResult(i,LEAVE_COMMENT_REQUEST);
 		}
 		else if(lv.getCheckedItemCount() > 1)

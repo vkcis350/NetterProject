@@ -150,4 +150,12 @@ public class CheckinDataSource extends DataSource {
 	public void importFromjson(String json){
 		populateFromList((List<Checkin>)convertJson(json));
 	}
+	
+	public Checkin getOrCreate(long time,long activityID,long studentID)
+	{
+		Checkin checkin =getForDay(time,activityID,studentID);
+		if (checkin==null)
+			checkin = (Checkin) create(time,activityID,studentID);
+		return checkin;
+	}
 }

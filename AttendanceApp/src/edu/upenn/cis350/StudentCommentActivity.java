@@ -4,6 +4,7 @@ import java.util.Arrays;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,6 +35,7 @@ public class StudentCommentActivity extends SyncableActivity{
 	StudentDataSource studentData; 
 	CheckinDataSource checkinData;
 	Student student;
+	private long activityID;
 	
 
 	@Override
@@ -43,7 +45,7 @@ public class StudentCommentActivity extends SyncableActivity{
 		
 		Bundle extras = getIntent().getExtras();
 		studentID = extras.getLong("STUDENT_ID");
-		
+		activityID = extras.getLong("ACTIVITY_ID");
 		ListView lv = (ListView) findViewById(R.id.comment_list);
 		lv.setTextFilterEnabled(true);
 		lv.setChoiceMode(lv.CHOICE_MODE_NONE);
@@ -56,7 +58,8 @@ public class StudentCommentActivity extends SyncableActivity{
 		openData();
 		reloadList();
 		TextView nameField = (TextView) findViewById(R.id.student_name);
-		nameField.setText("Comments for "+student.getLastName()+", "+student.getFirstName());
+		studentName = student.getLastName()+", "+student.getFirstName();
+		nameField.setText("Comments for "+studentName);
 	}
 	
 	public void onPause(){
@@ -74,6 +77,8 @@ public class StudentCommentActivity extends SyncableActivity{
 	{
 		Intent i = new Intent(this,CommentFormActivity.class);
 		i.putExtra("STUDENT_ID", new Long(studentID));
+		i.putExtra("STUDENT_NAME", new String(studentName));
+		i.putExtra("ACTIVITY_ID", new Long(activityID));
 		startActivityForResult(i,COMMENT_FORM_REQUEST);
 	}
 	
