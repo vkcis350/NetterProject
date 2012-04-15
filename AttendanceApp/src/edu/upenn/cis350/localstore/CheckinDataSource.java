@@ -106,8 +106,8 @@ public class CheckinDataSource extends DataSource {
 		values.put(MySQLiteHelper.COL_COMMENT, checkin.getComment());
 		database.update(MySQLiteHelper.TABLE_CHECKINS, 
 				values, 
-				MySQLiteHelper.COL_SESSION_ID+"=?"+" and "+MySQLiteHelper.COL_ACTIVITY_ID+"=?"+" and "+MySQLiteHelper.COL_STUDENT_ID+"=?",
-				new String[]{checkin.getSessionID()+"",checkin.getActivityID()+"",checkin.getStudentID()+""});
+				MySQLiteHelper.COL_CHECKIN_ID+"=?",
+				new String[]{checkin.getId()+""});
 	}
 
 
@@ -138,6 +138,14 @@ public class CheckinDataSource extends DataSource {
 				new String[]{studentID+""}, null, null, MySQLiteHelper.COL_LAST_CHANGE+" DESC");
 	}
 
+	public Checkin getOrCreate(long time,long activityID,long studentID)
+	{
+		Checkin checkin =getForDay(time,activityID,studentID);
+		if (checkin==null)
+			checkin = (Checkin) create(time,activityID,studentID);
+		return checkin;
+	}
+	
 //Don't use the following methods for now- the usage of create and save doesn't properly handle the id field
 	public void populateFromList(List<Checkin> objList){
 		for(Checkin obj : objList){
@@ -151,11 +159,5 @@ public class CheckinDataSource extends DataSource {
 		populateFromList((List<Checkin>)convertJson(json));
 	}
 	
-	public Checkin getOrCreate(long time,long activityID,long studentID)
-	{
-		Checkin checkin =getForDay(time,activityID,studentID);
-		if (checkin==null)
-			checkin = (Checkin) create(time,activityID,studentID);
-		return checkin;
-	}
+
 }

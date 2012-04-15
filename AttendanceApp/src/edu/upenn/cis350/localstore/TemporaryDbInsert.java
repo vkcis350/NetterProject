@@ -80,8 +80,9 @@ public class TemporaryDbInsert {
 			Checkin c0 = (Checkin) checkinData.create(0, 1, s1.getId());
 			c0.setComment("Lost Wuchang because of him today.");
 			long time = System.currentTimeMillis();
-			c0.setInTime(time);
-			c0.setLastChangeTime(time);
+			long someTime = (long) (662688000*1e3);
+			c0.setInTime(someTime);
+			c0.setLastChangeTime(someTime);
 			checkinData.save(c0);
 			
 			Checkin c1 = (Checkin) checkinData.create(0, 1, s2.getId());

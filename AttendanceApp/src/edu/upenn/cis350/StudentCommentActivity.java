@@ -75,6 +75,12 @@ public class StudentCommentActivity extends SyncableActivity{
 	
 	public void onAddCommentClick(View view)
 	{
+		if (activityID==0)
+		{
+			Toast.makeText(getApplicationContext(), "Sorry, you can only add comments from a particular activity.",
+					Toast.LENGTH_LONG).show();
+			return;
+		}
 		Intent i = new Intent(this,CommentFormActivity.class);
 		i.putExtra("STUDENT_ID", new Long(studentID));
 		i.putExtra("STUDENT_NAME", new String(studentName));
