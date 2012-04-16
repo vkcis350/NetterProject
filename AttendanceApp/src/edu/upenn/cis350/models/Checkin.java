@@ -109,6 +109,15 @@ public class Checkin extends Model {
 	{
 		return getInTime()==0 && getOutTime()==0;
 	}
+
+	/**
+	 * 
+	 * @return if the student has never been checked in on this day
+	 */
+	public boolean neverCheckedIn() {
+		// TODO Auto-generated method stub
+		return getInTime()<=0 && getOutTime()<=0;
+	}
 	
 	
 

@@ -21,7 +21,7 @@ import edu.upenn.cis350.models.Student;
 
 public class StudentDataActivity extends SyncableActivity{
 	Student curStudent;
-	Checkin lastCheckinOut;
+	Checkin lastAction;
 	StudentDataSource studentData; //database access object
 	//Need a student id from the last activity
 	//Take that id and populate the student profile.
@@ -41,9 +41,7 @@ public class StudentDataActivity extends SyncableActivity{
 
 		curStudent=(Student) studentData.get(studentID);
 		
-		
-		
-		lastCheckinOut = checkinData.getMostRecentForStudent(studentID);
+		lastAction = checkinData.getMostRecentForStudent(studentID);
 
 		
 		if(curStudent==null){
@@ -73,20 +71,9 @@ public class StudentDataActivity extends SyncableActivity{
 		TextView nameField = (TextView) findViewById(R.id.student_name_field);
 		nameField.setText(curStudent.getLastName()+", "+curStudent.getFirstName());
 		
-		TextView lastAction = (TextView) findViewById(R.id.last_action_field);
-		String lastActionString = "None";
-		
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		
-		if (lastCheckinOut!=null && !lastCheckinOut.defaultState() ) {
-			String activityName = activityData.get( lastCheckinOut.getActivityID() ).toString();
-			if ( lastCheckinOut.getInTime() > lastCheckinOut.getOutTime() )
-				lastActionString = "Checked in to "+activityName+" "+dateFormat.format(lastCheckinOut.getInTime());
-			else if ( lastCheckinOut.getInTime() <= lastCheckinOut.getOutTime() )
-				lastActionString = "Checked out of "+activityName+" "+dateFormat.format(lastCheckinOut.getOutTime());
-		}
-		
-		lastAction.setText(lastActionString);
+		TextView lastActionText = (TextView) findViewById(R.id.last_action_field);
+		String lastActionString = lastAction();
+		lastActionText.setText(lastActionString);
 		
 		EditText gradeField = (EditText) findViewById(R.id.student_grade_field);
 		gradeField.setText(curStudent.getGrade()+"");
@@ -102,6 +89,22 @@ public class StudentDataActivity extends SyncableActivity{
 		
 	}
 	
+	private String lastAction() {
+		String lastActionString = "None";
+		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		
+		if (lastAction!=null && !lastAction.defaultState() ) {
+			String activityName = activityData.get( lastAction.getActivityID() ).toString();
+			if ( lastAction.checkedIn() )
+				lastActionString = "Checked in to "+activityName+" "+dateFormat.format(lastAction.getInTime());
+			else if ( lastAction.checkedOut() )
+				lastActionString = "Checked out of "+activityName+" "+dateFormat.format(lastAction.getOutTime());
+		}
+		return lastActionString;
+		
+	}
+
 	public void onPause()
 	{
 		super.onPause();

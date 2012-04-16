@@ -37,6 +37,9 @@ import android.view.*;
 import android.widget.AdapterView;
 
 public class StudentSelectionActivity extends SyncableActivity {
+	public enum CheckinAction {
+	    IN,OUT
+	}
 
 	//which list view is selected
 	int currentList;
@@ -72,6 +75,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 	static final int CURRENT_SESSION_ID=0; //TEMPRORARY, later will figure out how to deal with times/sessions of activities
 	
 
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -217,7 +221,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 		//what happens when you press the buttons
 		mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
 			public void onClick(DialogInterface dialog, int which) {  
-				checkInOutStudents(true);
+				checkInOutStudents(CheckinAction.IN);
 
 			} });
 		mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
@@ -231,44 +235,53 @@ public class StudentSelectionActivity extends SyncableActivity {
 	 * This method checks a student in or out of an activity, based on the input parameter. It timestamps the checkin/out record and displays a count of successfully checkedin/out students at completion.
 	 * @param true if the student is being checked in, false if being checked out
 	 */
-	public void checkInOutStudents(boolean in)
+	public void checkInOutStudents(CheckinAction action)
 	{
-		String inOrOut = "out";
-		if (in)
-			inOrOut = "in";
+		String actionStr = "out";
+		if (action==CheckinAction.IN)
+			actionStr = "in";
 		Calendar cal = Calendar.getInstance();
 		ListView lv = (ListView) findViewById(R.id.student_list);
 		SparseBooleanArray checked = lv.getCheckedItemPositions();
 		long time = cal.getTimeInMillis();
+		
 		int countSuccessful = 0;
 		for (int i=0; i<lv.getCount(); i++)
 		{
-			Log.d("value,i ", checked.get(i)+", "+i );
 			if(checked.get(i))
 			{
 				Student student = (Student) lv.getItemAtPosition( i );
 				Log.d("selected student",i+" "+lv.getCount()+"" );
-				Checkin checkin = checkinData.getOrCreate(time,currentActivityID,student.getId());
-				if (!checkin.checkedIn() && in )
-				{
-					checkin.setInTime ( time );
-					checkin.setLastChangeTime(time);
-					checkinData.save(checkin); //save checkin data to database
+				if ( doCheckinOut(time,student.getId(),action) )
 					countSuccessful++;
-				}
-				else if ( checkin.checkedIn() && !checkin.checkedOut() && !in )
-				{
-					checkin.setOutTime(time);
-					checkin.setLastChangeTime(time);
-					checkinData.save(checkin);//save checkin data to database
-					countSuccessful++;
-				}
 			}
 		}
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Toast.makeText(getApplicationContext(), "Checked "+ inOrOut + " " + countSuccessful+ " student(s) at "+dateFormat.format(time),
+		Toast.makeText(getApplicationContext(), "Checked "+ actionStr + " " + countSuccessful+ " student(s) at "+dateFormat.format(time),
 				Toast.LENGTH_LONG).show();
 		reloadList(); //reload the list the user sees in the UI
+	}
+	
+	/**
+	 * Checks in or out a student and saves to database.
+	 * @param time
+	 * @param studentID
+	 * @param action
+	 * @return true if successful, false if not
+	 */
+	public boolean doCheckinOut(long time, long studentID, CheckinAction action)
+	{
+		Checkin checkin = checkinData.getOrCreate(time,currentActivityID,studentID);
+		
+		checkin.setLastChangeTime(time);
+		if ( checkin.neverCheckedIn() && action==CheckinAction.IN )
+			checkin.setInTime ( time );
+		else if ( checkin.checkedIn() && action==CheckinAction.OUT )
+			checkin.setOutTime(time);
+		else
+			return false;
+		checkinData.save(checkin); //save checkin data to database
+		return true;
 	}
 
 	//brings up popup asking to confirm. Actual function not yet implemented
@@ -291,7 +304,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 		//what happens when you press the buttons
 		mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
 			public void onClick(DialogInterface dialog, int which) {
-				checkInOutStudents(false);
+				checkInOutStudents(CheckinAction.OUT);
 			} });
 		mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
 			public void onClick(DialogInterface dialog, int which) {  
@@ -470,12 +483,14 @@ public class StudentSelectionActivity extends SyncableActivity {
 			currentActivity = (SchoolActivity) actData.get(currentActivityID);
 		
 		if (sortOrder==LAST_NAME_ORDER)
-			students = (ArrayList<Student>) studentData.getAll();//Changed to displaying all students by default, for now. -XL
-		if (sortOrder==GRADE_ORDER)
-		{
+			students = (ArrayList<Student>) studentData.getAll();
+		else if (sortOrder==GRADE_ORDER)
 			students = (ArrayList<Student>) studentData.getAllByGrade();//Changed to displaying all students by default, for now. -XL
 
-		}
+		sortStudents();
+	}
+
+	private void sortStudents() {
 		inStudents = new ArrayList<Student>();
 		outStudents = new ArrayList<Student>();
 		absentStudents = new ArrayList<Student>();
@@ -495,6 +510,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 			else
 				throw new IllegalStateException("Illegal student check-in, check-out times.");
 		}
+		
 	}
 
 	public void closeData()
