@@ -6,13 +6,13 @@ class Student(db.Model):
    
     address = db.StringProperty()
     contact = db.StringProperty()
-    contact_relation = db.StringProperty()
-    first_name = db.StringProperty()
+    contactiRelation = db.StringProperty()
+    firstName = db.StringProperty()
     phone = db.StringProperty()
-    last_name = db.StringProperty()
-    site_id = db.IntegerProperty()
-    school_id = db.IntegerProperty()
-    school_year = db.IntegerProperty()
+    lastName = db.StringProperty()
+    siteID = db.IntegerProperty()
+    schoolID = db.IntegerProperty()
+    schoolYear = db.IntegerProperty()
     grade = db.IntegerProperty()
 
     @staticmethod
@@ -23,6 +23,7 @@ class Student(db.Model):
         "schoolID":0,"schoolYear":1800,"grade":6,"id":2}'''
         for student in json_list:
             entity = Student.get_or_insert(str(student['id']))
+            
             entity.address = student['address']
             entity.contact = student['contact']
             entity.contact_relation = student['contactRelation']
