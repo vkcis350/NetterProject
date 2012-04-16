@@ -21,7 +21,7 @@ from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 
 import spreadsheet_upload as sup
-from models import Student 
+from models import Student, Activity, Comment
 
 class MainHandler(webapp.RequestHandler):
     def get(self):
@@ -29,18 +29,19 @@ class MainHandler(webapp.RequestHandler):
 
     def post(self):
         'Students, activities, checkins separated by new lines'
-        self.splitRequest(self.request.body)
-        students = Student.all()
-        self.response.out.write(str([i.first_name for i in students]))
+        self.saveDataFromRequest(self.request.body)
+        sup.upload_data()
     
-    def splitRequest(self, req_body):
-        logging.debug(req_body)
-        req_objs = req_body.splitlines()
-        logging.debug(req_objs)
-        students = json.loads(req_objs[0])
-        #activities = req_objs[1]
-        #checkins = req_objs[2]
+    def saveDataFromRequest(self, req_body):
+        request_objs = req_body.splitlines()
+        
+        students = json.loads(request_objs[0])
+        activities = json.loads(request_objs[1])
+        comments = json.loads(request_objs[2])
+
         Student.get_from_json(students)
+        Comment.get_from_json(comments)
+        Activity.get_from_json(activities)
     
 
 def main():

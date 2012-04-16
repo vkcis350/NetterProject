@@ -2,6 +2,8 @@ import time
 import gdata.spreadsheet.service
 import logging
 
+from models import Student, Activity, Comment
+
 EMAIL = 'netterapp@gmail.com'
 PASSWORD = 'nettercenterapp'
 
@@ -10,7 +12,8 @@ SPREADSHEET_KEY= '0Ap3SpWBg9QDYdEQ3Q2RocVpSN2FEN1h3WGx6VXI3QlE'
 
 # All spreadsheets have worksheets. I think worksheet #1 by default always
 # has a value of 'od6'
-WORKSHEET_ID = 'od6'
+WORKSHEET_IDS = ['od6', 'od7', 'od8']
+MODELS = [Student, Activity, Comments]
 
 def set_up():
     spr_client = gdata.spreadsheet.service.SpreadsheetsService()
@@ -34,8 +37,10 @@ def log_dataupload_status(entry):
     else:
         logging.info("Insert row failed.")
 
-def send_test():
+def upload_data():
     sclient = set_up()
-    data = prep_testdata()
-    entry = sclient.InsertRow(data, SPREADSHEET_KEY, WORKSHEET_ID)
-    log_dataupload_status(entry)
+    for wid, model in WORKSHEET_IDS, MODELS:
+        data = model.all()
+        for datum in data:
+            entry = sclient.InsertRow(datum.properties(), SPREADSHEET_KEY, wid)
+            log_dataupload_status(entry)
