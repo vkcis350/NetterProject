@@ -1,0 +1,56 @@
+Netter Center Attendance App
+
+Vayu Kishore
+Jordan Kodner
+Xiao Li
+Jose Varela
+
+University of Pennsylvania, 2012
+
+***********
+
+TABLE OF CONTENTS
+
+1. Introduction
+2. Interface
+	2.1 Getting Around
+	2.2 Login
+	2.3 Main Menu
+	2.4 Students
+		2.4.1
+			...
+	2.5 Activities
+		2.5.1
+			...
+	2.6 Syncing
+3. 
+4.
+5.
+
+
+
+
+***********
+
+1. INTRODUCTION
+
+
+
+
+***********
+
+2. INTERFACE
+
+	2.1 Getting Around
+		Simply follow prompts, and press 'yes' or 'continue' buttons to move forward through the app. At anytime, you can go back by pressing your phone's back button.
+		
+	2.2 Login Screen
+		When you start the program, it will bring you to the login screen.
+		Here, enter your username and password. Press "Login" to continue into the app, or "Quit" to leave.
+		
+		[Screenshot]
+		
+	2.3 Main Menu
+	 	After you log in, the first screen you are brought to is the Main Menu. Here, you have two options. Either view the list of all students, of view the list of all activities.
+	 	
+	2.4
