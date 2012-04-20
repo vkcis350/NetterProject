@@ -27,7 +27,7 @@ public class StudentDataActivity extends SyncableActivity{
 	//Take that id and populate the student profile.
 	CheckinDataSource checkinData; //database access object
 	SchoolActivityDataSource activityData;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -40,16 +40,16 @@ public class StudentDataActivity extends SyncableActivity{
 		openData();
 
 		curStudent=(Student) studentData.get(studentID);
-		
+
 		lastAction = checkinData.getMostRecentForStudent(studentID);
 
-		
+
 		if(curStudent==null){
 			Log.d("StudentDataActivity","Student object is null");
 		}
 		populateFields();
 	}
-	
+
 	public void onSaveDataClick(View v){
 		//updatedStudentData = new Student(); fill with data from the form
 		//student = getStudent(student_id);
@@ -57,27 +57,27 @@ public class StudentDataActivity extends SyncableActivity{
 		setResult(RESULT_OK);
 		finish();
 	}
-	
+
 	public void onCancelDataClick(View v){
 		//back to last activity
 		setResult(RESULT_CANCELED);
 		finish();
 	}
-	
+
 	/**
 	 * This method populates an activity which contains the profile of a student with information from the locally stored database
 	 */
 	public void populateFields(){
 		TextView nameField = (TextView) findViewById(R.id.student_name_field);
 		nameField.setText(curStudent.getLastName()+", "+curStudent.getFirstName());
-		
+
 		TextView lastActionText = (TextView) findViewById(R.id.last_action_field);
 		String lastActionString = lastAction();
 		lastActionText.setText(lastActionString);
-		
+
 		EditText gradeField = (EditText) findViewById(R.id.student_grade_field);
 		gradeField.setText(curStudent.getGrade()+"");
-		
+
 		EditText phoneContField = (EditText) findViewById(R.id.phone_contact_field);
 		phoneContField.setText(curStudent.getPhone());
 		//EditText contactField = (EditText) findViewById(R.id.contact_field);
@@ -86,14 +86,14 @@ public class StudentDataActivity extends SyncableActivity{
 		contactRelField.setText(curStudent.getContactRelation());
 		EditText addressContField = (EditText) findViewById(R.id.address_contact_field);
 		addressContField.setText(curStudent.getAddress());
-		
+
 	}
-	
+
 	private String lastAction() {
 		String lastActionString = "None";
-		
+
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		
+
 		if (lastAction!=null && !lastAction.defaultState() ) {
 			String activityName = activityData.get( lastAction.getActivityID() ).toString();
 			if ( lastAction.checkedIn() )
@@ -102,7 +102,7 @@ public class StudentDataActivity extends SyncableActivity{
 				lastActionString = "Checked out of "+activityName+" "+dateFormat.format(lastAction.getOutTime());
 		}
 		return lastActionString;
-		
+
 	}
 
 	public void onPause()
@@ -110,7 +110,7 @@ public class StudentDataActivity extends SyncableActivity{
 		super.onPause();
 		closeData();
 	}
-	
+
 	public void openData()
 	{
 		studentData = new StudentDataSource(this);
@@ -120,7 +120,7 @@ public class StudentDataActivity extends SyncableActivity{
 		activityData = new SchoolActivityDataSource(this);
 		activityData.open();
 	}
-	
+
 	public void closeData()
 	{
 		studentData.close();

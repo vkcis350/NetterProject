@@ -27,8 +27,8 @@ public class StudentCommentActivity extends SyncableActivity{
 			"Fought well at Waterloo", 
 			"Lost Wuchang because of him today.", 
 			"Couldn't find Zambia on a map. Unbelievable."};
-	**/
-	
+	 **/
+
 	String studentName;
 	long studentID;
 	ArrayList<String> comments;
@@ -36,13 +36,13 @@ public class StudentCommentActivity extends SyncableActivity{
 	CheckinDataSource checkinData;
 	Student student;
 	private long activityID;
-	
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.leavecomment);
-		
+
 		Bundle extras = getIntent().getExtras();
 		studentID = extras.getLong("STUDENT_ID");
 		activityID = extras.getLong("ACTIVITY_ID");
@@ -50,7 +50,7 @@ public class StudentCommentActivity extends SyncableActivity{
 		lv.setTextFilterEnabled(true);
 		lv.setChoiceMode(lv.CHOICE_MODE_NONE);
 	}
-	
+
 	@Override
 	protected void onStart(){
 		super.onStart();
@@ -61,18 +61,18 @@ public class StudentCommentActivity extends SyncableActivity{
 		studentName = student.getLastName()+", "+student.getFirstName();
 		nameField.setText("Comments for "+studentName);
 	}
-	
+
 	public void onPause(){
 		super.onPause();
 		closeData();
 	}
-	
+
 	public void onCommentBackClick(View view)
 	{
 		setResult(RESULT_CANCELED);
 		finish();
 	}
-	
+
 	public void onAddCommentClick(View view)
 	{
 		if (activityID==0)
@@ -87,7 +87,7 @@ public class StudentCommentActivity extends SyncableActivity{
 		i.putExtra("ACTIVITY_ID", new Long(activityID));
 		startActivityForResult(i,COMMENT_FORM_REQUEST);
 	}
-	
+
 	public void reloadList()
 	{
 		loadData();
@@ -95,7 +95,7 @@ public class StudentCommentActivity extends SyncableActivity{
 		lv.setAdapter(new ArrayAdapter<String>(this,
 				android.R.layout.simple_list_item_1, comments));
 	}
-	
+
 	public void openData()
 	{
 		studentData = new StudentDataSource(this);
@@ -103,12 +103,12 @@ public class StudentCommentActivity extends SyncableActivity{
 		checkinData = new CheckinDataSource(this);
 		checkinData.open();
 	}
-	
+
 	public void loadData()
 	{
 		student = (Student) studentData.get(studentID);
 		ArrayList<Checkin> checkins = checkinData.getByStudent(student.getId());
-		
+
 		for (Checkin checkin : checkins)
 		{
 			String comment = checkin.getComment();

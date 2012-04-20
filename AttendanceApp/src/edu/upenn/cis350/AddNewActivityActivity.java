@@ -16,35 +16,35 @@ import android.widget.Toast;
 
 public class AddNewActivityActivity extends SyncableActivity {
 	SchoolActivityDataSource dbsrc;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.add_new_activity);
 	}
-	
+
 	public void createActivity()
 	{
 		EditText activity_name = (EditText)findViewById(R.id.newActivityName);
-    	String new_activity_name = activity_name.getText().toString();
-    	
-    	Model act = new SchoolActivity(new_activity_name);
-    	dbsrc = new SchoolActivityDataSource(this);
-    	dbsrc.open();
-    	dbsrc.create(act);
-    	dbsrc.close();
-    	
-    	//back to last activity
-    	setResult(RESULT_OK);
-    	finish();
+		String new_activity_name = activity_name.getText().toString();
+
+		Model act = new SchoolActivity(new_activity_name);
+		dbsrc = new SchoolActivityDataSource(this);
+		dbsrc.open();
+		dbsrc.create(act);
+		dbsrc.close();
+
+		//back to last activity
+		setResult(RESULT_OK);
+		finish();
 	}
-	
+
 	public void onCreateActivityClick(View v)
 	{
 		EditText activity_name = (EditText)findViewById(R.id.newActivityName);
-    	String new_activity_name = activity_name.getText().toString();
-		
+		String new_activity_name = activity_name.getText().toString();
+
 		AlertDialog mDialog = new AlertDialog.Builder(this)
 		.setTitle("Confirm New Activity")
 		.setMessage("Are you sure you want to create " + new_activity_name + "?")
@@ -68,7 +68,7 @@ public class AddNewActivityActivity extends SyncableActivity {
 						Toast.LENGTH_SHORT).show();
 			} });  
 	}
-	
+
 	public void onNotCreateClick(View v)
 	{
 		//back to last activity

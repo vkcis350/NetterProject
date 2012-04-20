@@ -38,7 +38,7 @@ import android.widget.AdapterView;
 
 public class StudentSelectionActivity extends SyncableActivity {
 	public enum CheckinAction {
-	    IN,OUT
+		IN,OUT
 	}
 
 	//which list view is selected
@@ -73,9 +73,9 @@ public class StudentSelectionActivity extends SyncableActivity {
 	private CheckinDataSource checkinData;
 
 	static final int CURRENT_SESSION_ID=0; //TEMPRORARY, later will figure out how to deal with times/sessions of activities
-	
 
-	
+
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -85,28 +85,28 @@ public class StudentSelectionActivity extends SyncableActivity {
 		currentActivity = extras.getString("ACTIVITY_NAME");
 		currentActivityID = extras.getLong("ACTIVITY_ID");
 
-		
+
 
 		ListView lv = (ListView) findViewById(R.id.student_list);
 		lv.setTextFilterEnabled(true);
 		lv.setChoiceMode(lv.CHOICE_MODE_MULTIPLE);
 		currentList = ALL_STUDENTS;
 		sortOrder = LAST_NAME_ORDER;
-		
+
 
 		Toast.makeText(getApplicationContext(), currentActivity,
 				Toast.LENGTH_SHORT).show();
 
 		TextView title = (TextView) findViewById(R.id.student_view_activity_name);
 		title.setText(currentActivity);
-		
+
 
 	}
-	
+
 	@Override
 	protected void onStart(){
 		super.onStart();
-		
+
 		openData();
 		reloadList();
 	}
@@ -168,7 +168,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 
 	public void onViewStudentData()
 	{
-		
+
 		ListView lv = (ListView) findViewById(R.id.student_list);
 		if( lv.getCheckedItemCount() == 1)
 		{
@@ -182,14 +182,14 @@ public class StudentSelectionActivity extends SyncableActivity {
 					break;
 				}
 			}
-			
+
 			Log.d("StudentSelectionActivity","Requested item number "+studentID);
-			
+
 			Intent i = new Intent(this,StudentDataActivity.class);
 			i.putExtra("STUDENT_ID", studentID);
 			startActivityForResult(i,EDIT_DATA_REQUEST);
 		}
-		
+
 		else if(lv.getCheckedItemCount() > 1)
 		{
 			Toast.makeText(getApplicationContext(), "Please select just one student.",
@@ -244,7 +244,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 		ListView lv = (ListView) findViewById(R.id.student_list);
 		SparseBooleanArray checked = lv.getCheckedItemPositions();
 		long time = cal.getTimeInMillis();
-		
+
 		int countSuccessful = 0;
 		for (int i=0; i<lv.getCount(); i++)
 		{
@@ -261,7 +261,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 				Toast.LENGTH_LONG).show();
 		reloadList(); //reload the list the user sees in the UI
 	}
-	
+
 	/**
 	 * Checks in or out a student and saves to database.
 	 * @param time
@@ -272,7 +272,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 	public boolean doCheckinOut(long time, long studentID, CheckinAction action)
 	{
 		Checkin checkin = checkinData.getOrCreate(time,currentActivityID,studentID);
-		
+
 		checkin.setLastChangeTime(time);
 		if ( checkin.neverCheckedIn() && action==CheckinAction.IN )
 			checkin.setInTime ( time );
@@ -443,7 +443,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 		{
 			studentList = outStudents;
 		}
-		
+
 		else if(currentList == ABSENT_STUDENTS)
 		{
 			studentList = absentStudents;
@@ -470,7 +470,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 		checkinData = new CheckinDataSource(this);
 		checkinData.open();
 	}
-	
+
 	/**
 	 * The purpose of this method is to allow teachers to see students checked into an activity
 	 * for each student in the database, it checks if he/she is in the activity, out of it, or absent for the day and puts the student in the appropriate list
@@ -481,7 +481,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 		SchoolActivity currentActivity;
 		if (currentActivityID!=0)
 			currentActivity = (SchoolActivity) actData.get(currentActivityID);
-		
+
 		if (sortOrder==LAST_NAME_ORDER)
 			students = (ArrayList<Student>) studentData.getAll();
 		else if (sortOrder==GRADE_ORDER)
@@ -510,7 +510,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 			else
 				throw new IllegalStateException("Illegal student check-in, check-out times.");
 		}
-		
+
 	}
 
 	public void closeData()

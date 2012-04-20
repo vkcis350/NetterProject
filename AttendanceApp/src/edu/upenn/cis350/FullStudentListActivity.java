@@ -16,7 +16,7 @@ public class FullStudentListActivity extends StudentSelectionActivity
 		//But with restricted options
 		super.onCreate(savedInstanceState);
 	}
-	
+
 	@Override
 	public void onFilterStudentsClick(View v){
 		PopupMenu popup = new PopupMenu(this, v);
@@ -41,7 +41,7 @@ public class FullStudentListActivity extends StudentSelectionActivity
 
 		popup.show();
 	}
-	
+
 	@Override
 	public void onContinueClick(View v)
 	{

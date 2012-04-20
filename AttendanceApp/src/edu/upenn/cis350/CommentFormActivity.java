@@ -11,13 +11,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class CommentFormActivity extends SyncableActivity {
-	
+
 	String STUDENT_NAME = "Descartes, Rene";
 	CheckinDataSource checkinData;
 	long studentID;
 	String studentName;
 	long activityID;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -29,7 +29,7 @@ public class CommentFormActivity extends SyncableActivity {
 		activityID = extras.getLong("ACTIVITY_ID");
 		Log.d("CommentFormActivity","activity id: "+activityID);
 	}
-	
+
 	protected void onStart()
 	{
 		super.onStart();
@@ -37,40 +37,40 @@ public class CommentFormActivity extends SyncableActivity {
 		name.setText(studentName);
 		loadData();
 	}
-	
+
 	public void onPause(){
 		super.onPause();
 		closeData();
 	}
-	
-	public void onSubmitComment(View view)
-    {
-    	String text = ((EditText)findViewById(R.id.commentbox)).getText().toString();
 
-    	Context context = getApplicationContext();
-    	
-    	saveComment(text);
+	public void onSubmitComment(View view)
+	{
+		String text = ((EditText)findViewById(R.id.commentbox)).getText().toString();
+
+		Context context = getApplicationContext();
+
+		saveComment(text);
 		Toast.makeText(getApplicationContext(),"Comment saved.", Toast.LENGTH_SHORT).show();
-    }
-	
-	
+	}
+
+
 	public void onCancelClick(View v){
 		//back to last activity
 		setResult(RESULT_CANCELED);
 		finish();
 	}
-	
+
 	public void loadData()
 	{
 		checkinData = new CheckinDataSource(this);
 		checkinData.open();
 	}
-	
+
 	public void closeData()
 	{
 		checkinData.close();
 	}
-	
+
 	public void saveComment(String comment)
 	{
 		long time = System.currentTimeMillis();

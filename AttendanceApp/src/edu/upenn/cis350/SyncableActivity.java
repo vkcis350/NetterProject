@@ -34,7 +34,7 @@ import android.widget.Toast;
 
 public class SyncableActivity extends Activity{
 
-	
+
 	String hostName="http://nettercenter350.appspot.com";
 	int port = 1234;
 	@Override
@@ -45,26 +45,26 @@ public class SyncableActivity extends Activity{
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-	    MenuInflater inflater = getMenuInflater();
-	    inflater.inflate(R.menu.optionsmenu, menu);
-	    return true;
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.optionsmenu, menu);
+		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle item selection
-	    switch (item.getItemId()) {
-	        case R.id.sync_option:
-	            confirmSync();
-	            return true;
-	        case R.id.logout_option:
-	            confirmLogout();
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+		// Handle item selection
+		switch (item.getItemId()) {
+		case R.id.sync_option:
+			confirmSync();
+			return true;
+		case R.id.logout_option:
+			confirmLogout();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
-	
+
 	public void confirmSync()
 	{
 		AlertDialog mDialog = new AlertDialog.Builder(this)
@@ -92,7 +92,7 @@ public class SyncableActivity extends Activity{
 						Toast.LENGTH_SHORT).show();
 			} });  
 	}
-	
+
 	public void confirmLogout()
 	{
 		AlertDialog mDialog = new AlertDialog.Builder(this)
@@ -120,37 +120,37 @@ public class SyncableActivity extends Activity{
 						Toast.LENGTH_SHORT).show();
 			} });  
 	}
-	
+
 	public void sync()
 	{
 		//BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
-				
-				
-				//BufferedReader in = null;
-				new Thread(new Runnable() {
-			        public void run() {
-			        	doHttp();
-			        }
-			    }).start();
-				
-				//setProp(net.dns1, 8.8.8.8);
 
 
-				//TODO: wait till server sends signal to update current databases
-				//TODO: populate databases with jsons sent by server
-				//TODO:clear all local databases according to pre-determined convention
-				//the following lines clear the local databases, additional fxnality needs to be added to populate database w/ current
-				/*
+		//BufferedReader in = null;
+		new Thread(new Runnable() {
+			public void run() {
+				doHttp();
+			}
+		}).start();
+
+		//setProp(net.dns1, 8.8.8.8);
+
+
+		//TODO: wait till server sends signal to update current databases
+		//TODO: populate databases with jsons sent by server
+		//TODO:clear all local databases according to pre-determined convention
+		//the following lines clear the local databases, additional fxnality needs to be added to populate database w/ current
+		/*
 				studentData.open();
 				studentData.deleteAll();
 				studentData.importFromjson(string from server)
 				studentData.close();
 				//repeat w/ checkin and act
-				
-				*/
+
+		 */
 
 	}
-	
+
 	/**
 	 * Since multiple teachers will be using this application to log attendance data,the purpose of this method is to send locally collected data to an external server.
 	 * this method makes a JSON (essentially a string representing the database) of each local database stored within the application and sends it to the web server for permanent storage
@@ -173,18 +173,18 @@ public class SyncableActivity extends Activity{
 		actData.close();
 
 		Log.d("SyncableActivity","Json of activities:"+actString); 
-		
+
 		try {
-			
+
 			DefaultHttpClient httpClient = new DefaultHttpClient();
 			HttpPost postMethod = new HttpPost(hostName);
 			postMethod.setHeader( "Content-Type", "application/json" );
-		    StringBuilder allStrings=new StringBuilder();
-		    allStrings.append(studString).append('\n').append(actString).append('\n').append(checkinString);
-		    postMethod.setEntity(new StringEntity(allStrings.toString()));
-		    HttpResponse response = httpClient.execute(postMethod);
+			StringBuilder allStrings=new StringBuilder();
+			allStrings.append(studString).append('\n').append(actString).append('\n').append(checkinString);
+			postMethod.setEntity(new StringEntity(allStrings.toString()));
+			HttpResponse response = httpClient.execute(postMethod);
 			Log.d("SyncableActivity","response: "+response.getStatusLine().toString());
-			
+
 		} catch (IOException e) {
 			Log.d("SyncableActivity","IO connection failed for "+ hostName);
 		}

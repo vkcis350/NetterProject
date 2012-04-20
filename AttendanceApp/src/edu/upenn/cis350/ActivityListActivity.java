@@ -95,7 +95,7 @@ public class ActivityListActivity extends SyncableActivity{
 	}
 
 	public void onRemoveActivityClick(View v){
-		
+
 		ListView lv = (ListView) findViewById(R.id.activity_list);
 		if(lv.getCheckedItemCount() > 0)
 		{
@@ -268,31 +268,31 @@ public class ActivityListActivity extends SyncableActivity{
 		ListView lv = (ListView) findViewById(R.id.activity_list);
 		if(lv.getCheckedItemCount() > 0)
 		{
-		
-		SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
 
-		AlertDialog mDialog = new AlertDialog.Builder(this)
-		.setTitle("Add to List")
-		.setMessage("Are you sure you want to add " + activity + " to the frequent activity list?")
-		.setPositiveButton("Yes", null)
-		.setNegativeButton("No", null)
-		.show();
+			SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
 
-		WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
-		layoutParams.dimAmount = 0.9f;
-		mDialog.getWindow().setAttributes(layoutParams);
-		mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+			AlertDialog mDialog = new AlertDialog.Builder(this)
+			.setTitle("Add to List")
+			.setMessage("Are you sure you want to add " + activity + " to the frequent activity list?")
+			.setPositiveButton("Yes", null)
+			.setNegativeButton("No", null)
+			.show();
 
-		//what happens when you press the buttons
-		mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
-			public void onClick(DialogInterface dialog, int which) {  
-				addFrequently();
-			} });
-		mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
-			public void onClick(DialogInterface dialog, int which) {  
-				Toast.makeText(getApplicationContext(), "Activity was not added.",
-						Toast.LENGTH_SHORT).show();
-			} });  
+			WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
+			layoutParams.dimAmount = 0.9f;
+			mDialog.getWindow().setAttributes(layoutParams);
+			mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+
+			//what happens when you press the buttons
+			mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
+				public void onClick(DialogInterface dialog, int which) {  
+					addFrequently();
+				} });
+			mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
+				public void onClick(DialogInterface dialog, int which) {  
+					Toast.makeText(getApplicationContext(), "Activity was not added.",
+							Toast.LENGTH_SHORT).show();
+				} });  
 		}else Toast.makeText(getApplicationContext(), "Select Activity First",
 				Toast.LENGTH_SHORT).show();
 	}
