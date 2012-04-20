@@ -16,26 +16,26 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="18dp"
-        android:layout_weight="1" 
-        android:textColor="#75B2DD"
-        android:textSize="20sp"
+        android:layout_weight="1"
         android:inputType="textPersonName"
-        android:text="DEFAULT NAME"/>
-    
+        android:text="DEFAULT NAME"
+        android:textColor="#75B2DD"
+        android:textSize="20sp" />
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:text="Last Action:" />
-    
-     <TextView
-         android:id="@+id/last_action_field"
-         android:layout_width="240dp"
-         android:layout_height="wrap_content"
-         android:gravity="left"
-         android:maxLines="2"
-         android:singleLine="false"
-         android:text="No check-ins." />
+
+    <TextView
+        android:id="@+id/last_action_field"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:maxLines="2"
+        android:singleLine="false"
+        android:text="No check-ins." />
 
     <TextView
         android:layout_width="fill_parent"
@@ -49,11 +49,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="18dp"
-        android:layout_weight="1" 
-        android:text="DEFAULT GRADE LEVEL"/>
+        android:layout_weight="1"
+        android:text="DEFAULT GRADE LEVEL" />
 
-            
-     <TextView
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -65,27 +64,27 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="18dp"
-        android:layout_weight="1" 
-         android:inputType="textPersonName"
-        android:text="DEFAULT TEACHER NAME"/>
+        android:layout_weight="1"
+        android:inputType="textPersonName"
+        android:text="DEFAULT TEACHER NAME" />
 
-     <TextView
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:text="Contact Phone Number:" />
-    
+
     <EditText
         android:id="@+id/phone_contact_field"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="18dp"
-        android:layout_weight="1" 
+        android:layout_weight="1"
         android:inputType="phone"
-         android:text="DEFAULT PHONE"/>
-    
-            <TextView
+        android:text="DEFAULT PHONE" />
+
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -97,9 +96,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="18dp"
-        android:layout_weight="1" 
-         android:inputType="textPostalAddress"
-         android:text="DEFAULT ADDRESS"/>
+        android:layout_weight="1"
+        android:inputType="textPostalAddress"
+        android:text="DEFAULT ADDRESS" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
@@ -111,21 +110,21 @@
         android:layout_marginRight="16dp"
         android:orientation="horizontal" >
 
+        <Button
+            android:id="@+id/save_student_data_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onSaveDataClick"
+            android:text="Save" />
 
-    <Button
-        android:id="@+id/save_student_data_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" 
-        android:onClick="onSaveDataClick"
-        android:text="Save" />
-
-    <Button
-        android:id="@+id/cancel_student_data_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onCancelDataClick"
-        android:layout_weight="10" 
-        android:text="Cancel" />
+        <Button
+            android:id="@+id/cancel_student_data_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:onClick="onCancelDataClick"
+            android:text="Cancel" />
     </LinearLayout>
+
 </LinearLayout>

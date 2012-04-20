@@ -10,17 +10,17 @@
         android:layout_alignParentLeft="true"
         android:text="Student Name:" />
 
-   <TextView
+    <TextView
         android:id="@+id/student_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="18dp"
-        android:textColor="#75B2DD"
-        android:textSize="20sp"
         android:inputType="textPersonName"
-        android:text="DEFAULT NAME"/>
-    
+        android:text="DEFAULT NAME"
+        android:textColor="#75B2DD"
+        android:textSize="20sp" />
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -32,8 +32,8 @@
         android:layout_width="fill_parent"
         android:layout_height="192dp"
         android:layout_marginBottom="18dp"
-        android:gravity="top"/>
-    
+        android:gravity="top" />
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
@@ -44,21 +44,21 @@
         android:layout_marginRight="16dp"
         android:orientation="horizontal" >
 
+        <Button
+            android:id="@+id/save_student_data_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onSubmitComment"
+            android:text="Save" />
 
-    <Button
-        android:id="@+id/save_student_data_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" 
-        android:onClick="onSubmitComment"
-        android:text="Save" />
-
-    <Button
-        android:id="@+id/cancel_student_data_edit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onCancelClick"
-        android:layout_weight="10" 
-        android:text="Cancel" />
+        <Button
+            android:id="@+id/cancel_student_data_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="10"
+            android:onClick="onCancelClick"
+            android:text="Cancel" />
     </LinearLayout>
+
 </LinearLayout>

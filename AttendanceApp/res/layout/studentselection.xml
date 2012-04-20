@@ -1,65 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-     android:orientation="vertical"
-        android:layout_width = "wrap_content"
-        android:layout_height="wrap_content">
-	
-    <TextView 
-        android:id = "@+id/student_view_activity_name"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/student_view_activity_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="[Not hooked up to Activity List Yet]" 
-        android:textSize="20sp"/>
-    
-    <Button android:id = "@+id/filter_students_button"
-           android:text="Sort Students"
-           android:layout_width="fill_parent"
-           android:layout_height="wrap_content"
-           android:onClick="onFilterStudentsClick"/>	
-    
-		<ListView
-			android:id="@+id/student_list"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="wrap_content"
-	    	android:layout_alignParentTop="true"
-	    	android:layout_weight="1.0" >
-		</ListView>
-	
-	<LinearLayout
-	    android:orientation="horizontal"
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:gravity="bottom">
-	    
-	    <LinearLayout
-		    android:orientation="horizontal"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:layout_alignParentBottom="true"
-		    android:gravity="bottom">
-	    
-       <Button android:id = "@+id/select_all_button"
-           android:text="Select All"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:onClick="onSelectAllClick"/>	
-           
-         <Button android:id = "@+id/deselect_all_button"
-           android:text="Deselect All"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:onClick="onDeselectAllClick"/>
-
-         <Button
-             android:id="@+id/continue_button"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:onClick="onContinueClick"
-             android:text="Continue" />
-        
-          </LinearLayout>
-          
+        android:text="[Not hooked up to Activity List Yet]"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/filter_students_button"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:onClick="onFilterStudentsClick"
+        android:text="Sort Students" />
+
+    <ListView
+        android:id="@+id/student_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_weight="1.0" >
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="bottom"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="bottom"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/select_all_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onSelectAllClick"
+                android:text="Select All" />
+
+            <Button
+                android:id="@+id/deselect_all_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="onDeselectAllClick"
+                android:text="Deselect All" />
+
+            <Button
+                android:id="@+id/continue_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="onContinueClick"
+                android:text="Continue" />
+        </LinearLayout>
     </LinearLayout>
-    
+
 </LinearLayout>

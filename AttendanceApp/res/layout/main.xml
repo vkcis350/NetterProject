@@ -1,85 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-    
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="17dp"
-        android:layout_marginRight="16dp"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/quit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onQuitClick"
-            android:text="@string/quit" />
-    </LinearLayout>
 
     <TextView
         android:id="@+id/textView1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:text="@string/hello" />
 
-    <EditText
-        android:id="@+id/password"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/linearLayout1"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="18dp"
-        android:layout_weight="1"
-        android:password="true" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/password"
-        android:text="@string/password" />
-
-    <EditText
-        android:id="@+id/user"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_weight="1" 
-        />
+    <ImageView
+        android:layout_width="237dp"
+        android:layout_height="240dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="1.80"
+        android:src="@drawable/netter_logo" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/user"
         android:layout_alignParentLeft="true"
-        android:text="@string/user">
-        <requestFocus />
-        </TextView>
+        android:text="@string/user" />
 
-    <Button
-        android:id="@+id/login"
+    <EditText
+        android:id="@+id/user"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/linearLayout1"
-        android:layout_marginRight="16dp"
-        android:layout_toLeftOf="@+id/linearLayout1"
-        android:onClick="onLoginClick"
-        android:text="@string/login" />
+        android:layout_alignParentLeft="true"
+        android:text="@string/password" />
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/user"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/netter_logo" />
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="14dp"
+        android:password="true" />
 
-</RelativeLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onLoginClick"
+            android:text="@string/login" />
+
+        <Button
+            android:id="@+id/quit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="onQuitClick"
+            android:text="@string/quit" />
+    </LinearLayout>
+
+</LinearLayout>
