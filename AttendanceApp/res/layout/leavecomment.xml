@@ -27,7 +27,7 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_alignParentBottom="true"
             android:gravity="bottom"
             android:orientation="horizontal" >
@@ -36,6 +36,7 @@
                 android:id="@+id/comment_back_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:onClick="onCommentBackClick"
                 android:text="Back" />
 
@@ -43,6 +44,7 @@
                 android:id="@+id/addComment_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
                 android:onClick="onAddCommentClick"
                 android:text="Add New" />
         </LinearLayout>

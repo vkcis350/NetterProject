@@ -31,32 +31,31 @@
         android:id="@+id/commentbox"
         android:layout_width="fill_parent"
         android:layout_height="192dp"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="14dp"
         android:gravity="top" />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="17dp"
-        android:layout_marginRight="16dp"
+        android:layout_gravity="bottom"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/save_student_data_edit"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="onSubmitComment"
-            android:text="Save" />
+            android:text="Submit" />
 
         <Button
             android:id="@+id/cancel_student_data_edit"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="10"
+            android:layout_weight="1"
             android:onClick="onCancelClick"
             android:text="Cancel" />
     </LinearLayout>

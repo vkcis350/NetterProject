@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:orientation="vertical" >
 
     <Button
@@ -35,22 +35,26 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_alignParentBottom="true"
-            android:gravity="bottom"
+            android:layout_gravity="bottom"
+            android:layout_weight="1.0"
             android:orientation="horizontal" >
 
             <Button
                 android:id="@+id/add_activity_button"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1.0"
                 android:onClick="onAddActivityClick"
                 android:text="Add" />
 
             <Button
                 android:id="@+id/delete_activity_button"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1.0"
                 android:onClick="onRemoveActivityClick"
                 android:text="Remove" />
 
@@ -58,8 +62,9 @@
                 android:id="@+id/select_activity_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_weight="1.0"
                 android:onClick="onSelectActivityClick"
-                android:text="View Students" />
+                android:text="Continue" />
         </LinearLayout>
     </LinearLayout>
 
