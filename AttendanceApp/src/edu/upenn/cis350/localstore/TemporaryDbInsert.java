@@ -37,10 +37,10 @@ public class TemporaryDbInsert {
 		if ( actData.getAll().size()<1 )
 		{
 			
-			SchoolActivity a1 = new SchoolActivity("Android Programming");
-			SchoolActivity a2 = new SchoolActivity("Zambian Cultural Festival");
-			SchoolActivity a3 = new SchoolActivity("Napoleonic Wars");
-			SchoolActivity a4 = new SchoolActivity("Homework");
+			SchoolActivity a1 = actData.create("Android Programming");
+			SchoolActivity a2 = actData.create("Zambian Cultural Festival");
+			SchoolActivity a3 =  actData.create("Napoleonic Wars");
+			SchoolActivity a4 =  actData.create("Homework");
 		
 			Student s1 = studentData.create(1, "Sun", "Yat-sen", "1-800-PETMEDS", 
 					"Chiang Kai-shek", "eventual successor", 0, 0,
@@ -59,10 +59,6 @@ public class TemporaryDbInsert {
 					"?", "Neighbor", 0, 0,
 					2011, 3, "123 Some Street, Philadelphia");
 			
-			actData.create(a1);
-			actData.create(a2);
-			actData.create(a3);
-			actData.create(a4);
 			
 			studentData.addStudentToActivity(s1,a1);
 			studentData.addStudentToActivity(s2,a1);

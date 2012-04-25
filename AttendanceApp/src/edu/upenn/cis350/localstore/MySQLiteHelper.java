@@ -59,7 +59,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int CHECKINS_COMMENT_INDEX = 7;
 	
 	private static final String DATABASE_NAME = "attendance.db";
-	private static final int DATABASE_VERSION = 98;
+	private static final int DATABASE_VERSION = 99;
 	
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);

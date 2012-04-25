@@ -11,6 +11,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" 
         android:theme="@android:style/Theme.Black.NoTitleBar">
+        <uses-library android:name="android.test.runner" />
         
         <activity
             android:name=".AttendanceAppActivity"
@@ -37,5 +38,6 @@
          <activity android:name="CommentFormActivity"
             android:label="Comment Form" ></activity>
     </application>
-
+	<instrumentation android:name="android.test.InstrumentationTestRunner"
+       android:targetPackage="edu.upenn.cis350" android:label="Tests for My App" />
 </manifest>

@@ -40,6 +40,7 @@ public class SchoolActivityDataSource extends DataSource {
 	}
 
 	@Override
+	@Deprecated
 	public void create(Model model) {
 		SchoolActivity activity = (SchoolActivity)model;
 		ContentValues values = new ContentValues();
@@ -47,6 +48,16 @@ public class SchoolActivityDataSource extends DataSource {
 		long insertId = database.insert(MySQLiteHelper.TABLE_ACTIVITIES, null,
 				values);
 		activity.setId(insertId);
+	}
+	
+	
+	public SchoolActivity create(String name)
+	{
+		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COL_ACTIVITY_NAME, name );
+		long insertId = database.insert(MySQLiteHelper.TABLE_ACTIVITIES, null,
+				values);
+		return (SchoolActivity) get(insertId);
 	}
 	
 	public ArrayList<SchoolActivity> getAll()

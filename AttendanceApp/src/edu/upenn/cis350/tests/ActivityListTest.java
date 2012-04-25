@@ -3,6 +3,7 @@ package edu.upenn.cis350.tests;
 import edu.upenn.cis350.ActivityListActivity;
 import edu.upenn.cis350.R;
 import edu.upenn.cis350.R.id;
+import edu.upenn.cis350.models.SchoolActivity;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
@@ -15,7 +16,7 @@ public class ActivityListTest extends
 	public ActivityListTest(Class<ActivityListActivity> activityClass) 
 	{
 		super(activityClass);
-		
+		SchoolActivity a1 = new SchoolActivity("Android Programming");
 	}
 	
 	private Activity activity;
