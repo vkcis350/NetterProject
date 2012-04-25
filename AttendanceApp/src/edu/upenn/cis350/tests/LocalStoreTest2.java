@@ -17,11 +17,13 @@ import android.widget.ListView;
 public class LocalStoreTest2 extends
 	ActivityInstrumentationTestCase2<DummyActivity>
 	{
+	
 
-	public LocalStoreTest2(Class<DummyActivity> activityClass) 
+	
+	public LocalStoreTest2(String name) 
 	{
-		super(activityClass);
-		
+		super("edu.upenn.cis350", DummyActivity.class);
+		setName(name);
 	}
 	
 	private Activity activity;
@@ -29,74 +31,24 @@ public class LocalStoreTest2 extends
 	private Button sbutton;
 	private Button dbutton;
 	ArrayList<SchoolActivity> activities;
+	SchoolActivityDataSource actData;
 	
 	public void setUp() throws Exception
 	{
-		SchoolActivityDataSource actData = new SchoolActivityDataSource(getActivity());
-		activities = actData.getAll();
-		
+		super.setUp();
+		actData = new SchoolActivityDataSource(getActivity());
+		//actData.open();
 	}
 	
 	public void testSchoolActivities()
 	{
-		
-	}
-
-	public void testSelectAll() 
-	{
-		activity.runOnUiThread(new Runnable() {
-			public void run() {
-				sbutton.performClick();
-			}
-		});
-		
-		getInstrumentation().waitForIdleSync();
-		
-		int size = listView.getCount();
-		
-		assertEquals(size, listView.getCheckedItemCount());
+		//SchoolActivity act1 = actData.create("Software Testing");
+		//SchoolActivity act1Copy = (SchoolActivity) actData.get(act1.getId()); //get the activity from the DB
+		//assertEquals(act1.getName(),act1Copy.getName());
 	}
 	
-	public void testDeselectAll() 
+	public void testSomething()
 	{
-		activity.runOnUiThread(new Runnable() {
-			public void run() {
-				dbutton.performClick();
-			}
-		});
-		
-		getInstrumentation().waitForIdleSync();
-		
-		assertEquals(0, listView.getCheckedItemCount());
-	}
-	
-	public void testMultipleSelects() 
-	{
-		activity.runOnUiThread(new Runnable() {
-			public void run() {
-				dbutton.performClick();
-				sbutton.performClick();
-				dbutton.performClick();
-				sbutton.performClick();
-			}
-		});
-		
-		getInstrumentation().waitForIdleSync();
-		
-		assertEquals(0, listView.getCheckedItemCount());
-	}
-	
-	public void testReloadList() 
-	{
-		activity.runOnUiThread(new Runnable() {
-			public void run() {
-				sbutton.performClick();
-				((StudentSelectionActivity) activity).reloadList();
-			}
-		});
-		
-		getInstrumentation().waitForIdleSync();
-		
-		assertEquals(0, listView.getCheckedItemCount());
+		assertTrue(true);
 	}
 }
