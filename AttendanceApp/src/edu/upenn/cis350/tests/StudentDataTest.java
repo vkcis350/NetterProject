@@ -39,12 +39,34 @@ public class StudentDataTest extends AbstractDataTest {
     
     public void testGetStudent() 
     {
-    	studentData.create(0, "Turing", "Alan", "123-456-7890", "von Neumann", 
-     		   "another famous computer scientist", 0, 0, 1945, 12, "1 Computer St.");
+    	studentData.create(1, "Darwin", "Charles", "215-MONKEYS", "Thomas Huxley", 
+     		   "bull-dog", 0, 0, 1831, 12, "Some address");
     	
-    	Student student = (Student) studentData.get(0);//retrieve from DB
-        assertEquals(student.getFirstName(), "Alan");
-        assertEquals(student.getPhone(), "123-456-7890");
+    	Student student = (Student) studentData.get(1);//retrieve from DB
+        assertEquals(student.getFirstName(), "Charles");
+        assertEquals(student.getPhone(), "215-MONKEYS");
+    }
+    
+    public void testGetAllStudents()
+    {
+    	studentData.create(2,"Smith","John","123-456","John Doe",
+    			"friend",0,1,2012,5,"Fake st.");
+    	studentData.create(3,"Doe","John","223-456","John Smith",
+    			"friend",0,1,2012,4,"Other st.");
+    	ArrayList<Student> students = studentData.getAll();
+    	
+    	Student doe = null;
+    	Student smith = null;
+    	for ( Student student : students )
+    	{
+    		if ( student.getLastName().equals("Doe") )
+    			doe = student;
+    		if ( student.getLastName().equals("Smith") )
+    			smith = student;
+    	}
+    	assertNotNull(doe);
+    	assertNotNull(smith);
+    	assertTrue(students.indexOf(smith)>students.indexOf(doe));
     }
     
     public void tearDown()

@@ -16,6 +16,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public abstract class DataSource<T extends Model>{
 	final static int PRIMARY_TABLE_INDEX = 0;
@@ -25,6 +26,7 @@ public abstract class DataSource<T extends Model>{
 	protected abstract String[] getTables();
 	protected abstract String getIDColumn();
 	protected abstract T cursorToModel(Cursor c);
+	
 	
 	public abstract void create(T model);
 	
@@ -67,6 +69,7 @@ public abstract class DataSource<T extends Model>{
 	public List<T> getAll(String sortByColumn)
 	{
 		List<T> models = new ArrayList<T>();
+		Log.d("DataSource",database+"");
 		Cursor cursor = database.query(getTables()[PRIMARY_TABLE_INDEX],
 				null, null, null, null, null, 
 				sortByColumn);
