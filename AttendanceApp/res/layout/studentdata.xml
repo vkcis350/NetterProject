@@ -102,17 +102,16 @@
 
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="17dp"
-        android:layout_marginRight="16dp"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/save_student_data_edit"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="onSaveDataClick"
@@ -120,9 +119,9 @@
 
         <Button
             android:id="@+id/cancel_student_data_edit"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="10"
+            android:layout_weight="1"
             android:onClick="onCancelDataClick"
             android:text="Cancel" />
     </LinearLayout>
