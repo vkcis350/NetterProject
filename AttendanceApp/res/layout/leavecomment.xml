@@ -8,7 +8,9 @@
         android:id="@+id/student_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Past Comments for DEFAULT STUDENT" />
+        android:text="Past Comments for DEFAULT STUDENT"
+        android:textColor="#75B2DD"
+        android:textSize="20sp" />
 
     <ListView
         android:id="@+id/comment_list"
@@ -33,20 +35,22 @@
             android:orientation="horizontal" >
 
             <Button
-                android:id="@+id/comment_back_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:onClick="onCommentBackClick"
-                android:text="Back" />
-
-            <Button
                 android:id="@+id/addComment_button"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
+                android:layout_weight="1.0"
                 android:onClick="onAddCommentClick"
                 android:text="Add New" />
+
+            <Button
+                android:id="@+id/comment_back_button"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_weight="1.0"
+                android:onClick="onCommentBackClick"
+                android:text="Back" />
         </LinearLayout>
     </LinearLayout>
 

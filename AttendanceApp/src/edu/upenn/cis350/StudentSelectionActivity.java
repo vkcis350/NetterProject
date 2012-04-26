@@ -455,8 +455,12 @@ public class StudentSelectionActivity extends SyncableActivity {
 		}
 		//Note: List of students gotten from DB should already be sorted alphabetically
 
-		lv.setAdapter(new ArrayAdapter<Student>(this,
-				android.R.layout.simple_list_item_multiple_choice, studentList));
+		if(lv.getChoiceMode() == lv.CHOICE_MODE_MULTIPLE)
+			lv.setAdapter(new ArrayAdapter<Student>(this,
+					android.R.layout.simple_list_item_multiple_choice, studentList));
+		else
+			lv.setAdapter(new ArrayAdapter<Student>(this,
+					android.R.layout.simple_list_item_single_choice, studentList));
 
 
 	}
@@ -530,13 +534,16 @@ public class StudentSelectionActivity extends SyncableActivity {
 					Toast.LENGTH_SHORT).show();
 		}
 		else if(requestCode == EDIT_DATA_REQUEST)
-		{
-			if(resultCode == RESULT_OK) //if okayed edit
-				Toast.makeText(getApplicationContext(), "Student Data Saved (not really, not implemented yet)",
+ {
+			if (resultCode == RESULT_OK) // if okayed edit
+				Toast.makeText(getApplicationContext(),
+						"Student Data Saved (not really, not implemented yet)",
 						Toast.LENGTH_SHORT).show();
-			else //if canceled edit
-				Toast.makeText(getApplicationContext(), "You did not edit student data.",
-						Toast.LENGTH_SHORT).show();
+			else
+				// if canceled edit
+				Toast.makeText(getApplicationContext(),
+						"You did not edit student data.", Toast.LENGTH_SHORT)
+						.show();
 		}
 		else
 			Toast.makeText(getApplicationContext(), "I don't know how you got this to show up",
