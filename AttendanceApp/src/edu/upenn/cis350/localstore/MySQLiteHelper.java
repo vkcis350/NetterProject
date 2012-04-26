@@ -64,7 +64,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int CHECKINS_LAST_CHANGE_INDEX = 6;
 	public static final int CHECKINS_COMMENT_INDEX = 7;
 	
-	public static final int USER_UID_INDEX = 0;
+	public static final int USER_USER_ID_INDEX = 0;
 	public static final int USER_USERNAME_INDEX = 1;
 	public static final int USER_PASSWORD_HASH_INDEX=2;
 	public static final int USER_SALT_INDEX=3;

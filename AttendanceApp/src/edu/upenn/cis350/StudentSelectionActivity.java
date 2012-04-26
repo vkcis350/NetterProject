@@ -485,8 +485,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 		if (sortOrder==LAST_NAME_ORDER)
 			students = (ArrayList<Student>) studentData.getAll();
 		else if (sortOrder==GRADE_ORDER)
-			students = (ArrayList<Student>) studentData.getAllByGrade();//Changed to displaying all students by default, for now. -XL
-
+			students = (ArrayList<Student>) studentData.getAllByGrade();
 		sortStudents();
 	}
 
