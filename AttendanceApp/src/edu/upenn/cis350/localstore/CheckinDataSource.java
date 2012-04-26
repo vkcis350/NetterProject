@@ -93,7 +93,6 @@ public class CheckinDataSource extends DataSource {
 				MySQLiteHelper.COL_LAST_CHANGE+" between ? and ?"+" and "+MySQLiteHelper.COL_ACTIVITY_ID+"=?"+" and "+MySQLiteHelper.COL_STUDENT_ID+"=?",
 				new String[]{beginTime+"",endTime+"",activityID+"",studentID+""}, null, null, null);
 		return (Checkin)getFirstModel(c);
-
 	}
 	
 	
