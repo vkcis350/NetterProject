@@ -34,6 +34,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public  static final String COL_LAST_CHANGE = "last_change";
 	public static final String COL_COMMENT = "comment";
 	
+	public static final String TABLE_USERS = "user";
+	public static final String COL_USER_ID = "uid";
+	public static final String COL_USERNAME = "username";
+	public static final String COL_PASSWORD_HASH = "password_hash";
+	public static final String COL_SALT = "salt";
+	
 	public static final int STUDENT_STUDENT_ID_INDEX = 0;
 	public static final int STUDENT_STUDENT_LAST_NAME_INDEX = 1;
 	public static final int STUDENT_STUDENT_FIRST_NAME_INDEX = 2;
@@ -58,8 +64,13 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int CHECKINS_LAST_CHANGE_INDEX = 6;
 	public static final int CHECKINS_COMMENT_INDEX = 7;
 	
-	private static final String DATABASE_NAME = "attendance.db";
-	private static final int DATABASE_VERSION = 99;
+	public static final int USER_UID_INDEX = 0;
+	public static final int USER_USERNAME_INDEX = 1;
+	public static final int USER_PASSWORD_HASH_INDEX=2;
+	public static final int USER_SALT_INDEX=3;
+	
+	public static final String DATABASE_NAME = "attendance.db";
+	public static final int DATABASE_VERSION = 100;
 	
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -102,6 +113,14 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				+ COL_CHECKOUT_TIME + " integer, "
 				+ COL_LAST_CHANGE + " integer," 
 				+ COL_COMMENT + " text"
+				+ ");");
+		
+		database.execSQL("create table "
+				+ TABLE_USERS + "( " 
+				+ COL_USER_ID + " integer primary key autoincrement,"
+				+ COL_USERNAME + " text, " 
+				+ COL_PASSWORD_HASH + " text, " 
+				+ COL_SALT + "text"
 				+ ");");
 	}
 
