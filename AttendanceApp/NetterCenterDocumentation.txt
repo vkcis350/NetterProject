@@ -1,4 +1,6 @@
-Netter Center Attendance App
+**********************************
+***Netter Center Attendance App***
+**********************************
 
 Vayu Kishore
 Jordan Kodner
@@ -19,8 +21,9 @@ TABLE OF CONTENTS
 	2.4 View Students
 		2.4.1 View Student's Info
 	2.5 View Activities
-		2.5.1
-			...
+		2.5.1 View Students for Activity
+			2.5.1.1 View Student Info
+			2.5.1.2 Leave Comment
 	2.6 Syncing
 3. 
 4.
@@ -78,6 +81,32 @@ TABLE OF CONTENTS
 		To remove an activity from your frequent list, select it, press Remove, then press "Remove from Frequent List".
 		You can also create a new activity. Press Add, then "Add New Activity." When prompted, provide a name then select Create.
 		If you want to permanently remove an activity, select it, press Remove, then "Completely Remove Activity." Use this option judiciously.
+		Press Continue to view that activity's students.
+		
+		[Screenshot]
+		
+		2.5.1 View Students for Activity
+			This works like 2.4 View Students, except you have more options.
+			You can sort by grade level or alphabetically, or view only checked-in, checked-out, or absent students only.
+			In case you want to perform operation on mutliple students at once, you hvae the option to select multiple students.
+			To make this faster, use the Select All and Deselect All button on the bottom of the screen.
+			Press Continue to view options.
+			To Check students In and Out, select however many students, then press Check-In Students or Check-Out Students after Continue.
+			It will ask you to confirm.
+			
+			[Screenshot]
+			
+			2.5.1.1 View Student Info
+				You can View Student Info as before. Please refer to 2.4.1 for more information.
+			
+			2.5.1.2 Leave Comment
+				If you want to leave a comment, press View Comment after Continue.
+				Here, you will see a list of past comments for a student. Press Add New to add a new comment.
+			
+				[Screenshot]
+				
+			
+		
 		
 		
 		
