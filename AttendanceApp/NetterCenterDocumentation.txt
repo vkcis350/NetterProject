@@ -1,4 +1,6 @@
-Netter Center Attendance App
+**********************************
+***Netter Center Attendance App***
+**********************************
 
 Vayu Kishore
 Jordan Kodner
@@ -16,13 +18,13 @@ TABLE OF CONTENTS
 	2.1 Getting Around
 	2.2 Login
 	2.3 Main Menu
-	2.4 Students
-		2.4.1
-			...
+	2.4 View Students
+		2.4.1 View Student's Info
 	2.5 View Activities
-		2.5.1
-			...
-	2.6 View Syncing
+		2.5.1 View Students for Activity
+			2.5.1.1 View Student Info
+			2.5.1.2 Leave Comment
+	2.6 Syncing
 3. 
 4.
 5. Credits
@@ -59,7 +61,55 @@ TABLE OF CONTENTS
 	2.4 View Students
 		Selecting "View Students" from the Main Menu brings you to a list of all students.
 		At the top of the screen is a button that gives you the option of sorting students alphabetically or by grade level.
-		Simply click on the students' names to select them. To select or deselect all at once, press the buttons on the bottom of the window.
-		Once a student is selected, press the continue button. You can 
+		Simply click on the students' names to select them.
+		Once a student is selected, Press the View Student's Info button to view and edit information on that student.
+		
+		[Screenshot]
+		
+		2.4.1 View Student's Info
+			Here you can view and edit information for a student.
+			The window displays the student's name, the last activity performed on the student, grade level, and various contact information.
+			You cannot edit the student's name, but you can edit the other information.
+			Click save to save your edits, or back to cancel. Either way, you will be brought back to the View Students list.
+			
+			[Screenshot]
+			
+	2.5 View Activities
+		Selecting "View Activities" from the Main Menu brings you to a list of all activities.
+		At the top of the screen is a button that gives you the option of viewing all activities, or just ones that you have added to your frequent list.
+		To add an activity that already exists to your frequent list, select it, press the add button, then select "Add to Frequent List."
+		To remove an activity from your frequent list, select it, press Remove, then press "Remove from Frequent List".
+		You can also create a new activity. Press Add, then "Add New Activity." When prompted, provide a name then select Create.
+		If you want to permanently remove an activity, select it, press Remove, then "Completely Remove Activity." Use this option judiciously.
+		Press Continue to view that activity's students.
+		
+		[Screenshot]
+		
+		2.5.1 View Students for Activity
+			This works like 2.4 View Students, except you have more options.
+			You can sort by grade level or alphabetically, or view only checked-in, checked-out, or absent students only.
+			In case you want to perform operation on mutliple students at once, you hvae the option to select multiple students.
+			To make this faster, use the Select All and Deselect All button on the bottom of the screen.
+			Press Continue to view options.
+			To Check students In and Out, select however many students, then press Check-In Students or Check-Out Students after Continue.
+			It will ask you to confirm.
+			
+			[Screenshot]
+			
+			2.5.1.1 View Student Info
+				You can View Student Info as before. Please refer to 2.4.1 for more information.
+			
+			2.5.1.2 Leave Comment
+				If you want to leave a comment, press View Comment after Continue.
+				Here, you will see a list of past comments for a student. Press Add New to add a new comment.
+			
+				[Screenshot]
+				
+			
+		
+		
+		
+		
+		
 		
 		
