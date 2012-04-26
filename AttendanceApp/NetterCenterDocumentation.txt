@@ -19,13 +19,13 @@ TABLE OF CONTENTS
 	2.4 Students
 		2.4.1
 			...
-	2.5 Activities
+	2.5 View Activities
 		2.5.1
 			...
-	2.6 Syncing
+	2.6 View Syncing
 3. 
 4.
-5.
+5. Credits
 
 
 
@@ -42,7 +42,7 @@ TABLE OF CONTENTS
 2. INTERFACE
 
 	2.1 Getting Around
-		Simply follow prompts, and press 'yes' or 'continue' buttons to move forward through the app. At anytime, you can go back by pressing your phone's back button.
+		Simply follow prompts, and press 'yes' or 'continue' buttons to move forward through the app. At any time, you can go back by pressing your phone's back button.
 		
 	2.2 Login Screen
 		When you start the program, it will bring you to the login screen.
@@ -51,6 +51,15 @@ TABLE OF CONTENTS
 		[Screenshot]
 		
 	2.3 Main Menu
-	 	After you log in, the first screen you are brought to is the Main Menu. Here, you have two options. Either view the list of all students, of view the list of all activities.
+	 	After you log in, the first screen you are brought to is the Main Menu. 
+	 	Here, you have two options. Either view the list of all students, of view the list of all activities.
 	 	
-	2.4
+	 	[Screenshot]
+	 	
+	2.4 View Students
+		Selecting "View Students" from the Main Menu brings you to a list of all students.
+		At the top of the screen is a button that gives you the option of sorting students alphabetically or by grade level.
+		Simply click on the students' names to select them. To select or deselect all at once, press the buttons on the bottom of the window.
+		Once a student is selected, press the continue button. You can 
+		
+		
