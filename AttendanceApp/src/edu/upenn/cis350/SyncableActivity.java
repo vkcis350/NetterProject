@@ -19,6 +19,7 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import edu.upenn.cis350.localstore.CheckinDataSource;
+import edu.upenn.cis350.localstore.DataSource;
 import edu.upenn.cis350.localstore.SchoolActivityDataSource;
 import edu.upenn.cis350.localstore.StudentDataSource;
 import android.app.Activity;
@@ -129,7 +130,7 @@ public class SyncableActivity extends Activity{
 		//BufferedReader in = null;
 		new Thread(new Runnable() {
 			public void run() {
-				doHttp();
+				synchronize();
 			}
 		}).start();
 
@@ -150,28 +151,29 @@ public class SyncableActivity extends Activity{
 		 */
 
 	}
+	
+	
+	public String getJSONFromDataSource(DataSource d){
+		d.open();
+		String s=d.exportJson();
+		d.close();
+		return s;
+	}
 
 	/**
 	 * Since multiple teachers will be using this application to log attendance data,the purpose of this method is to send locally collected data to an external server.
 	 * this method makes a JSON (essentially a string representing the database) of each local database stored within the application and sends it to the web server for permanent storage
 	 * StudentDataSource, CheckinDataSource, and SchoolActivityDataSource are all objects which allow the method to access databases on local storage.
 	 * **/
-	public void doHttp(){
+	public void synchronize(){
 		StudentDataSource studentData=new StudentDataSource(this);
-		studentData.open(); //open database
-		String studString =studentData.exportJson(); //string representation of database contents
-		studentData.close(); //close database
+		String studString = getJSONFromDataSource(studentData);
 		Log.d("SyncableActivity","Json of students:"+studString);
 		CheckinDataSource checkinData= new CheckinDataSource(this);
-		checkinData.open();
-		String checkinString = checkinData.exportJson();
-		checkinData.close();
+		String checkinString = getJSONFromDataSource(checkinData);
 		Log.d("SyncableActivity","Json of checkins:"+checkinString);
 		SchoolActivityDataSource actData= new SchoolActivityDataSource(this);
-		actData.open();
-		String actString = actData.exportJson();
-		actData.close();
-
+		String actString = getJSONFromDataSource(actData);
 		Log.d("SyncableActivity","Json of activities:"+actString); 
 
 		try {
