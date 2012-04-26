@@ -1,5 +1,7 @@
 package edu.upenn.cis350.localstore;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -29,19 +31,31 @@ public class TemporaryDbInsert {
 		SchoolActivityDataSource actData = new SchoolActivityDataSource(context);
 		StudentDataSource studentData = new StudentDataSource(context);
 		CheckinDataSource checkinData = new CheckinDataSource(context);
+		UserDataSource userData = new UserDataSource(context);
 		
 		actData.open();
 		studentData.open();
 		checkinData.open();
+		userData.open();
 		
 		if ( actData.getAll().size()<1 )
 		{
+			try {
+				userData.create("user","1");
+				userData.create("admin","");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			SchoolActivity a1 = actData.create("Android Programming");
 			SchoolActivity a2 = actData.create("Zambian Cultural Festival");
 			SchoolActivity a3 =  actData.create("Napoleonic Wars");
 			SchoolActivity a4 =  actData.create("Homework");
-		
+			
 			Student s1 = studentData.create(1, "Sun", "Yat-sen", "1-800-PETMEDS", 
 					"Chiang Kai-shek", "eventual successor", 0, 0,
 					1911, 12, "3600 Walnut Street , Nanjing");
@@ -90,6 +104,7 @@ public class TemporaryDbInsert {
 		studentData.close();
 		actData.close();
 		checkinData.close();
+		userData.close();
 	}
 
 }

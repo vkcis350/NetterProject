@@ -1,6 +1,11 @@
 package edu.upenn.cis350;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+
 import edu.upenn.cis350.localstore.TemporaryDbInsert;
+import edu.upenn.cis350.localstore.UserDataSource;
+import edu.upenn.cis350.models.User;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +16,7 @@ import android.widget.Toast;
 public class AttendanceAppActivity extends Activity {
 	/** Called when the activity is first created. */
 	String userName=""; //access this from other activities to get info on user's credentials
+	private UserDataSource userData;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -19,8 +25,16 @@ public class AttendanceAppActivity extends Activity {
 		//load data from sqlite
 		TemporaryDbInsert.insert(this);
 	}
+	
+	@Override
+	public void onStart()
+	{
+		super.onStart();
+		userData = new UserDataSource(this);
+		userData.open();
+	}
 
-	public void onLoginClick(View v){
+	public void onLoginClick(View v) throws UnsupportedEncodingException, NoSuchAlgorithmException{
 		EditText user = (EditText) findViewById(R.id.user);
 		EditText pass = (EditText) findViewById(R.id.password);
 
@@ -41,8 +55,16 @@ public class AttendanceAppActivity extends Activity {
 		finish();
 	}
 
-	private boolean validate(String user, String pass){
-
-		return userName.equals("admin");//will be method which validates user's name and pw, currently returns true iff username input is "admin"
+	private boolean validate(String username, String pass) throws UnsupportedEncodingException, NoSuchAlgorithmException{
+		User user = userData.get(username);
+		if (user==null)
+			return false;
+		return user.checkPassword(pass);
+	}
+	
+	public void onStop()
+	{
+		super.onStop();
+		userData.close();
 	}
 }

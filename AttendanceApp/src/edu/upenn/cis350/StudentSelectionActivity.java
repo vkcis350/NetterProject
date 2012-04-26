@@ -235,7 +235,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 	 * This method checks a student in or out of an activity, based on the input parameter. It timestamps the checkin/out record and displays a count of successfully checkedin/out students at completion.
 	 * @param true if the student is being checked in, false if being checked out
 	 */
-	public void checkInOutStudents(CheckinAction action)
+	public int checkInOutStudents(CheckinAction action)
 	{
 		String actionStr = "out";
 		if (action==CheckinAction.IN)
@@ -260,6 +260,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 		Toast.makeText(getApplicationContext(), "Checked "+ actionStr + " " + countSuccessful+ " student(s) at "+dateFormat.format(time),
 				Toast.LENGTH_LONG).show();
 		reloadList(); //reload the list the user sees in the UI
+		return countSuccessful;
 	}
 
 	/**
