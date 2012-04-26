@@ -2,10 +2,11 @@
 ***Netter Center Attendance App***
 **********************************
 
-Vayu Kishore
-Jordan Kodner
-Xiao Li
-Jose Varela
+Created By:
+	Vayu Kishore
+	Jordan Kodner
+	Xiao Li
+	Jose Varela
 
 University of Pennsylvania, 2012
 

@@ -139,6 +139,7 @@ public class ActivityListActivity extends SyncableActivity{
 			SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
 
 			AlertDialog mDialog = new AlertDialog.Builder(this)
+			.setIconAttribute(android.R.attr.alertDialogIcon)
 			.setTitle("Permanently Remove Activity")
 			.setMessage("Are you sure you want to completely remove " + activity + "? This cannot be undone.")
 			.setPositiveButton("Yes", null)
@@ -239,6 +240,7 @@ public class ActivityListActivity extends SyncableActivity{
 
 			AlertDialog mDialog = new AlertDialog.Builder(this)
 			.setTitle("Remove from List")
+			.setIconAttribute(android.R.attr.alertDialogIcon)
 			.setMessage("Are you sure you want to remove " + activity + " from the frequent activity list?")
 			.setPositiveButton("Yes", null)
 			.setNegativeButton("No", null)
@@ -304,6 +306,7 @@ public class ActivityListActivity extends SyncableActivity{
 
 			AlertDialog mDialog = new AlertDialog.Builder(this)
 			.setTitle("Add to List")
+			.setIconAttribute(android.R.attr.alertDialogIcon)
 			.setMessage("Are you sure you want to add " + activity + " to the frequent activity list?")
 			.setPositiveButton("Yes", null)
 			.setNegativeButton("No", null)
