@@ -29,9 +29,10 @@ public class SchoolActivityDataTest extends AbstractDataTest {
 
     public void testGetSchoolActivity()
 	{
-		SchoolActivity activity = actData.create("Software Testing",1);
+		SchoolActivity activity = actData.create(42,"Software Testing",1);
 		actData.get(activity.getId());
 		assertEquals(activity.getName(),"Software Testing");
+		assertEquals(activity.getId(),42);
 	}
 
     

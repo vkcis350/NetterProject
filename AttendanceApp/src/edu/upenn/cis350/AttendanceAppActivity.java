@@ -67,9 +67,10 @@ public class AttendanceAppActivity extends Activity {
 
 	private boolean validate(String username, String pass) throws UnsupportedEncodingException, NoSuchAlgorithmException{
 		user = userData.get(username);
-		Log.d("AttendanceAppActivity","user id "+user.getId());
+		
 		if (user==null)
 			return false;
+		Log.d("AttendanceAppActivity","user id "+user.getId());
 		return user.checkPassword(pass);
 	}
 	

@@ -222,6 +222,7 @@ public class ActivityListActivity extends SyncableActivity{
 		{
 			SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
 
+			Log.d("ActivityListActivity","activityId "+activity.getId());
 			Intent i = new Intent(this,StudentSelectionActivity.class);
 			i.putExtra("ACTIVITY_NAME", activity.toString());
 			i.putExtra("ACTIVITY_ID", activity.getId());

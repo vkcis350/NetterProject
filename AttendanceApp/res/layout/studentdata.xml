@@ -9,14 +9,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:text="Student Name:" />
-
+
     <TextView
         android:id="@+id/student_name_field"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="6dp"
-        android:layout_weight="1"
+        android:layout_marginBottom="4dp"
         android:inputType="textPersonName"
         android:text="DEFAULT NAME"
         android:textColor="#75B2DD"

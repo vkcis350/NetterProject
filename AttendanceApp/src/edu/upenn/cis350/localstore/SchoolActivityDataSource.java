@@ -32,7 +32,7 @@ public class SchoolActivityDataSource extends DataSource {
 		SchoolActivity act = new SchoolActivity();
 		act.setId(cursor.getLong(MySQLiteHelper.ACTIVITIES_ACTIVITY_ID_INDEX ));
 		act.setName(cursor.getString(MySQLiteHelper.ACTIVITIES_ACTIVITY_NAME_INDEX));
-		act.setName(cursor.getString(MySQLiteHelper.ACTIVITIES_SITE_ID_INDEX));
+		act.setSiteId(cursor.getLong(MySQLiteHelper.ACTIVITIES_SITE_ID_INDEX));
 		return act;
 	}
 
