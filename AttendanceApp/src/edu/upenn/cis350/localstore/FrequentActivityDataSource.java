@@ -51,7 +51,6 @@ public class FrequentActivityDataSource extends DataSource {
 		return freqAct;
 	}
 
-	/**
 	public FrequentActivity get(long userId,long activityId)
 	{
 		Cursor c=database.query(MySQLiteHelper.TABLE_FREQUENT_ACTIVITIES, 
@@ -60,6 +59,5 @@ public class FrequentActivityDataSource extends DataSource {
 				new String[]{userId+"",activityId+""}, null, null, null);
 		return (FrequentActivity)getFirstModel(c);
 	}
-	**/
 
 }

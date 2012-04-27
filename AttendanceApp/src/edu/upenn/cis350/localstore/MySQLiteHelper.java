@@ -76,7 +76,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int FREQUENT_ACTIVITY_ACTIVITY_ID_INDEX = 2;
 	
 	public static final String DATABASE_NAME = "attendance.db";
-	public static final int DATABASE_VERSION = 114;
+	public static final int DATABASE_VERSION = 115;
 
 	
 	

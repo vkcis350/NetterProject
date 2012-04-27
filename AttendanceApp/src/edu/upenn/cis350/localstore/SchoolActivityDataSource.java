@@ -83,7 +83,8 @@ public class SchoolActivityDataSource extends DataSource {
 				+ MySQLiteHelper.TABLE_FREQUENT_ACTIVITIES
 				+" ON "+MySQLiteHelper.TABLE_ACTIVITIES+"."+MySQLiteHelper.COL_ACTIVITY_ID
 				+"="+MySQLiteHelper.TABLE_FREQUENT_ACTIVITIES+"."+MySQLiteHelper.COL_ACTIVITY_ID
-				+" WHERE "+MySQLiteHelper.TABLE_FREQUENT_ACTIVITIES+"."+MySQLiteHelper.COL_USER_ID+"=?";
+				+" WHERE "+MySQLiteHelper.TABLE_FREQUENT_ACTIVITIES+"."+MySQLiteHelper.COL_USER_ID+"=? "
+				+" ORDER BY "+MySQLiteHelper.TABLE_ACTIVITIES+"."+MySQLiteHelper.COL_ACTIVITY_NAME;
 		Log.d("FrequentActivityDataSource",MY_QUERY);
 		
 		Cursor cursor = database.rawQuery(MY_QUERY, new String[]{userId+""});

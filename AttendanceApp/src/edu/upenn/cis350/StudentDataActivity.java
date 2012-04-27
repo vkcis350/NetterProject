@@ -50,20 +50,6 @@ public class StudentDataActivity extends SyncableActivity{
 		populateFields();
 	}
 
-	public void onSaveDataClick(View v){
-		//updatedStudentData = new Student(); fill with data from the form
-		//student = getStudent(student_id);
-		//Compare the two, if they are different then update the dbmodel with the info 
-		setResult(RESULT_OK);
-		finish();
-	}
-
-	public void onCancelDataClick(View v){
-		//back to last activity
-		setResult(RESULT_CANCELED);
-		finish();
-	}
-
 	/**
 	 * This method populates an activity which contains the profile of a student with information from the locally stored database
 	 */

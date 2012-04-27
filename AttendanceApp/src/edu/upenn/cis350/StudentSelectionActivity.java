@@ -387,7 +387,6 @@ public class StudentSelectionActivity extends SyncableActivity {
 	}
 
 	//filter which students are shown
-	//operates on the hard coded list of names for now.
 	public void onFilterStudentsClick(View v){
 		PopupMenu popup = new PopupMenu(this, v);
 		popup.getMenuInflater().inflate(R.menu.filterstudentsmenu, popup.getMenu());
@@ -421,6 +420,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 		popup.show();
 	}
 
+	@Override
 	public void onPause()
 	{
 		super.onPause();
@@ -532,23 +532,10 @@ public class StudentSelectionActivity extends SyncableActivity {
 		super.onActivityResult(requestCode, resultCode, data);
 		if(requestCode == LEAVE_COMMENT_REQUEST)
 		{
-			Toast.makeText(getApplicationContext(), "Welcome back from leaving a comment",
+			Toast.makeText(getApplicationContext(), "Welcome back from leaving a comment.",
 					Toast.LENGTH_SHORT).show();
-		}
-		else if(requestCode == EDIT_DATA_REQUEST)
- {
-			if (resultCode == RESULT_OK) // if okayed edit
-				Toast.makeText(getApplicationContext(),
-						"Student Data Saved (not really, not implemented yet)",
-						Toast.LENGTH_SHORT).show();
-			else
-				// if canceled edit
-				Toast.makeText(getApplicationContext(),
-						"You did not edit student data.", Toast.LENGTH_SHORT)
-						.show();
 		}
 		else
-			Toast.makeText(getApplicationContext(), "I don't know how you got this to show up",
-					Toast.LENGTH_SHORT).show();
+			return;
 	}
 }

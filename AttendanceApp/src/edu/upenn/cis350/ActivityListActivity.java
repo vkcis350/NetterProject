@@ -61,6 +61,15 @@ public class ActivityListActivity extends SyncableActivity{
 		userId = extras.getLong("USER_ID");
 		username = extras.getString("USER_NAME");
 		
+	}
+	
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		actData = new SchoolActivityDataSource(this);
+		freqActData = new FrequentActivityDataSource(this);
+		openData();
 		loadData();
 
 		//the list itself
@@ -69,11 +78,23 @@ public class ActivityListActivity extends SyncableActivity{
 		lv.setChoiceMode(lv.CHOICE_MODE_SINGLE);
 		ArrayList<SchoolActivity> classList = someSchoolActivities;
 		
-		
 		lv.setAdapter(new ArrayAdapter<SchoolActivity>(this,
 				android.R.layout.simple_list_item_single_choice, classList));
 
 		Button selectButton = (Button) findViewById(R.id.select_activity_button);
+	}
+	
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		closeData();
+	}
+
+	public void closeData()
+	{
+		actData.close();
+		freqActData.close();
 	}
 
 	public void onAddActivityClick(View v){
@@ -182,16 +203,11 @@ public class ActivityListActivity extends SyncableActivity{
 
 	public void removeCompletely()
 	{
-		SchoolActivityDataSource dbsrc = new SchoolActivityDataSource(this);
-		dbsrc.open();
-
 		ListView lv = (ListView) findViewById(R.id.activity_list);
 		SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
-		dbsrc.delete(activity);
+		actData.delete(activity);
 		someSchoolActivities.remove(activity);
 		schoolActivities.remove(activity);
-
-		dbsrc.close();
 
 		reloadList();
 	}
@@ -411,23 +427,17 @@ public class ActivityListActivity extends SyncableActivity{
 		reloadList();
 	}
 
-	public void onStop()
-	{
-		super.onStop();
-		actData.close();
-		freqActData.close();
-	}
 
-	public void loadData()
+	public void openData()
 	{
-		actData = new SchoolActivityDataSource(this);
 		actData.open();
-		freqActData = new FrequentActivityDataSource(this);
 		freqActData.open();
-		
+	}
+	
+	public void loadData()
+	{		
 		schoolActivities = (ArrayList<SchoolActivity>) actData.getAll();
 		someSchoolActivities = actData.getFrequentSchoolActivities(userId);
-		
 	}
 
 	public void reloadList()

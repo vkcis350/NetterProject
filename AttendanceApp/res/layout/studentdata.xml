@@ -89,7 +89,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:text="Contact Phone Number:" />
+        android:text="Phone Number:" />
 
     <EditText
         android:id="@+id/phone_contact_field"
@@ -105,7 +105,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:text="Contact Address:" />
+        android:text="Address:" />
 
     <EditText
         android:id="@+id/address_contact_field"
@@ -116,31 +116,5 @@
         android:layout_weight="1"
         android:inputType="textPostalAddress"
         android:text="DEFAULT ADDRESS" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="4dp"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/save_student_data_edit"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="onSaveDataClick"
-            android:text="Save" />
-
-        <Button
-            android:id="@+id/cancel_student_data_edit"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="onCancelDataClick"
-            android:text="Cancel" />
-    </LinearLayout>
 
 </LinearLayout>
