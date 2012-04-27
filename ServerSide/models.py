@@ -1,33 +1,11 @@
 from google.appengine.ext import db
+import spreadsheet_updates as gs
 
 '''Using the models in this module we will store the data uploaded from the 
 cellphones before sending it to the spreadhseets'''
 
 
-class BaseModel(db.Model):
-    '''This model contains basic functionality shared by all db models in this
-    module'''
-
-    @staticmethod
-    def get_from_json(json_list):
-        '''Takes in a list of json objects and creates a db entry for each.'''
-        for obj in json_list:
-            entity = get_or_insert(str(obj['id']))
-
-            for key, value in json_list.iteritems():
-                key = key.lower()
-                setattr(entity, key, str(value))
-                entity.put()
-    
-    def update(self, **kwargs):
-        '''Updates an existing model according to the values
-        passed in by kwargs'''
-        for key in kwargs:
-            setattr(self, key, kwargs[key])
-        self.put()
-
-
-class Student(BaseModel):
+class Student(db.Model):
     id = db.StringProperty()   
     address = db.StringProperty()
     contact = db.StringProperty()
@@ -40,6 +18,27 @@ class Student(BaseModel):
     schoolyear = db.StringProperty()
     grade = db.StringProperty()
 
+    @staticmethod
+    def get_from_json(json_list):
+        '''Takes in a list of json objects and creates a db entry for each.'''
+        for obj in json_list:
+            entity = Student.get_or_insert(str(obj['id']))
+            entity.update(obj)
+        
+    def update(self, obj):
+        '''Updates an existing model according to the values
+        passed in by kwargs'''
+        for key, value in obj.iteritems():
+            setattr(self, key.lower(), str(value))
+        self.put()
+        gs.update_worksheet_row(self.to_dict(), 'Students')
+    
+    def to_dict(self):
+        ret = {}
+        for key, value in self.properties().iteritems():
+            ret[key] = getattr(self, key)
+        ret["id"] = str(self.id)
+        return ret
 
 class Comment(db.Model):
     comment = db.StringProperty()
@@ -51,7 +50,53 @@ class Comment(db.Model):
     studentid = db.StringProperty()
     userid = db.StringProperty()
 
+    @staticmethod
+    def get_from_json(json_list):
+        '''Takes in a list of json objects and creates a db entry for each.'''
+        for obj in json_list:
+            entity = Comment.get_or_insert(str(obj['id']))
+            entity.update(obj)
+        
+    def update(self, obj):
+        '''Updates an existing model according to the values
+        passed in by kwargs'''
+        for key, value in obj.iteritems():
+            setattr(self, key.lower(), str(value))
+        self.put()
+        gs.update_worksheet_row(self.to_dict(), 'Comments')
+    
+    def to_dict(self):
+        ret = {}
+        for key, value in self.properties().iteritems():
+            ret[key] = getattr(self, key)
+        ret["id"] = str(self.id)
+        return ret
 
 class Activity(db.Model):
     id = db.StringProperty()
     name = db.StringProperty()
+ 
+    @staticmethod
+    def get_from_json(json_list):
+        '''Takes in a list of json objects and creates a db entry for each.'''
+        for obj in json_list:
+            entity = Activity.get_or_insert(str(obj['id']))
+            entity.update(obj)
+        
+    def update(self, obj):
+        '''Updates an existing model according to the values
+        passed in by kwargs'''
+        for key, value in obj.iteritems():
+            setattr(self, key.lower(), str(value))
+        self.put()
+        gs.update_worksheet_row(self.to_dict(), 'Activities')
+
+    def to_dict(self):
+        ret = {}
+        for key, value in self.properties().iteritems():
+            ret[key] = getattr(self, key)
+        ret["id"] = str(self.id)
+        return ret
+
+class Request(db.Model):
+    body = db.TextProperty()
