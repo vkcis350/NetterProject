@@ -1,4 +1,5 @@
 from gspreadsheet import SpreadsheetAPI
+import logging
 
 EMAIL = 'netterapp@gmail.com'
 PASSWORD = 'nettercenterapp'

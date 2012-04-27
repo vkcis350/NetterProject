@@ -20,33 +20,35 @@ import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 
-import gspreadsheets as gs
+import spreadsheet_updates as gs
 
-from models import Student, Activity, Comment
+from models import Student, Activity, Comment, Request
 
 class MainHandler(webapp.RequestHandler):
     def get(self):
-        self.post()
+        '''For testing purposes only'''
+        s = Student(id='1', firstname='jose')
+        s.put()
+        obj_dict = s.to_dict()
+        gs.update_worksheet_row(obj_dict, "Students")
 
     def post(self):
         'Students, activities, checkins separated by new lines'
         self.saveDataFromRequest(self.request.body)
-        sup.upload_data()
-        self.response.out.write(self.request.body)
     
     def saveDataFromRequest(self, req_body):
         request_objs = req_body.splitlines()
-        
         students = json.loads(request_objs[0])
         activities = json.loads(request_objs[1])
         comments = json.loads(request_objs[2])
-
-        Student.get_from_json(students)
-        Students.all()
-        Comment.get_from_json(comments)
-        Activity.get_from_json(activities)
-    
         
+        Student.get_from_json(students)
+        
+        Comment.get_from_json(comments) 
+        
+        Activity.get_from_json(activities) 
+
+
 def main():
     application = webapp.WSGIApplication([('/.*', MainHandler)],
                                          debug=True)
