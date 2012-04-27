@@ -103,13 +103,7 @@ public abstract class DataSource<T extends Model>{
 		return json;
 	}
 	
-	public List<T> convertJson(String s){
-		Gson gson=new Gson();
-		String json = gson.toJson(s);
-		Type collectionType = new TypeToken<List<T>>(){}.getType();
-		List<T> deserialized = gson.fromJson(json, collectionType);
-		return deserialized;
-	}
+
 	
 	
 	

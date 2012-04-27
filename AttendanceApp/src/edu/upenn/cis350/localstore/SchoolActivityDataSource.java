@@ -1,8 +1,13 @@
 package edu.upenn.cis350.localstore;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import edu.upenn.cis350.models.Checkin;
 import edu.upenn.cis350.models.Model;
 import edu.upenn.cis350.models.SchoolActivity;
 
@@ -70,6 +75,27 @@ public class SchoolActivityDataSource extends DataSource {
 	public ArrayList<SchoolActivity> getAll()
 	{
 		return (ArrayList<SchoolActivity>) getAll(MySQLiteHelper.COL_ACTIVITY_NAME);
+	}
+	
+	
+	public void populateFromList(List<SchoolActivity> objList){
+		for(SchoolActivity act : objList){
+			create(act.getId(), act.getName());
+		}
+	}
+	
+	public List<SchoolActivity> convertJson(String s){
+		Gson gson=new Gson();
+		//String json = gson.toJson(s);
+		Type collectionType = new TypeToken<List<SchoolActivity>>(){}.getType();
+		List<SchoolActivity> deserialized = gson.fromJson(s, collectionType);
+		return deserialized;
+	}
+	
+	/**assumes database has been emptied**/
+	@SuppressWarnings("unchecked")
+	public void importFromjson(String json){
+		populateFromList((List<SchoolActivity>)convertJson(json));
 	}
 	
 }

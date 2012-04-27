@@ -1,7 +1,11 @@
 package edu.upenn.cis350.localstore;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import edu.upenn.cis350.models.Checkin;
 import edu.upenn.cis350.models.Model;
@@ -156,6 +160,17 @@ public class CheckinDataSource extends DataSource {
 			save(obj);
 		}
 	}
+	
+	
+	
+	public List<Checkin> convertJson(String s){
+		Gson gson=new Gson();
+		//String json = gson.toJson(s);
+		Type collectionType = new TypeToken<List<Checkin>>(){}.getType();
+		List<Checkin> deserialized = gson.fromJson(s, collectionType);
+		return deserialized;
+	}
+	
 	/**assumes database has been emptied**/
 	@SuppressWarnings("unchecked")
 	public void importFromjson(String json){
