@@ -9,6 +9,7 @@ import edu.upenn.cis350.models.User;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,6 +18,7 @@ public class AttendanceAppActivity extends Activity {
 	/** Called when the activity is first created. */
 	String userName=""; //access this from other activities to get info on user's credentials
 	private UserDataSource userData;
+	User user;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,15 +37,18 @@ public class AttendanceAppActivity extends Activity {
 	}
 
 	public void onLoginClick(View v) throws UnsupportedEncodingException, NoSuchAlgorithmException{
-		EditText user = (EditText) findViewById(R.id.user);
+		EditText usernameText = (EditText) findViewById(R.id.user);
 		EditText pass = (EditText) findViewById(R.id.password);
 
-		userName=user.getText().toString();
+		userName=usernameText.getText().toString();
 		String pw = pass.getText().toString();
 		pass.setText("");
 
 		if(validate(userName,pw)){
 			Intent i = new Intent(this,MainMenuActivity.class);
+			i.putExtra("USER_ID", user.getId());
+			Log.d("AttendanceAppActivity","user id "+user.getId());
+			i.putExtra("USERNAME", user.getUsername());
 			startActivity(i);
 		}else{
 			Toast.makeText(getApplicationContext(), "Login Failed", Toast.LENGTH_SHORT).show();
@@ -61,7 +66,8 @@ public class AttendanceAppActivity extends Activity {
 	}
 
 	private boolean validate(String username, String pass) throws UnsupportedEncodingException, NoSuchAlgorithmException{
-		User user = userData.get(username);
+		user = userData.get(username);
+		Log.d("AttendanceAppActivity","user id "+user.getId());
 		if (user==null)
 			return false;
 		return user.checkPassword(pass);

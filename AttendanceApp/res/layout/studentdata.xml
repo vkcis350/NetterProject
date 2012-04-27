@@ -15,7 +15,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="6dp"
         android:layout_weight="1"
         android:inputType="textPersonName"
         android:text="DEFAULT NAME"
@@ -26,7 +26,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:text="Last Action:" />
+        android:text="Last Action:" 
+        android:layout_marginBottom="4dp"/>
 
     <TextView
         android:id="@+id/last_action_field"
@@ -48,9 +49,25 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="4dp"
         android:layout_weight="1"
         android:text="DEFAULT GRADE LEVEL" />
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="Contact:" />
+
+    <EditText
+        android:id="@+id/contact_field"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="4dp"
+        android:layout_weight="1"
+        android:inputType="textPersonName"
+        android:text="DEFAULT CONTACT" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -63,11 +80,11 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="4dp"
         android:layout_weight="1"
         android:inputType="textPersonName"
         android:text="DEFAULT TEACHER NAME" />
-
+    
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -79,7 +96,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="4dp"
         android:layout_weight="1"
         android:inputType="phone"
         android:text="DEFAULT PHONE" />
@@ -95,7 +112,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginBottom="18dp"
+        android:layout_marginBottom="4dp"
         android:layout_weight="1"
         android:inputType="textPostalAddress"
         android:text="DEFAULT ADDRESS" />
@@ -106,7 +123,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="4dp"
         android:orientation="horizontal" >
 
         <Button

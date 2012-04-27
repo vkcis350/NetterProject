@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import edu.upenn.cis350.localstore.FrequentActivityDataSource;
 import edu.upenn.cis350.localstore.SchoolActivityDataSource;
 import edu.upenn.cis350.localstore.TemporaryDbInsert;
+import edu.upenn.cis350.models.FrequentActivity;
 import edu.upenn.cis350.models.Model;
 import edu.upenn.cis350.models.SchoolActivity;
 
@@ -14,6 +16,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -40,8 +43,12 @@ public class ActivityListActivity extends SyncableActivity{
 	static final int NEW_ACTIVITY_REQUEST = 1;
 
 	SchoolActivityDataSource actData; //database access
+	FrequentActivityDataSource freqActData;
 	private ArrayList<SchoolActivity> schoolActivities;
 	private ArrayList<SchoolActivity> someSchoolActivities;
+	
+	long userId;
+	String username;
 
 
 	@Override
@@ -49,6 +56,11 @@ public class ActivityListActivity extends SyncableActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activities);
 
+		Bundle extras = getIntent().getExtras();
+		Log.d("ActivityListActivity",extras+"");
+		userId = extras.getLong("USER_ID");
+		username = extras.getString("USER_NAME");
+		
 		loadData();
 
 		//the list itself
@@ -56,7 +68,8 @@ public class ActivityListActivity extends SyncableActivity{
 		lv.setTextFilterEnabled(true);
 		lv.setChoiceMode(lv.CHOICE_MODE_SINGLE);
 		ArrayList<SchoolActivity> classList = someSchoolActivities;
-
+		
+		
 		lv.setAdapter(new ArrayAdapter<SchoolActivity>(this,
 				android.R.layout.simple_list_item_single_choice, classList));
 
@@ -282,6 +295,7 @@ public class ActivityListActivity extends SyncableActivity{
 				return;
 			}
 
+			freqActData.create(userId, activity.getId());
 			int addLoc = someSchoolActivities.indexOf(activity);
 			someSchoolActivities.add(activity);
 
@@ -366,7 +380,7 @@ public class ActivityListActivity extends SyncableActivity{
 	public void createActivity(String new_activity_name)
 	{
 		actData.create(new_activity_name);
-			
+		
 		loadData();
 		reloadList();
 		Toast.makeText(getApplicationContext(), "New activity added!",
@@ -397,23 +411,23 @@ public class ActivityListActivity extends SyncableActivity{
 		reloadList();
 	}
 
-	public void onPause()
+	public void onStop()
 	{
-		super.onPause();
+		super.onStop();
 		actData.close();
+		freqActData.close();
 	}
 
 	public void loadData()
 	{
 		actData = new SchoolActivityDataSource(this);
 		actData.open();
+		freqActData = new FrequentActivityDataSource(this);
+		freqActData.open();
+		
 		schoolActivities = (ArrayList<SchoolActivity>) actData.getAll();
-		someSchoolActivities = new ArrayList<SchoolActivity>(); //TO CHANGE
-		for (int i=0; i<schoolActivities.size(); i++)
-		{
-			someSchoolActivities.add(schoolActivities.get(i));
-		}
-
+		someSchoolActivities = actData.getFrequentSchoolActivities(userId);
+		
 	}
 
 	public void reloadList()
@@ -437,5 +451,15 @@ public class ActivityListActivity extends SyncableActivity{
 		}
 		lv.setAdapter(new ArrayAdapter<SchoolActivity>(this,
 				android.R.layout.simple_list_item_single_choice, classArrayList));
+	}
+	
+	public ArrayList<Long> frequentActivityIdList()
+	{
+		ArrayList<Long> freqActivityIds = new ArrayList<Long>();
+		for (SchoolActivity act : someSchoolActivities)
+		{
+			freqActivityIds.add(act.getId());
+		}
+		return freqActivityIds;
 	}
 }

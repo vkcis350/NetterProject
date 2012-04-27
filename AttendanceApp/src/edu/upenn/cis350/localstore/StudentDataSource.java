@@ -55,17 +55,6 @@ public class StudentDataSource extends DataSource {
 		return student;
 	}
 
-	@Override
-	@Deprecated
-	public void create(Model student) {
-		Student s = (Student)student ;
-		ContentValues values = new ContentValues();
-		values.put(MySQLiteHelper.COL_STUDENT_LAST_NAME, s.getLastName() );
-		long insertId = database.insert(MySQLiteHelper.TABLE_STUDENTS, null,
-				values);
-		s.setId(insertId);
-	}
-	
 	public Student create(long id, String lastName, String firstName, String phone, 
 			String contact, String contactRelation, long schoolID, long siteID,
 			long schoolYear, int grade, String address){

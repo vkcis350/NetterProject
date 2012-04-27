@@ -23,8 +23,6 @@ public class UserCreationActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.usercreation);
-		//load data from sqlite
-		TemporaryDbInsert.insert(this);
 	}
 	
 	@Override
@@ -47,7 +45,7 @@ public class UserCreationActivity extends Activity {
 		String confirmPassString = confirmPass.getText().toString();
 		String creationCodeString = creationCode.getText().toString();
 
-		if( validate(passString, confirmPassString, creationCodeString) ) {
+		if( validate(userName, passString, confirmPassString, creationCodeString) ) {
 			userData.create(userName,passString);
 			Toast.makeText(getApplicationContext(), "User created.", Toast.LENGTH_SHORT).show();
 		}
@@ -55,8 +53,12 @@ public class UserCreationActivity extends Activity {
 			
 	}
 	
-	private boolean validate(String password, String confirmPassword, String creationCode) throws UnsupportedEncodingException, NoSuchAlgorithmException
+	private boolean validate(String username, String password, String confirmPassword, String creationCode) throws UnsupportedEncodingException, NoSuchAlgorithmException
 	{
+		if (usernameExists(username)) {
+			Toast.makeText(getApplicationContext(), "Username already taken.", Toast.LENGTH_SHORT).show();
+			return false;
+		}
 		if (!password.equals(confirmPassword)) {
 			Toast.makeText(getApplicationContext(), "Password confirmation does not match password.", Toast.LENGTH_SHORT).show();
 			return false;
@@ -90,6 +92,10 @@ public class UserCreationActivity extends Activity {
 
 	public void onQuitClick(View v){
 		finish();
+	}
+	
+	public boolean usernameExists(String username) {
+		return userData.get(username)!=null;
 	}
 
 	

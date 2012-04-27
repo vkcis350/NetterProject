@@ -3,6 +3,7 @@ package edu.upenn.cis350.localstore;
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.upenn.cis350.models.FrequentActivity;
 import edu.upenn.cis350.models.Model;
 import edu.upenn.cis350.models.SchoolActivity;
 
@@ -12,6 +13,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 public class SchoolActivityDataSource extends DataSource {
 	final static String[] TABLES = { MySQLiteHelper.TABLE_ACTIVITIES };
@@ -38,18 +40,6 @@ public class SchoolActivityDataSource extends DataSource {
 	protected String getIDColumn() {
 		return ID_COLUMN;
 	}
-
-	@Override
-	@Deprecated
-	public void create(Model model) {
-		SchoolActivity activity = (SchoolActivity)model;
-		ContentValues values = new ContentValues();
-		values.put(MySQLiteHelper.COL_ACTIVITY_NAME, activity.getName() );
-		long insertId = database.insert(MySQLiteHelper.TABLE_ACTIVITIES, null,
-				values);
-		activity.setId(insertId);
-	}
-	
 	
 	public SchoolActivity create(String name)
 	{
@@ -71,5 +61,22 @@ public class SchoolActivityDataSource extends DataSource {
 	{
 		return (ArrayList<SchoolActivity>) getAll(MySQLiteHelper.COL_ACTIVITY_NAME);
 	}
+	
+	//also requires Frequent Activities table
+	public ArrayList<SchoolActivity> getFrequentSchoolActivities(long userId)
+	{
+		final String MY_QUERY = "SELECT * FROM " +MySQLiteHelper.TABLE_ACTIVITIES
+				+ " INNER JOIN " 
+				+ MySQLiteHelper.TABLE_FREQUENT_ACTIVITIES
+				+" ON "+MySQLiteHelper.TABLE_ACTIVITIES+"."+MySQLiteHelper.COL_ACTIVITY_ID
+				+"="+MySQLiteHelper.TABLE_FREQUENT_ACTIVITIES+"."+MySQLiteHelper.COL_ACTIVITY_ID
+				+" WHERE "+MySQLiteHelper.TABLE_FREQUENT_ACTIVITIES+"."+MySQLiteHelper.COL_USER_ID+"=?";
+		Log.d("FrequentActivityDataSource",MY_QUERY);
+		
+		Cursor cursor = database.rawQuery(MY_QUERY, new String[]{userId+""});
+		 
+		return (ArrayList<SchoolActivity>)getAllModels(cursor);
+	}
+	
 	
 }

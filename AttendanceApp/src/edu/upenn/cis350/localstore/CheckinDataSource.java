@@ -44,12 +44,6 @@ public class CheckinDataSource extends DataSource {
 		checkin.setLastChangeTime(c.getLong(MySQLiteHelper.CHECKINS_LAST_CHANGE_INDEX ) );
 		return checkin;
 	}
-
-	@Override
-	@Deprecated
-	public void create(Model model) {
-		
-	}
 	
 	public Checkin create(long time, long activityID, long studentID)
 	{			

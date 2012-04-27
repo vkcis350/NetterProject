@@ -59,11 +59,5 @@ public class UserDataSource extends DataSource {
 		return (User)getFirstModel(c);
 	}
 
-	@Override
-	@Deprecated
-	public void create(Model model) {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

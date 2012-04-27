@@ -32,11 +32,13 @@ public class TemporaryDbInsert {
 		StudentDataSource studentData = new StudentDataSource(context);
 		CheckinDataSource checkinData = new CheckinDataSource(context);
 		UserDataSource userData = new UserDataSource(context);
+		FrequentActivityDataSource frequentData = new FrequentActivityDataSource(context);
 		
 		actData.open();
 		studentData.open();
 		checkinData.open();
 		userData.open();
+		frequentData.open();
 		
 		if ( actData.getAll().size()<1 )
 		{
@@ -74,6 +76,17 @@ public class TemporaryDbInsert {
 					"?", "Neighbor", 0, 0,
 					2011, 3, "123 Some Street, Philadelphia");
 			
+			Student s6 = studentData.create(99, "Darwin", "Charles", "1-888-EVOLVE", 
+					"Australopithecus", "Ancestor", 0, 0,
+					2011, 4, "Tortoise's back, Galapagos Islands");
+			
+			Student s7 = studentData.create(100, "Turing", "Alan", "215-MACHINE", 
+					"Someone", "Fellow human...or AI?", 0, 0,
+					2011, 6, "Bletchley Park");
+			
+			frequentData.create(1,1);
+			frequentData.create(2,1);
+			frequentData.create(2,2);
 			
 			studentData.addStudentToActivity(s1,a1);
 			studentData.addStudentToActivity(s2,a1);
@@ -106,6 +119,7 @@ public class TemporaryDbInsert {
 		actData.close();
 		checkinData.close();
 		userData.close();
+		frequentData.close();
 	}
 
 }

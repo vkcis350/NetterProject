@@ -17,6 +17,7 @@ public class CommentFormActivity extends SyncableActivity {
 	long studentID;
 	String studentName;
 	long activityID;
+	private long userId;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState){
@@ -27,6 +28,7 @@ public class CommentFormActivity extends SyncableActivity {
 		studentID = extras.getLong("STUDENT_ID");
 		studentName = extras.getString("STUDENT_NAME");
 		activityID = extras.getLong("ACTIVITY_ID");
+		userId = extras.getLong("USER_ID");
 		Log.d("CommentFormActivity","activity id: "+activityID);
 	}
 

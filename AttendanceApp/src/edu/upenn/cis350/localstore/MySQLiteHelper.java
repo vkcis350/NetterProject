@@ -40,6 +40,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String COL_PASSWORD_HASH = "password_hash";
 	public static final String COL_SALT = "salt";
 	
+	public static final String TABLE_FREQUENT_ACTIVITIES = "freq_activity";
+	public static final String COL_FREQUENT_ACTIVITY_ID = "freq_activity_id";
+	
 	public static final int STUDENT_STUDENT_ID_INDEX = 0;
 	public static final int STUDENT_STUDENT_LAST_NAME_INDEX = 1;
 	public static final int STUDENT_STUDENT_FIRST_NAME_INDEX = 2;
@@ -68,8 +71,15 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int USER_PASSWORD_HASH_INDEX=2;
 	public static final int USER_SALT_INDEX=3;
 	
+	public static final int FREQUENT_ACTIVITY_ID_INDEX = 0;
+	public static final int FREQUENT_ACTIVITY_USER_ID_INDEX = 1;
+	public static final int FREQUENT_ACTIVITY_ACTIVITY_ID_INDEX = 2;
+	
 	public static final String DATABASE_NAME = "attendance.db";
-	public static final int DATABASE_VERSION = 105;
+	public static final int DATABASE_VERSION = 114;
+
+	
+	
 	
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -102,6 +112,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				+ COL_ACTIVITY_NAME + " TEXT);");
 		
 		database.execSQL("create table "
+				+ TABLE_FREQUENT_ACTIVITIES + "( " 
+				+ COL_FREQUENT_ACTIVITY_ID + " integer primary key autoincrement, " 
+				+ COL_USER_ID + " integer,"
+				+ COL_ACTIVITY_ID + " integer);");
+		
+		database.execSQL("create table "
 				+ TABLE_CHECKINS + "( " 
 				+ COL_CHECKIN_ID + " integer primary key autoincrement,"
 				+ COL_ACTIVITY_ID + " integer, " 
@@ -131,6 +147,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_ACTIVITIES);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_CHECKINS);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_FREQUENT_ACTIVITIES);
 		onCreate(db);
 	}
 

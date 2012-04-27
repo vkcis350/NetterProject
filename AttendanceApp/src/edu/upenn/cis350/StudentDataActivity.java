@@ -72,8 +72,7 @@ public class StudentDataActivity extends SyncableActivity{
 		nameField.setText(curStudent.getLastName()+", "+curStudent.getFirstName());
 
 		TextView lastActionText = (TextView) findViewById(R.id.last_action_field);
-		String lastActionString = lastAction();
-		lastActionText.setText(lastActionString);
+		lastActionText.setText( lastAction() );
 
 		EditText gradeField = (EditText) findViewById(R.id.student_grade_field);
 		gradeField.setText(curStudent.getGrade()+"");
@@ -81,8 +80,12 @@ public class StudentDataActivity extends SyncableActivity{
 		EditText phoneContField = (EditText) findViewById(R.id.phone_contact_field);
 		phoneContField.setText(curStudent.getPhone());
 		
-		EditText contactRelField = (EditText) findViewById(R.id.contact_relation_field);
-		contactRelField.setText(curStudent.getContactRelation());
+		EditText contactField = (EditText) findViewById(R.id.contact_relation_field);
+		contactField.setText(curStudent.getContactRelation());
+		
+		EditText contactRelField = (EditText) findViewById(R.id.contact_field);
+		contactRelField.setText(curStudent.getContact());
+	
 		EditText addressContField = (EditText) findViewById(R.id.address_contact_field);
 		addressContField.setText(curStudent.getAddress());
 

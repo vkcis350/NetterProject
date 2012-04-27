@@ -10,7 +10,6 @@ public class StudentTest extends TestCase {
 	protected void setUp() throws Exception {
 		super.setUp();
 		test=new Student();
-		test2=new Student(n2);
 		test.setFirstName(n1);
 	}
 

@@ -28,9 +28,6 @@ public abstract class DataSource<T extends Model>{
 	protected abstract T cursorToModel(Cursor c);
 	
 	
-	public abstract void create(T model);
-	
-	
 	public DataSource(Context context) {
 		dbHelper = new MySQLiteHelper(context);
 	}
@@ -94,6 +91,20 @@ public abstract class DataSource<T extends Model>{
 			model = cursorToModel(cursor);
 		cursor.close();
 		return model;
+	}
+	
+	public ArrayList<Model> getAllModels(Cursor cursor)
+	{
+		ArrayList<Model> models = new ArrayList<Model>();
+		Log.d("DataSource","count "+cursor.getCount()+" "+cursor.toString());
+		while (cursor.moveToNext())
+		{
+			Model model = cursorToModel(cursor);
+			models.add( model );
+			Log.d("DataSource",model.getId()+"");
+		}
+		cursor.close();
+		return models;
 	}
 	
 	public String exportJson(){

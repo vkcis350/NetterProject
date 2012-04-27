@@ -187,6 +187,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 
 			Intent i = new Intent(this,StudentDataActivity.class);
 			i.putExtra("STUDENT_ID", studentID);
+			i.putExtras(getIntent().getExtras());
 			startActivityForResult(i,EDIT_DATA_REQUEST);
 		}
 
@@ -334,6 +335,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 			i.putExtra("STUDENT_NAME", "DEFAULT NAME");
 			i.putExtra("STUDENT_ID", new Long(studentID));
 			i.putExtra("ACTIVITY_ID", currentActivityID);
+			i.putExtras(getIntent().getExtras());
 			startActivityForResult(i,LEAVE_COMMENT_REQUEST);
 		}
 		else if(lv.getCheckedItemCount() > 1)
