@@ -35,7 +35,10 @@ class MainHandler(webapp.RequestHandler):
     def post(self):
         'Students, activities, checkins separated by new lines'
         self.saveDataFromRequest(self.request.body)
-    
+        self.response.body = json.dumps(map(lambda x: x.to_dict(),
+                                            Student.all()))
+
+
     def saveDataFromRequest(self, req_body):
         request_objs = req_body.splitlines()
         students = json.loads(request_objs[0])
