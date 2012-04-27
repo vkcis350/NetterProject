@@ -32,6 +32,7 @@ public class SchoolActivityDataSource extends DataSource {
 		SchoolActivity act = new SchoolActivity();
 		act.setId(cursor.getLong(MySQLiteHelper.ACTIVITIES_ACTIVITY_ID_INDEX ));
 		act.setName(cursor.getString(MySQLiteHelper.ACTIVITIES_ACTIVITY_NAME_INDEX));
+		act.setName(cursor.getString(MySQLiteHelper.ACTIVITIES_SITE_ID_INDEX));
 		return act;
 	}
 
@@ -47,17 +48,18 @@ public class SchoolActivityDataSource extends DataSource {
 
 	
 	
-	public SchoolActivity create(String name)
+	public SchoolActivity create(String name, long siteId)
 	{
-		return create(-1,name);
+		return create(-1,name,siteId);
 	}
 	
-	public SchoolActivity create(long id, String name)
+	public SchoolActivity create(long id, String name, long siteId)
 	{
 		ContentValues values = new ContentValues();
 		if (id!=-1)
 			values.put(MySQLiteHelper.COL_ACTIVITY_ID, id );
 		values.put(MySQLiteHelper.COL_ACTIVITY_NAME, name );
+		values.put(MySQLiteHelper.COL_SITE_ID, siteId );
 		long insertId = database.insert(MySQLiteHelper.TABLE_ACTIVITIES, null,
 				values);
 		return (SchoolActivity) get(insertId);
@@ -71,7 +73,7 @@ public class SchoolActivityDataSource extends DataSource {
 	
 	public void populateFromList(List<SchoolActivity> objList){
 		for(SchoolActivity act : objList){
-			create(act.getId(), act.getName());
+			create(act.getId(), act.getName(),act.getSiteId());
 		}
 	}
 	

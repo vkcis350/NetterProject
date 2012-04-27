@@ -50,6 +50,8 @@ public class ActivityListActivity extends SyncableActivity{
 	long userId;
 	String username;
 
+	private long siteId = 0;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -395,7 +397,7 @@ public class ActivityListActivity extends SyncableActivity{
 	
 	public void createActivity(String new_activity_name)
 	{
-		actData.create(new_activity_name);
+		actData.create(new_activity_name,siteId );
 		
 		loadData();
 		reloadList();

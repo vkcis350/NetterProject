@@ -3,13 +3,13 @@ package edu.upenn.cis350.models;
 public class Checkin extends Model {
 
 	private long studentID;
-	private long sessionID;
 	private long activityID;
 	private long inTime;
 	private long outTime;
 	private long userId;
 	private long lastChangeTime;
 	private String comment;
+	private long siteId;
 	
 	public Checkin()
 	{
@@ -135,6 +135,15 @@ public class Checkin extends Model {
 		return false;
  	}
 	
+	public void setSiteId(long siteId)
+	{
+		this.siteId = siteId;
+	}
+	
+	public long getSiteId()
+	{
+		return siteId;
+	}
 
 
 }

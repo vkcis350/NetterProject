@@ -57,6 +57,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	
 	public static final int ACTIVITIES_ACTIVITY_ID_INDEX = 0;
 	public static final int ACTIVITIES_ACTIVITY_NAME_INDEX = 1;
+	public static final int ACTIVITIES_SITE_ID_INDEX = 2;
 	
 	public static final int CHECKINS_CHECKIN_ID_INDEX = 0;
 	public static final int CHECKINS_ACTIVITY_ID_INDEX = 1;
@@ -65,6 +66,8 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int CHECKINS_CHECKOUT_TIME_INDEX = 4;
 	public static final int CHECKINS_LAST_CHANGE_INDEX = 5;
 	public static final int CHECKINS_COMMENT_INDEX = 6;
+	//public static final int CHECKINS_SITE_ID_INDEX = 7;
+	
 	
 	public static final int USER_USER_ID_INDEX = 0;
 	public static final int USER_USERNAME_INDEX = 1;
@@ -76,7 +79,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int FREQUENT_ACTIVITY_ACTIVITY_ID_INDEX = 2;
 	
 	public static final String DATABASE_NAME = "attendance.db";
-	public static final int DATABASE_VERSION = 115;
+	public static final int DATABASE_VERSION = 116;
 
 	
 	
@@ -115,7 +118,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				+ TABLE_FREQUENT_ACTIVITIES + "( " 
 				+ COL_FREQUENT_ACTIVITY_ID + " integer primary key autoincrement, " 
 				+ COL_USER_ID + " integer,"
-				+ COL_ACTIVITY_ID + " integer);");
+				+ COL_ACTIVITY_ID + " integer," 
+				+ COL_SITE_ID + " integer" 
+				+");");
 		
 		database.execSQL("create table "
 				+ TABLE_CHECKINS + "( " 
@@ -126,6 +131,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				+ COL_CHECKOUT_TIME + " integer, "
 				+ COL_LAST_CHANGE + " integer," 
 				+ COL_COMMENT + " text"
+				//+ COL_SITE_ID + " integer"
 				+ ");");
 		
 		database.execSQL("create table "

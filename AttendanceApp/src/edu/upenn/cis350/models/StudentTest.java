@@ -7,6 +7,7 @@ public class StudentTest extends TestCase {
 	private final long id1=25, id2=36;
 	private final String n1="first",n2="second";
 	
+	
 	protected void setUp() throws Exception {
 		super.setUp();
 		test=new Student();

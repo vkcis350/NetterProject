@@ -3,6 +3,7 @@ package edu.upenn.cis350.models;
 public class SchoolActivity extends Model implements Comparable {
 	//private long id;
 	private String name;
+	private long siteId;
 	
 
 	public SchoolActivity(String name) {
@@ -37,6 +38,16 @@ public class SchoolActivity extends Model implements Comparable {
 	public int compareTo(Object arg0) {//we're comparing on names, probably want to compare on ids
 		// TODO Auto-generated method stub
 		return this.toString().compareTo(arg0.toString());
+	}
+	
+	public void setSiteId(long siteId)
+	{
+		this.siteId = siteId;
+	}
+	
+	public long getSiteId()
+	{
+		return siteId;
 	}
 	
 }

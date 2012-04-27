@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 public class AddNewActivityActivity extends SyncableActivity {
 	SchoolActivityDataSource dbsrc;
+	private long siteId=0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -32,7 +33,7 @@ public class AddNewActivityActivity extends SyncableActivity {
 		Model act = new SchoolActivity(new_activity_name);
 		dbsrc = new SchoolActivityDataSource(this);
 		dbsrc.open();
-		dbsrc.create(new_activity_name);
+		dbsrc.create(new_activity_name, siteId);
 		dbsrc.close();
 
 		//back to last activity

@@ -53,11 +53,11 @@ public class TemporaryDbInsert {
 				e.printStackTrace();
 			}
 			
-			SchoolActivity a1 = actData.create("Android Programming");
-			SchoolActivity a2 = actData.create("Zambian Cultural Festival");
-			SchoolActivity a3 =  actData.create("Napoleonic Wars");
-			SchoolActivity a4 =  actData.create("Homework");
-			SchoolActivity a5 =  actData.create(192,"Whatever");
+			SchoolActivity a1 = actData.create("Android Programming",0);
+			SchoolActivity a2 = actData.create("Zambian Cultural Festival",0);
+			SchoolActivity a3 =  actData.create("Napoleonic Wars",0);
+			SchoolActivity a4 =  actData.create("Homework",0);
+			SchoolActivity a5 =  actData.create(192,"Whatever",1);
 			
 			Student s1 = studentData.create(1, "Sun", "Yat-sen", "1-800-PETMEDS", 
 					"Chiang Kai-shek", "eventual successor", 0, 0,
