@@ -109,7 +109,31 @@ public class Checkin extends Model {
 		// TODO Auto-generated method stub
 		return getInTime()<=0 && getOutTime()<=0;
 	}
+
+	public boolean markAbsent() {
+		if (!absent()) {
+			inTime=-1;
+			outTime=-1;
+			return true;
+		}
+		return false;
+	}
 	
+	public boolean checkIn(long time) {
+		if ( neverCheckedIn() ) {
+			setInTime(time);
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean checkOut(long time) {
+		if ( checkedIn() ) {
+			setOutTime(time);
+			return true;
+		}
+		return false;
+ 	}
 	
 
 
