@@ -3,75 +3,55 @@ from google.appengine.ext import db
 '''Using the models in this module we will store the data uploaded from the 
 cellphones before sending it to the spreadhseets'''
 
-class Student(db.Model):
-   
-    address = db.StringProperty()
-    contact = db.StringProperty()
-    contactiRelation = db.StringProperty()
-    firstName = db.StringProperty()
-    phone = db.StringProperty()
-    lastName = db.StringProperty()
-    siteID = db.IntegerProperty()
-    schoolID = db.IntegerProperty()
-    schoolYear = db.IntegerProperty()
-    grade = db.IntegerProperty()
+
+class BaseModel(db.Model):
+    '''This model contains basic functionality shared by all db models in this
+    module'''
 
     @staticmethod
     def get_from_json(json_list):
         '''Takes in a list of json objects and creates a db entry for each.'''
-        for student in json_list:
-            entity = Student.get_or_insert(str(student['id']))
-            
-            entity.address = student['address']
-            entity.contact = student['contact']
-            entity.contact_relation = student['contactRelation']
-            entity.first_name = student['firstName']
-            entity.phone = student['phone']
-            entity.last_name = student['lastName']
-            entity.site_id = student['siteID']
-            entity.school_id = student['schoolID']
-            entity.school_year = student['schoolYear']
-            entity.grade = student['grade']
-            entity.put()
-   
+        for obj in json_list:
+            entity = get_or_insert(str(obj['id']))
+
+            for key, value in json_list.iteritems():
+                key = key.lower()
+                setattr(entity, key, str(value))
+                entity.put()
+    
+    def update(self, **kwargs):
+        '''Updates an existing model according to the values
+        passed in by kwargs'''
+        for key in kwargs:
+            setattr(self, key, kwargs[key])
+        self.put()
+
+
+class Student(BaseModel):
+    id = db.StringProperty()   
+    address = db.StringProperty()
+    contact = db.StringProperty()
+    contactrelation = db.StringProperty()
+    firstname = db.StringProperty()
+    phone = db.StringProperty()
+    lastname = db.StringProperty()
+    siteid = db.StringProperty()
+    schoolid = db.StringProperty()
+    schoolyear = db.StringProperty()
+    grade = db.StringProperty()
+
 
 class Comment(db.Model):
     comment = db.StringProperty()
-    activityID = db.StringProperty()
-    inTime = db.IntegerProperty()
-    lastChangeTime = db.IntegerProperty()
-    outTime = db.IntegerProperty()
-    sessionID = db.IntegerProperty()
-    studentID = db.IntegerProperty()
-    userID = db.IntegerProperty()
-
-    @staticmethod
-    def get_from_json(json_list):
-        for comment in comments:
-            entity = Comment.get_or_insert(str(comment['id']))
-            
-            entity.comment = comment['comment']
-            entity.activityID = comment['activityID']
-            entity.inTime = comment['inTime']
-            entity.lastChangeTime = comment['lastChangeTime']
-            entity.outTime = comment['outTime']
-            entity.sessionID = comment['sessionID']
-            entity.studentID = comment['studentID']
-            entity.userID = comment['userID']
-            entity.put()
+    activityid = db.StringProperty()
+    intime = db.StringProperty()
+    lastchangetime = db.StringProperty()
+    outtime = db.StringProperty()
+    sessionid = db.StringProperty()
+    studentid = db.StringProperty()
+    userid = db.StringProperty()
 
 
 class Activity(db.Model):
+    id = db.StringProperty()
     name = db.StringProperty()
-
-    @staticmethod
-    def from_json_list(json_list):
-        for activity in json_list:
-            entity = Activity.get_or_insert(str(comment['id']))
-
-            entity.name = activity['name']
-            entity.put()
-
-class Request(db.Model):
-    '''User to record body of requests sent. For testing purposes only'''
-    body = db.TextProperty()

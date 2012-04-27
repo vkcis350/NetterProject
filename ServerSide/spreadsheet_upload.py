@@ -12,8 +12,8 @@ SPREADSHEET_KEY= '0Ap3SpWBg9QDYdEQ3Q2RocVpSN2FEN1h3WGx6VXI3QlE'
 
 # All spreadsheets have worksheets. I think worksheet #1 by default always
 # has a value of 'od6'
-WORKSHEET_IDS = ['od6', 'od7', 'od8']
-MODELS = [Student, Activity, Comments]
+WORKSHEET_IDS = ['0', '1', '2']
+MODELS = [Student, Activity, Comment]
 
 def set_up():
     spr_client = gdata.spreadsheet.service.SpreadsheetsService()
@@ -33,14 +33,23 @@ def prep_testdata():
 
 def log_dataupload_status(entry):
     if isinstance(entry, gdata.spreadsheet.SpreadsheetsList):
-        logging.info("Insert row succeeded.")
+        print "Insert row succeeded."
     else:
         logging.info("Insert row failed.")
 
 def upload_data():
     sclient = set_up()
-    for wid, model in WORKSHEET_IDS, MODELS:
-        data = model.all()
+    ctr = 0
+    for wid in WORKSHEET_IDS:
+        data = MODELS[0].all()
+        ctr += 1
         for datum in data:
-            entry = sclient.InsertRow(datum.properties(), SPREADSHEET_KEY, wid)
+            properties = properties_to_string(datum.properties())
+            entry = sclient.InsertRow(properties, SPREADSHEET_KEY, wid)
             log_dataupload_status(entry)
+
+def properties_to_string(model_dict):
+    properties = {}
+    for key in model_dict:
+        properties[key] = str(model_dict[key])
+    return properties

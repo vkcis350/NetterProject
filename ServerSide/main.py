@@ -20,7 +20,8 @@ import logging
 from google.appengine.ext import webapp
 from google.appengine.ext.webapp import util
 
-import spreadsheet_upload as sup
+import gspreadsheets as gs
+
 from models import Student, Activity, Comment
 
 class MainHandler(webapp.RequestHandler):
@@ -31,6 +32,7 @@ class MainHandler(webapp.RequestHandler):
         'Students, activities, checkins separated by new lines'
         self.saveDataFromRequest(self.request.body)
         sup.upload_data()
+        self.response.out.write(self.request.body)
     
     def saveDataFromRequest(self, req_body):
         request_objs = req_body.splitlines()
@@ -40,10 +42,11 @@ class MainHandler(webapp.RequestHandler):
         comments = json.loads(request_objs[2])
 
         Student.get_from_json(students)
+        Students.all()
         Comment.get_from_json(comments)
         Activity.get_from_json(activities)
     
-
+        
 def main():
     application = webapp.WSGIApplication([('/.*', MainHandler)],
                                          debug=True)
