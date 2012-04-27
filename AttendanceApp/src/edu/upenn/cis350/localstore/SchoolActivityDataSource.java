@@ -60,6 +60,16 @@ public class SchoolActivityDataSource extends DataSource {
 		return (SchoolActivity) get(insertId);
 	}
 	
+	public SchoolActivity create(long id, String name)
+	{
+		ContentValues values = new ContentValues();
+		values.put(MySQLiteHelper.COL_ACTIVITY_NAME, name );
+		values.put(MySQLiteHelper.COL_ACTIVITY_ID, id );
+		long insertId = database.insert(MySQLiteHelper.TABLE_ACTIVITIES, null,
+				values);
+		return (SchoolActivity) get(insertId);
+	}
+	
 	public ArrayList<SchoolActivity> getAll()
 	{
 		return (ArrayList<SchoolActivity>) getAll(MySQLiteHelper.COL_ACTIVITY_NAME);
