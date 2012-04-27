@@ -54,6 +54,11 @@ public class AttendanceAppActivity extends Activity {
 	public void onQuitClick(View v){
 		finish();
 	}
+	
+	public void onCreateUserClick(View v) {
+		Intent i = new Intent(this,UserCreationActivity.class);
+		startActivity(i);
+	}
 
 	private boolean validate(String username, String pass) throws UnsupportedEncodingException, NoSuchAlgorithmException{
 		User user = userData.get(username);

@@ -4,13 +4,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_weight="1.80"
-        android:src="@drawable/netter_logo" />
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
@@ -38,6 +31,36 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="14dp"
         android:password="true" />
+    
+    <TextView
+        android:id="@+id/confirm_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="Confirm Password" />
+    
+    <EditText
+        android:id="@+id/confirm"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="14dp"
+        android:password="true" />
+    
+    <TextView
+        android:id="@+id/confirm_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="User Creation Code" />
+    
+    <EditText
+        android:id="@+id/creation_code"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="14dp"
+        android:password="false" />
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -46,20 +69,12 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/login"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="onLoginClick"
-            android:text="@string/login" />
-        
-        <Button
-            android:id="@+id/createuser"
+            android:id="@+id/create"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="onCreateUserClick"
-            android:text="New User" />
+            android:text="Create" />
 
         <Button
             android:id="@+id/quit"
@@ -68,9 +83,6 @@
             android:layout_weight="1"
             android:onClick="onQuitClick"
             android:text="@string/quit" />
-        
-        
-        
     </LinearLayout>
 
 </LinearLayout>

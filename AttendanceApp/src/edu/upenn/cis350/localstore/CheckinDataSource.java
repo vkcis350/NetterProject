@@ -61,6 +61,9 @@ public class CheckinDataSource extends DataSource {
 			long checkinTime,long checkoutTime, long lastChangeTime, String comment)
 	{
 		ContentValues values = new ContentValues();
+		
+		/*If the method with fewer argument calls this method, 
+		 * then ID value will not be inserted, and the DB will autoincrement for ID.*/
 		if (id!=-1)
 			values.put(MySQLiteHelper.COL_CHECKIN_ID, id);
 		values.put(MySQLiteHelper.COL_ACTIVITY_ID, activityID );
