@@ -53,18 +53,15 @@ public class SchoolActivityDataSource extends DataSource {
 	
 	public SchoolActivity create(String name)
 	{
-		ContentValues values = new ContentValues();
-		values.put(MySQLiteHelper.COL_ACTIVITY_NAME, name );
-		long insertId = database.insert(MySQLiteHelper.TABLE_ACTIVITIES, null,
-				values);
-		return (SchoolActivity) get(insertId);
+		return create(-1,name);
 	}
 	
 	public SchoolActivity create(long id, String name)
 	{
 		ContentValues values = new ContentValues();
+		if (id!=-1)
+			values.put(MySQLiteHelper.COL_ACTIVITY_ID, id );
 		values.put(MySQLiteHelper.COL_ACTIVITY_NAME, name );
-		values.put(MySQLiteHelper.COL_ACTIVITY_ID, id );
 		long insertId = database.insert(MySQLiteHelper.TABLE_ACTIVITIES, null,
 				values);
 		return (SchoolActivity) get(insertId);

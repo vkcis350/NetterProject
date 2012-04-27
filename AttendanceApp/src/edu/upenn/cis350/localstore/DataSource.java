@@ -113,6 +113,9 @@ public abstract class DataSource<T extends Model>{
 	
 	
 	
+	/*
+	 * Deletes all the rows for this DataSource's table(s).
+	 */
 	public void deleteAll()
 	{
 		String[] tables = getTables();

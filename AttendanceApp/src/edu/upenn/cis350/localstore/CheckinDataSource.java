@@ -34,7 +34,6 @@ public class CheckinDataSource extends DataSource {
 	protected Model cursorToModel(Cursor c) {
 		Checkin checkin = new Checkin();
 		checkin.setId(c.getLong(MySQLiteHelper.CHECKINS_CHECKIN_ID_INDEX));
-		checkin.setSessionID( c.getLong(MySQLiteHelper.CHECKINS_SESSION_ID_INDEX) );
 		checkin.setActivityID( c.getLong(MySQLiteHelper.CHECKINS_ACTIVITY_ID_INDEX) );
 		checkin.setStudentID( c.getLong(MySQLiteHelper.CHECKINS_STUDENT_ID_INDEX) );
 		
@@ -52,28 +51,29 @@ public class CheckinDataSource extends DataSource {
 		
 	}
 	
-	public Model create(long time, long activityID, long studentID)
+	public Checkin create(long time, long activityID, long studentID)
+	{			
+		return create(-1, activityID,studentID, 0,0,time,"");
+
+	}
+	
+	public Checkin create(long id, long activityID, long studentID, 
+			long checkinTime,long checkoutTime, long lastChangeTime, String comment)
 	{
-		Checkin checkin = new Checkin();
-		checkin.setLastChangeTime(time);
-		checkin.setSessionID(0);
-		checkin.setActivityID(activityID);
-		checkin.setStudentID(studentID);
-		checkin.setComment("");
-		
 		ContentValues values = new ContentValues();
-		values.put(MySQLiteHelper.COL_SESSION_ID, 0 );
+		if (id!=-1)
+			values.put(MySQLiteHelper.COL_CHECKIN_ID, id);
 		values.put(MySQLiteHelper.COL_ACTIVITY_ID, activityID );
 		values.put(MySQLiteHelper.COL_STUDENT_ID, studentID );	
-		values.put(MySQLiteHelper.COL_CHECKIN_TIME, 0 );	
-		values.put(MySQLiteHelper.COL_CHECKOUT_TIME, 0 );
-		values.put(MySQLiteHelper.COL_LAST_CHANGE, time );
-		values.put(MySQLiteHelper.COL_COMMENT, "" );
+		values.put(MySQLiteHelper.COL_CHECKIN_TIME, checkinTime );	
+		values.put(MySQLiteHelper.COL_CHECKOUT_TIME, checkoutTime );
+		values.put(MySQLiteHelper.COL_LAST_CHANGE, lastChangeTime );
+		values.put(MySQLiteHelper.COL_COMMENT, comment);
 		
 		long insertId = database.insert(MySQLiteHelper.TABLE_CHECKINS, null,
 				values);
 		
-		return this.get(insertId);
+		return (Checkin) this.get(insertId);
 
 	}
 	
@@ -148,7 +148,8 @@ public class CheckinDataSource extends DataSource {
 //Don't use the following methods for now- the usage of create and save doesn't properly handle the id field
 	public void populateFromList(List<Checkin> objList){
 		for(Checkin obj : objList){
-			create(obj.getSessionID(),obj.getActivityID(),obj.getStudentID());
+			create(obj.getId(),obj.getActivityID(), obj.getStudentID(), 
+					obj.getInTime(),obj.getOutTime(), obj.getLastChangeTime(), obj.getComment() );
 			save(obj);
 		}
 	}

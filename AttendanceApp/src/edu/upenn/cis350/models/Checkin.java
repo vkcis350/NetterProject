@@ -28,21 +28,12 @@ public class Checkin extends Model {
 		this.studentID = studentID;
 	}
 	
-	public void setSessionID(long sessionID)
-	{
-		this.sessionID = sessionID;
-	}
 	
 	public void setActivityID(long activityID)
 	{
 		this.activityID = activityID;
 	}
 	
-
-	public long getSessionID() {
-		// TODO Auto-generated method stub
-		return sessionID;
-	}
 
 	public long getActivityID() {
 		// TODO Auto-generated method stub

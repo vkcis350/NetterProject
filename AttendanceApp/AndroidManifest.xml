@@ -37,8 +37,8 @@
             android:label="Student Data" ></activity>
          <activity android:name="CommentFormActivity"
             android:label="Comment Form" ></activity>
-         <activity android:name="DummyActivity"
-            android:label="DB Testing Dummy" ></activity>
+         <activity android:name="UserCreationActivity"
+            android:label="Create User" ></activity>
     </application>
 	<instrumentation android:name="android.test.InstrumentationTestRunner"
        android:targetPackage="edu.upenn.cis350" android:label="Tests for My App" />

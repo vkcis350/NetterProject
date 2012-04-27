@@ -55,6 +55,7 @@ public class TemporaryDbInsert {
 			SchoolActivity a2 = actData.create("Zambian Cultural Festival");
 			SchoolActivity a3 =  actData.create("Napoleonic Wars");
 			SchoolActivity a4 =  actData.create("Homework");
+			SchoolActivity a5 =  actData.create(192,"Whatever");
 			
 			Student s1 = studentData.create(1, "Sun", "Yat-sen", "1-800-PETMEDS", 
 					"Chiang Kai-shek", "eventual successor", 0, 0,

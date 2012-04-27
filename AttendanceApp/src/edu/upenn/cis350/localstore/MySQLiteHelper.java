@@ -56,13 +56,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int ACTIVITIES_ACTIVITY_NAME_INDEX = 1;
 	
 	public static final int CHECKINS_CHECKIN_ID_INDEX = 0;
-	public static final int CHECKINS_SESSION_ID_INDEX = 1;
-	public static final int CHECKINS_ACTIVITY_ID_INDEX = 2;
-	public static final int CHECKINS_STUDENT_ID_INDEX = 3;
-	public static final int CHECKINS_CHECKIN_TIME_INDEX = 4;
-	public static final int CHECKINS_CHECKOUT_TIME_INDEX = 5;
-	public static final int CHECKINS_LAST_CHANGE_INDEX = 6;
-	public static final int CHECKINS_COMMENT_INDEX = 7;
+	public static final int CHECKINS_ACTIVITY_ID_INDEX = 1;
+	public static final int CHECKINS_STUDENT_ID_INDEX = 2;
+	public static final int CHECKINS_CHECKIN_TIME_INDEX = 3;
+	public static final int CHECKINS_CHECKOUT_TIME_INDEX = 4;
+	public static final int CHECKINS_LAST_CHANGE_INDEX = 5;
+	public static final int CHECKINS_COMMENT_INDEX = 6;
 	
 	public static final int USER_USER_ID_INDEX = 0;
 	public static final int USER_USERNAME_INDEX = 1;
@@ -70,7 +69,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int USER_SALT_INDEX=3;
 	
 	public static final String DATABASE_NAME = "attendance.db";
-	public static final int DATABASE_VERSION = 103;
+	public static final int DATABASE_VERSION = 105;
 	
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -99,14 +98,12 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				+ " integer, PRIMARY KEY("+COL_STUDENT_ID+","+COL_ACTIVITY_ID+") );");
 		
 		database.execSQL("create table "
-				+ TABLE_ACTIVITIES + "( " + COL_ACTIVITY_ID
-				+ " integer primary key autoincrement, " + COL_ACTIVITY_NAME
-				+ " TEXT);");
+				+ TABLE_ACTIVITIES + "( " + COL_ACTIVITY_ID + " integer primary key autoincrement, " 
+				+ COL_ACTIVITY_NAME + " TEXT);");
 		
 		database.execSQL("create table "
 				+ TABLE_CHECKINS + "( " 
 				+ COL_CHECKIN_ID + " integer primary key autoincrement,"
-				+ COL_SESSION_ID + " integer, " 
 				+ COL_ACTIVITY_ID + " integer, " 
 				+ COL_STUDENT_ID + " integer, "
 				+ COL_CHECKIN_TIME + " integer, "
