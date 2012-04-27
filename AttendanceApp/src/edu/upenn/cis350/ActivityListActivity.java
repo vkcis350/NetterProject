@@ -6,6 +6,7 @@ import java.util.Collections;
 
 import edu.upenn.cis350.localstore.SchoolActivityDataSource;
 import edu.upenn.cis350.localstore.TemporaryDbInsert;
+import edu.upenn.cis350.models.Model;
 import edu.upenn.cis350.models.SchoolActivity;
 
 import android.app.Activity;
@@ -15,6 +16,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +25,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -136,6 +139,7 @@ public class ActivityListActivity extends SyncableActivity{
 			SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
 
 			AlertDialog mDialog = new AlertDialog.Builder(this)
+			.setIconAttribute(android.R.attr.alertDialogIcon)
 			.setTitle("Permanently Remove Activity")
 			.setMessage("Are you sure you want to completely remove " + activity + "? This cannot be undone.")
 			.setPositiveButton("Yes", null)
@@ -236,6 +240,7 @@ public class ActivityListActivity extends SyncableActivity{
 
 			AlertDialog mDialog = new AlertDialog.Builder(this)
 			.setTitle("Remove from List")
+			.setIconAttribute(android.R.attr.alertDialogIcon)
 			.setMessage("Are you sure you want to remove " + activity + " from the frequent activity list?")
 			.setPositiveButton("Yes", null)
 			.setNegativeButton("No", null)
@@ -301,6 +306,7 @@ public class ActivityListActivity extends SyncableActivity{
 
 			AlertDialog mDialog = new AlertDialog.Builder(this)
 			.setTitle("Add to List")
+			.setIconAttribute(android.R.attr.alertDialogIcon)
 			.setMessage("Are you sure you want to add " + activity + " to the frequent activity list?")
 			.setPositiveButton("Yes", null)
 			.setNegativeButton("No", null)
@@ -325,10 +331,50 @@ public class ActivityListActivity extends SyncableActivity{
 				Toast.LENGTH_SHORT).show();
 	}
 
-	public void onAddNew()
+	public AlertDialog onAddNew()
 	{
-		Intent i = new Intent(this,AddNewActivityActivity.class);
-		startActivityForResult(i,NEW_ACTIVITY_REQUEST);
+		WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+		layoutParams.dimAmount = 0.9f;
+		getWindow().setAttributes(layoutParams);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+		
+		//Intent i = new Intent(this,AddNewActivityActivity.class);
+		//startActivityForResult(i,NEW_ACTIVITY_REQUEST);
+		LayoutInflater factory = LayoutInflater.from(this);
+        final View textEntryView = factory.inflate(R.layout.add_new_activity, null);
+        return new AlertDialog.Builder(this)
+            .setTitle("Add New Activity")
+            .setView(textEntryView)
+            .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                	EditText activity_name = (EditText)textEntryView.findViewById(R.id.newActivityName);
+            		String new_activity_name = activity_name.getText().toString();
+                    if(new_activity_name != null && new_activity_name != "")
+                    	createActivity(new_activity_name);
+                }
+            })
+            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+
+                	Toast.makeText(getApplicationContext(), "No New Activity Created.",
+            				Toast.LENGTH_SHORT).show();
+                }
+            })
+        	.show();
+	}
+	
+	public void createActivity(String new_activity_name)
+	{
+		Model act = new SchoolActivity(new_activity_name);
+		SchoolActivityDataSource dbsrc = new SchoolActivityDataSource(this);
+		dbsrc.open();
+		dbsrc.create(act);
+		dbsrc.close();
+			
+		loadData();
+		reloadList();
+		Toast.makeText(getApplicationContext(), "New activity added!",
+				Toast.LENGTH_SHORT).show();
 	}
 
 	//what happens when you return from other activities
@@ -340,19 +386,6 @@ public class ActivityListActivity extends SyncableActivity{
 		{
 			Toast.makeText(getApplicationContext(), "Welcome back from viewing the student list",
 					Toast.LENGTH_SHORT).show();
-		}
-		else if(requestCode == NEW_ACTIVITY_REQUEST)
-		{
-			if(resultCode == RESULT_OK) //if okayed edit
-			{
-				loadData();
-				reloadList();
-				Toast.makeText(getApplicationContext(), "New activity added!",
-						Toast.LENGTH_SHORT).show();
-			}
-			else //if canceled edit
-				Toast.makeText(getApplicationContext(), "You did not add a new activity",
-						Toast.LENGTH_SHORT).show();
 		}
 		else
 			Toast.makeText(getApplicationContext(), "I don't know how you got this to show up",
