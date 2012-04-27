@@ -365,11 +365,7 @@ public class ActivityListActivity extends SyncableActivity{
 	
 	public void createActivity(String new_activity_name)
 	{
-		Model act = new SchoolActivity(new_activity_name);
-		SchoolActivityDataSource dbsrc = new SchoolActivityDataSource(this);
-		dbsrc.open();
-		dbsrc.create(act);
-		dbsrc.close();
+		actData.create(new_activity_name);
 			
 		loadData();
 		reloadList();
