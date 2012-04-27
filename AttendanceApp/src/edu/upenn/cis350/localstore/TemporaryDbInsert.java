@@ -1,5 +1,7 @@
 package edu.upenn.cis350.localstore;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -29,19 +31,34 @@ public class TemporaryDbInsert {
 		SchoolActivityDataSource actData = new SchoolActivityDataSource(context);
 		StudentDataSource studentData = new StudentDataSource(context);
 		CheckinDataSource checkinData = new CheckinDataSource(context);
+		UserDataSource userData = new UserDataSource(context);
+		FrequentActivityDataSource frequentData = new FrequentActivityDataSource(context);
 		
 		actData.open();
 		studentData.open();
 		checkinData.open();
+		userData.open();
+		frequentData.open();
 		
 		if ( actData.getAll().size()<1 )
 		{
+			try {
+				userData.create("user","1");
+				userData.create("admin","");
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 			SchoolActivity a1 = actData.create("Android Programming");
 			SchoolActivity a2 = actData.create("Zambian Cultural Festival");
 			SchoolActivity a3 =  actData.create("Napoleonic Wars");
 			SchoolActivity a4 =  actData.create("Homework");
-		
+			SchoolActivity a5 =  actData.create(192,"Whatever");
+			
 			Student s1 = studentData.create(1, "Sun", "Yat-sen", "1-800-PETMEDS", 
 					"Chiang Kai-shek", "eventual successor", 0, 0,
 					1911, 12, "3600 Walnut Street , Nanjing");
@@ -59,6 +76,17 @@ public class TemporaryDbInsert {
 					"?", "Neighbor", 0, 0,
 					2011, 3, "123 Some Street, Philadelphia");
 			
+			Student s6 = studentData.create(99, "Darwin", "Charles", "1-888-EVOLVE", 
+					"Australopithecus", "Ancestor", 0, 0,
+					2011, 4, "Tortoise's back, Galapagos Islands");
+			
+			Student s7 = studentData.create(100, "Turing", "Alan", "215-MACHINE", 
+					"Someone", "Fellow human...or AI?", 0, 0,
+					2011, 6, "Bletchley Park");
+			
+			frequentData.create(1,1);
+			frequentData.create(2,1);
+			frequentData.create(2,2);
 			
 			studentData.addStudentToActivity(s1,a1);
 			studentData.addStudentToActivity(s2,a1);
@@ -90,6 +118,8 @@ public class TemporaryDbInsert {
 		studentData.close();
 		actData.close();
 		checkinData.close();
+		userData.close();
+		frequentData.close();
 	}
 
 }

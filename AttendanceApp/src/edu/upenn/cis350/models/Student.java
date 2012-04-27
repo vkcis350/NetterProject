@@ -4,7 +4,6 @@ public class Student extends Model implements Comparable {
 	private String firstName;
 	private String lastName;
 	private String address;
-	//private long id;
 	private String phone;
 	private int grade;
 	private String contact;
@@ -13,15 +12,6 @@ public class Student extends Model implements Comparable {
 	private long siteID;
 	private long schoolYear;
 	
-	public Student(String name) {
-		this.firstName = name;
-		this.id = -1;//id is -1 if not written to database yet
-	}
-	
-
-	public Student() {
-		// TODO Auto-generated constructor stub
-	}
 
 
 	public String getFirstName() {

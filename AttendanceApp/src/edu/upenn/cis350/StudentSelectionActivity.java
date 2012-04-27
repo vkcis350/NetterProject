@@ -187,6 +187,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 
 			Intent i = new Intent(this,StudentDataActivity.class);
 			i.putExtra("STUDENT_ID", studentID);
+			i.putExtras(getIntent().getExtras());
 			startActivityForResult(i,EDIT_DATA_REQUEST);
 		}
 
@@ -235,7 +236,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 	 * This method checks a student in or out of an activity, based on the input parameter. It timestamps the checkin/out record and displays a count of successfully checkedin/out students at completion.
 	 * @param true if the student is being checked in, false if being checked out
 	 */
-	public void checkInOutStudents(CheckinAction action)
+	public int checkInOutStudents(CheckinAction action)
 	{
 		String actionStr = "out";
 		if (action==CheckinAction.IN)
@@ -260,6 +261,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 		Toast.makeText(getApplicationContext(), "Checked "+ actionStr + " " + countSuccessful+ " student(s) at "+dateFormat.format(time),
 				Toast.LENGTH_LONG).show();
 		reloadList(); //reload the list the user sees in the UI
+		return countSuccessful;
 	}
 
 	/**
@@ -333,6 +335,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 			i.putExtra("STUDENT_NAME", "DEFAULT NAME");
 			i.putExtra("STUDENT_ID", new Long(studentID));
 			i.putExtra("ACTIVITY_ID", currentActivityID);
+			i.putExtras(getIntent().getExtras());
 			startActivityForResult(i,LEAVE_COMMENT_REQUEST);
 		}
 		else if(lv.getCheckedItemCount() > 1)
@@ -454,8 +457,12 @@ public class StudentSelectionActivity extends SyncableActivity {
 		}
 		//Note: List of students gotten from DB should already be sorted alphabetically
 
-		lv.setAdapter(new ArrayAdapter<Student>(this,
-				android.R.layout.simple_list_item_multiple_choice, studentList));
+		if(lv.getChoiceMode() == lv.CHOICE_MODE_MULTIPLE)
+			lv.setAdapter(new ArrayAdapter<Student>(this,
+					android.R.layout.simple_list_item_multiple_choice, studentList));
+		else
+			lv.setAdapter(new ArrayAdapter<Student>(this,
+					android.R.layout.simple_list_item_single_choice, studentList));
 
 
 	}
@@ -529,13 +536,16 @@ public class StudentSelectionActivity extends SyncableActivity {
 					Toast.LENGTH_SHORT).show();
 		}
 		else if(requestCode == EDIT_DATA_REQUEST)
-		{
-			if(resultCode == RESULT_OK) //if okayed edit
-				Toast.makeText(getApplicationContext(), "Student Data Saved (not really, not implemented yet)",
+ {
+			if (resultCode == RESULT_OK) // if okayed edit
+				Toast.makeText(getApplicationContext(),
+						"Student Data Saved (not really, not implemented yet)",
 						Toast.LENGTH_SHORT).show();
-			else //if canceled edit
-				Toast.makeText(getApplicationContext(), "You did not edit student data.",
-						Toast.LENGTH_SHORT).show();
+			else
+				// if canceled edit
+				Toast.makeText(getApplicationContext(),
+						"You did not edit student data.", Toast.LENGTH_SHORT)
+						.show();
 		}
 		else
 			Toast.makeText(getApplicationContext(), "I don't know how you got this to show up",

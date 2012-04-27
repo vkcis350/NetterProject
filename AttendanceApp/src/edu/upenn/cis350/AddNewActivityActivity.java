@@ -31,8 +31,7 @@ public class AddNewActivityActivity extends SyncableActivity {
 
 		Model act = new SchoolActivity(new_activity_name);
 		dbsrc = new SchoolActivityDataSource(this);
-		dbsrc.open();
-		dbsrc.create(act);
+		dbsrc.create(new_activity_name);
 		dbsrc.close();
 
 		//back to last activity

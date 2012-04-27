@@ -16,7 +16,9 @@
         android:id="@+id/activity_list_type"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/activitylistPart" />
+        android:text="@string/activitylistPart"
+        android:textColor="#75B2DD"
+        android:textSize="20sp" />
 
     <ListView
         android:id="@+id/activity_list"

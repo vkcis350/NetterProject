@@ -28,9 +28,6 @@ public abstract class DataSource<T extends Model>{
 	protected abstract T cursorToModel(Cursor c);
 	
 	
-	public abstract void create(T model);
-	
-	
 	public DataSource(Context context) {
 		dbHelper = new MySQLiteHelper(context);
 	}
@@ -96,6 +93,20 @@ public abstract class DataSource<T extends Model>{
 		return model;
 	}
 	
+	public ArrayList<Model> getAllModels(Cursor cursor)
+	{
+		ArrayList<Model> models = new ArrayList<Model>();
+		Log.d("DataSource","count "+cursor.getCount()+" "+cursor.toString());
+		while (cursor.moveToNext())
+		{
+			Model model = cursorToModel(cursor);
+			models.add( model );
+			Log.d("DataSource",model.getId()+"");
+		}
+		cursor.close();
+		return models;
+	}
+	
 	public String exportJson(){
 		List<T> objList=getAll();
 		Gson gson = new Gson();
@@ -103,16 +114,13 @@ public abstract class DataSource<T extends Model>{
 		return json;
 	}
 	
-	public List<T> convertJson(String s){
-		Gson gson=new Gson();
-		String json = gson.toJson(s);
-		Type collectionType = new TypeToken<List<T>>(){}.getType();
-		List<T> deserialized = gson.fromJson(json, collectionType);
-		return deserialized;
-	}
+
 	
 	
 	
+	/*
+	 * Deletes all the rows for this DataSource's table(s).
+	 */
 	public void deleteAll()
 	{
 		String[] tables = getTables();

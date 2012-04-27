@@ -7,6 +7,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -17,10 +18,13 @@ import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
 import edu.upenn.cis350.localstore.CheckinDataSource;
+import edu.upenn.cis350.localstore.DataSource;
 import edu.upenn.cis350.localstore.SchoolActivityDataSource;
 import edu.upenn.cis350.localstore.StudentDataSource;
+import edu.upenn.cis350.models.Student;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -129,7 +133,7 @@ public class SyncableActivity extends Activity{
 		//BufferedReader in = null;
 		new Thread(new Runnable() {
 			public void run() {
-				doHttp();
+				synchronize();
 			}
 		}).start();
 
@@ -150,28 +154,29 @@ public class SyncableActivity extends Activity{
 		 */
 
 	}
+	
+	
+	public String getJSONFromDataSource(DataSource d){
+		d.open();
+		String s=d.exportJson();
+		d.close();
+		return s;
+	}
 
 	/**
 	 * Since multiple teachers will be using this application to log attendance data,the purpose of this method is to send locally collected data to an external server.
 	 * this method makes a JSON (essentially a string representing the database) of each local database stored within the application and sends it to the web server for permanent storage
 	 * StudentDataSource, CheckinDataSource, and SchoolActivityDataSource are all objects which allow the method to access databases on local storage.
 	 * **/
-	public void doHttp(){
+	public void synchronize(){
 		StudentDataSource studentData=new StudentDataSource(this);
-		studentData.open(); //open database
-		String studString =studentData.exportJson(); //string representation of database contents
-		studentData.close(); //close database
+		String studString = getJSONFromDataSource(studentData);
 		Log.d("SyncableActivity","Json of students:"+studString);
 		CheckinDataSource checkinData= new CheckinDataSource(this);
-		checkinData.open();
-		String checkinString = checkinData.exportJson();
-		checkinData.close();
+		String checkinString = getJSONFromDataSource(checkinData);
 		Log.d("SyncableActivity","Json of checkins:"+checkinString);
 		SchoolActivityDataSource actData= new SchoolActivityDataSource(this);
-		actData.open();
-		String actString = actData.exportJson();
-		actData.close();
-
+		String actString = getJSONFromDataSource(actData);
 		Log.d("SyncableActivity","Json of activities:"+actString); 
 
 		try {
@@ -182,11 +187,45 @@ public class SyncableActivity extends Activity{
 			StringBuilder allStrings=new StringBuilder();
 			allStrings.append(studString).append('\n').append(actString).append('\n').append(checkinString);
 			postMethod.setEntity(new StringEntity(allStrings.toString()));
+			
+			
 			HttpResponse response = httpClient.execute(postMethod);
 			Log.d("SyncableActivity","response: "+response.getStatusLine().toString());
+			String respString = EntityUtils.toString(response.getEntity());
+
+			Log.d("SyncableActivity","response body: "+respString);
+			
+			
+			//NOTE TO JOSE: REPLACE allStrings IN THE FOLLOWING LINE WITH respString ONCE RESPONSE IS WORKING CORRECTLY
+			String[] responseJSONs=allStrings.toString().split("\\n");
+			
+			String newStud=responseJSONs[0];
+			Log.d("SyncableActivity","newstud: "+newStud);
+			String newAct=responseJSONs[1];
+			String newCheck=responseJSONs[2];
+			
+			studentData.open();
+			studentData.deleteAll();
+			studentData.importFromjson(newStud);
+			studentData.close();
+			
+			actData.open();
+			actData.deleteAll();
+			actData.importFromjson(newAct);
+			actData.close();
+			
+			
+			//Comment/Uncomment following lines depending on how we plan to handle checkins
+			checkinData.open();
+			checkinData.deleteAll();
+			checkinData.importFromjson(newCheck);
+			checkinData.close();
+			
+			
 
 		} catch (IOException e) {
 			Log.d("SyncableActivity","IO connection failed for "+ hostName);
 		}
 	}
+
 }

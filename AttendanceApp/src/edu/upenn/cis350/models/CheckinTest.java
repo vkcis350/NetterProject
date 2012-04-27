@@ -15,7 +15,6 @@ public class CheckinTest extends TestCase {
 	public void setUp(){
 		test=new Checkin();
 		test.setStudentID(sid1);
-		test.setSessionID(s1);
 		test.setActivityID(aid1);
 		test.setInTime(in1);
 		test.setOutTime(out1);
@@ -31,11 +30,6 @@ public class CheckinTest extends TestCase {
 		assertEquals(test.getStudentID(),sid2);
 	}
 
-	public void testGetSetSessionID() {
-		assertEquals(test.getSessionID(),s1);
-		test.setSessionID(s2);
-		assertEquals(test.getSessionID(),s2);
-	}
 
 	public void testGetSetActivityID() {
 		assertEquals(test.getActivityID(),aid1);

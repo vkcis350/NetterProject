@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+import edu.upenn.cis350.localstore.FrequentActivityDataSource;
 import edu.upenn.cis350.localstore.SchoolActivityDataSource;
 import edu.upenn.cis350.localstore.TemporaryDbInsert;
+import edu.upenn.cis350.models.FrequentActivity;
+import edu.upenn.cis350.models.Model;
 import edu.upenn.cis350.models.SchoolActivity;
 
 import android.app.Activity;
@@ -13,8 +16,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,6 +28,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -37,8 +43,12 @@ public class ActivityListActivity extends SyncableActivity{
 	static final int NEW_ACTIVITY_REQUEST = 1;
 
 	SchoolActivityDataSource actData; //database access
+	FrequentActivityDataSource freqActData;
 	private ArrayList<SchoolActivity> schoolActivities;
 	private ArrayList<SchoolActivity> someSchoolActivities;
+	
+	long userId;
+	String username;
 
 
 	@Override
@@ -46,6 +56,11 @@ public class ActivityListActivity extends SyncableActivity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activities);
 
+		Bundle extras = getIntent().getExtras();
+		Log.d("ActivityListActivity",extras+"");
+		userId = extras.getLong("USER_ID");
+		username = extras.getString("USER_NAME");
+		
 		loadData();
 
 		//the list itself
@@ -53,7 +68,8 @@ public class ActivityListActivity extends SyncableActivity{
 		lv.setTextFilterEnabled(true);
 		lv.setChoiceMode(lv.CHOICE_MODE_SINGLE);
 		ArrayList<SchoolActivity> classList = someSchoolActivities;
-
+		
+		
 		lv.setAdapter(new ArrayAdapter<SchoolActivity>(this,
 				android.R.layout.simple_list_item_single_choice, classList));
 
@@ -130,27 +146,56 @@ public class ActivityListActivity extends SyncableActivity{
 	}
 
 	private void onRemoveCompletely() {
-		SchoolActivityDataSource dbsrc = new SchoolActivityDataSource(this);
-		dbsrc.open();
-
 		ListView lv = (ListView) findViewById(R.id.activity_list);
 		if(lv.getCheckedItemCount() > 0)
 		{
 			SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
 
-			dbsrc.delete(activity);
-			someSchoolActivities.remove(activity);
-			schoolActivities.remove(activity);
+			AlertDialog mDialog = new AlertDialog.Builder(this)
+			.setIconAttribute(android.R.attr.alertDialogIcon)
+			.setTitle("Permanently Remove Activity")
+			.setMessage("Are you sure you want to completely remove " + activity + "? This cannot be undone.")
+			.setPositiveButton("Yes", null)
+			.setNegativeButton("No", null)
+			.show();
 
-			dbsrc.close();
+			WindowManager.LayoutParams layoutParams = mDialog.getWindow().getAttributes();
+			layoutParams.dimAmount = 0.9f;
+			mDialog.getWindow().setAttributes(layoutParams);
+			mDialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 
-			reloadList();
+			//what happens when you press the buttons
+			mDialog.setButton("Yes", new DialogInterface.OnClickListener() {  
+				public void onClick(DialogInterface dialog, int which) {  
+					removeCompletely();
+				} });
+			mDialog.setButton2("No", new DialogInterface.OnClickListener() {  
+				public void onClick(DialogInterface dialog, int which) {  
+					Toast.makeText(getApplicationContext(), "Activity was not removed.",
+							Toast.LENGTH_SHORT).show();
+				} }); 
 		}
 		else
 			Toast.makeText(getApplicationContext(), "Select Activity First",
 					Toast.LENGTH_SHORT).show();
 	}
 
+	public void removeCompletely()
+	{
+		SchoolActivityDataSource dbsrc = new SchoolActivityDataSource(this);
+		dbsrc.open();
+
+		ListView lv = (ListView) findViewById(R.id.activity_list);
+		SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
+		dbsrc.delete(activity);
+		someSchoolActivities.remove(activity);
+		schoolActivities.remove(activity);
+
+		dbsrc.close();
+
+		reloadList();
+	}
+	
 	//brings up an options menu
 	public void onSelectActivityClick(View v)
 	{
@@ -208,6 +253,7 @@ public class ActivityListActivity extends SyncableActivity{
 
 			AlertDialog mDialog = new AlertDialog.Builder(this)
 			.setTitle("Remove from List")
+			.setIconAttribute(android.R.attr.alertDialogIcon)
 			.setMessage("Are you sure you want to remove " + activity + " from the frequent activity list?")
 			.setPositiveButton("Yes", null)
 			.setNegativeButton("No", null)
@@ -249,6 +295,7 @@ public class ActivityListActivity extends SyncableActivity{
 				return;
 			}
 
+			freqActData.create(userId, activity.getId());
 			int addLoc = someSchoolActivities.indexOf(activity);
 			someSchoolActivities.add(activity);
 
@@ -273,6 +320,7 @@ public class ActivityListActivity extends SyncableActivity{
 
 			AlertDialog mDialog = new AlertDialog.Builder(this)
 			.setTitle("Add to List")
+			.setIconAttribute(android.R.attr.alertDialogIcon)
 			.setMessage("Are you sure you want to add " + activity + " to the frequent activity list?")
 			.setPositiveButton("Yes", null)
 			.setNegativeButton("No", null)
@@ -297,10 +345,46 @@ public class ActivityListActivity extends SyncableActivity{
 				Toast.LENGTH_SHORT).show();
 	}
 
-	public void onAddNew()
+	public AlertDialog onAddNew()
 	{
-		Intent i = new Intent(this,AddNewActivityActivity.class);
-		startActivityForResult(i,NEW_ACTIVITY_REQUEST);
+		WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
+		layoutParams.dimAmount = 0.9f;
+		getWindow().setAttributes(layoutParams);
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+		
+		//Intent i = new Intent(this,AddNewActivityActivity.class);
+		//startActivityForResult(i,NEW_ACTIVITY_REQUEST);
+		LayoutInflater factory = LayoutInflater.from(this);
+        final View textEntryView = factory.inflate(R.layout.add_new_activity, null);
+        return new AlertDialog.Builder(this)
+            .setTitle("Add New Activity")
+            .setView(textEntryView)
+            .setPositiveButton("Create", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                	EditText activity_name = (EditText)textEntryView.findViewById(R.id.newActivityName);
+            		String new_activity_name = activity_name.getText().toString();
+                    if(new_activity_name != null && new_activity_name != "")
+                    	createActivity(new_activity_name);
+                }
+            })
+            .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+
+                	Toast.makeText(getApplicationContext(), "No New Activity Created.",
+            				Toast.LENGTH_SHORT).show();
+                }
+            })
+        	.show();
+	}
+	
+	public void createActivity(String new_activity_name)
+	{
+		actData.create(new_activity_name);
+		
+		loadData();
+		reloadList();
+		Toast.makeText(getApplicationContext(), "New activity added!",
+				Toast.LENGTH_SHORT).show();
 	}
 
 	//what happens when you return from other activities
@@ -312,19 +396,6 @@ public class ActivityListActivity extends SyncableActivity{
 		{
 			Toast.makeText(getApplicationContext(), "Welcome back from viewing the student list",
 					Toast.LENGTH_SHORT).show();
-		}
-		else if(requestCode == NEW_ACTIVITY_REQUEST)
-		{
-			if(resultCode == RESULT_OK) //if okayed edit
-			{
-				loadData();
-				reloadList();
-				Toast.makeText(getApplicationContext(), "New activity added!",
-						Toast.LENGTH_SHORT).show();
-			}
-			else //if canceled edit
-				Toast.makeText(getApplicationContext(), "You did not add a new activity",
-						Toast.LENGTH_SHORT).show();
 		}
 		else
 			Toast.makeText(getApplicationContext(), "I don't know how you got this to show up",
@@ -340,23 +411,23 @@ public class ActivityListActivity extends SyncableActivity{
 		reloadList();
 	}
 
-	public void onPause()
+	public void onStop()
 	{
-		super.onPause();
+		super.onStop();
 		actData.close();
+		freqActData.close();
 	}
 
 	public void loadData()
 	{
 		actData = new SchoolActivityDataSource(this);
 		actData.open();
+		freqActData = new FrequentActivityDataSource(this);
+		freqActData.open();
+		
 		schoolActivities = (ArrayList<SchoolActivity>) actData.getAll();
-		someSchoolActivities = new ArrayList<SchoolActivity>(); //TO CHANGE
-		for (int i=0; i<schoolActivities.size(); i++)
-		{
-			someSchoolActivities.add(schoolActivities.get(i));
-		}
-
+		someSchoolActivities = actData.getFrequentSchoolActivities(userId);
+		
 	}
 
 	public void reloadList()
@@ -380,5 +451,15 @@ public class ActivityListActivity extends SyncableActivity{
 		}
 		lv.setAdapter(new ArrayAdapter<SchoolActivity>(this,
 				android.R.layout.simple_list_item_single_choice, classArrayList));
+	}
+	
+	public ArrayList<Long> frequentActivityIdList()
+	{
+		ArrayList<Long> freqActivityIds = new ArrayList<Long>();
+		for (SchoolActivity act : someSchoolActivities)
+		{
+			freqActivityIds.add(act.getId());
+		}
+		return freqActivityIds;
 	}
 }
