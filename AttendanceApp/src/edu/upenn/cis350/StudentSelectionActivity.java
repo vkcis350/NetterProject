@@ -373,7 +373,6 @@ public class StudentSelectionActivity extends SyncableActivity {
 				}
 			}
 			Intent i = new Intent(this, StudentCommentActivity.class);
-			i.putExtra("STUDENT_NAME", "DEFAULT NAME");
 			i.putExtra("STUDENT_ID", new Long(studentID));
 			i.putExtra("ACTIVITY_ID", currentActivityID);
 			i.putExtras(getIntent().getExtras());

@@ -27,6 +27,7 @@ public class CommentFormActivity extends SyncableActivity {
 		Bundle extras = getIntent().getExtras();
 		studentID = extras.getLong("STUDENT_ID");
 		studentName = extras.getString("STUDENT_NAME");
+		Log.d("CommentFormActivity",studentName);
 		activityID = extras.getLong("ACTIVITY_ID");
 		userId = extras.getLong("USER_ID");
 		Log.d("CommentFormActivity","activity id: "+activityID);

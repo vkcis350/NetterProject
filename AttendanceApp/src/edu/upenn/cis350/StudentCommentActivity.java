@@ -83,7 +83,9 @@ public class StudentCommentActivity extends SyncableActivity{
 		}
 		Intent i = new Intent(this,CommentFormActivity.class);
 		i.putExtra("STUDENT_ID", new Long(studentID));
-		i.putExtra("STUDENT_NAME", new String(studentName));
+		Log.d("StudentCommentActivity","Student name"+" "+studentName);
+		i.putExtra("STUDENT_NAME", studentName);
+		Log.d("StudentCommentActivity","Student name"+" "+studentName);
 		i.putExtra("ACTIVITY_ID", new Long(activityID));
 		i.putExtras(getIntent().getExtras());
 		startActivityForResult(i,COMMENT_FORM_REQUEST);

@@ -43,8 +43,8 @@ public class TemporaryDbInsert {
 		if ( actData.getAll().size()<1 )
 		{
 			try {
-				//userData.create("user","1");
-				userData.create("admin","123");
+				userData.create("user","1");
+				userData.create("admin","");
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

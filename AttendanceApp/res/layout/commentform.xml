@@ -17,7 +17,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="18dp"
         android:inputType="textPersonName"
-        android:text="DEFAULT NAME"
+        android:text="DEFAULT NAMEeeeeee"
         android:textColor="#75B2DD"
         android:textSize="20sp" />
 
