@@ -79,7 +79,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int FREQUENT_ACTIVITY_ACTIVITY_ID_INDEX = 2;
 	
 	public static final String DATABASE_NAME = "attendance.db";
-	public static final int DATABASE_VERSION = 116;
+	public static final int DATABASE_VERSION = 117;
 
 	
 	
@@ -112,7 +112,9 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		
 		database.execSQL("create table "
 				+ TABLE_ACTIVITIES + "( " + COL_ACTIVITY_ID + " integer primary key autoincrement, " 
-				+ COL_ACTIVITY_NAME + " TEXT);");
+				+ COL_ACTIVITY_NAME + " TEXT,"
+				+ COL_SITE_ID + " integer" 
+				+");");
 		
 		database.execSQL("create table "
 				+ TABLE_FREQUENT_ACTIVITIES + "( " 

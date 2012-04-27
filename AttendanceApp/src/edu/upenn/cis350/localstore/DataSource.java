@@ -7,7 +7,6 @@ import java.util.List;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-
 import edu.upenn.cis350.models.Checkin;
 import edu.upenn.cis350.models.Model;
 import edu.upenn.cis350.models.SchoolActivity;
