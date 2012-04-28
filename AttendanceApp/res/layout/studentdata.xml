@@ -5,12 +5,6 @@
     android:orientation="vertical" >
 
     <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:text="Student Name:" />
-
-    <TextView
         android:id="@+id/student_name_field"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -33,9 +27,11 @@
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:gravity="left"
-        android:maxLines="2"
+        android:maxLines="3"
+        android:layout_weight="1"
         android:singleLine="false"
-        android:text="No check-ins." />
+        android:text="No check-ins." 
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -43,14 +39,15 @@
         android:layout_alignParentLeft="true"
         android:text="Grade Level:" />
 
-    <EditText
+    <TextView
         android:id="@+id/student_grade_field"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_marginBottom="4dp"
         android:layout_weight="1"
-        android:text="DEFAULT GRADE LEVEL" />
+        android:text="DEFAULT GRADE LEVEL" 
+        android:textSize="20sp" />
     
     <TextView
         android:layout_width="fill_parent"
@@ -58,7 +55,7 @@
         android:layout_alignParentLeft="true"
         android:text="Contact:" />
 
-    <EditText
+    <TextView
         android:id="@+id/contact_field"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -66,7 +63,8 @@
         android:layout_marginBottom="4dp"
         android:layout_weight="1"
         android:inputType="textPersonName"
-        android:text="DEFAULT CONTACT" />
+        android:text="DEFAULT CONTACT" 
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -74,7 +72,7 @@
         android:layout_alignParentLeft="true"
         android:text="Contact Relationship:" />
 
-    <EditText
+    <TextView
         android:id="@+id/contact_relation_field"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -82,7 +80,8 @@
         android:layout_marginBottom="4dp"
         android:layout_weight="1"
         android:inputType="textPersonName"
-        android:text="DEFAULT TEACHER NAME" />
+        android:text="DEFAULT TEACHER NAME" 
+        android:textSize="20sp" />
     
     <TextView
         android:layout_width="fill_parent"
@@ -90,7 +89,7 @@
         android:layout_alignParentLeft="true"
         android:text="Phone Number:" />
 
-    <EditText
+    <TextView
         android:id="@+id/phone_contact_field"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -98,7 +97,8 @@
         android:layout_marginBottom="4dp"
         android:layout_weight="1"
         android:inputType="phone"
-        android:text="DEFAULT PHONE" />
+        android:text="DEFAULT PHONE" 
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -106,7 +106,7 @@
         android:layout_alignParentLeft="true"
         android:text="Address:" />
 
-    <EditText
+    <TextView
         android:id="@+id/address_contact_field"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -114,6 +114,7 @@
         android:layout_marginBottom="4dp"
         android:layout_weight="1"
         android:inputType="textPostalAddress"
-        android:text="DEFAULT ADDRESS" />
+        android:text="DEFAULT ADDRESS" 
+        android:textSize="20sp" />
 
 </LinearLayout>

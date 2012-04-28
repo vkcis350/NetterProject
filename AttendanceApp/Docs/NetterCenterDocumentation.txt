@@ -15,9 +15,12 @@ University of Pennsylvania, 2012
 TABLE OF CONTENTS
 
 1. Introduction
+	1.1 Purpose
+	1.2 Install
 2. Interface
 	2.1 Getting Around
 	2.2 Login
+		2.2.1 New User
 	2.3 Main Menu
 	2.4 View Students
 		2.4.1 View Student's Info
@@ -37,7 +40,11 @@ TABLE OF CONTENTS
 
 1. INTRODUCTION
 
-
+	1.1 Purpose
+	
+	1.2 Install
+	
+	
 
 
 ***********
@@ -50,8 +57,14 @@ TABLE OF CONTENTS
 	2.2 Login Screen
 		When you start the program, it will bring you to the login screen.
 		Here, enter your username and password. Press "Login" to continue into the app, or "Quit" to leave.
+		If you do not have an account, Select the "New User" button on the bottom of the screen.
 		
 		[Screenshot]
+		
+		2.2.1 New User
+			Enter a new username and password. In the User Creation Code box, enter the code that the Netter Center has provided for you. This is for security purposes.
+			
+			[Screenshot]
 		
 	2.3 Main Menu
 	 	After you log in, the first screen you are brought to is the Main Menu. 
