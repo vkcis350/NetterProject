@@ -112,7 +112,7 @@ public class ActivityListActivity extends SyncableActivity{
 					switch (item.getItemId()) 
 					{
 					case R.id.add_to_frequently:
-						onAddFrequently();
+						onAddActivityToFrequentlyUsedList();
 						return true;
 					case R.id.add_new_activity:
 						onAddNew();
@@ -173,11 +173,15 @@ public class ActivityListActivity extends SyncableActivity{
 		if(lv.getCheckedItemCount() > 0)
 		{
 			SchoolActivity activity = (SchoolActivity) (lv.getItemAtPosition(lv.getCheckedItemPosition()));
-
+			
+			String alert_title = "Permanently Remove Activity";
+			String alert_message = "Are you sure you want to completely remove " + activity + "? This cannot be undone."; 
+			
+			
 			AlertDialog mDialog = new AlertDialog.Builder(this)
 			.setIconAttribute(android.R.attr.alertDialogIcon)
-			.setTitle("Permanently Remove Activity")
-			.setMessage("Are you sure you want to completely remove " + activity + "? This cannot be undone.")
+			.setTitle(alert_title)
+			.setMessage(alert_message)
 			.setPositiveButton("Yes", null)
 			.setNegativeButton("No", null)
 			.show();
@@ -329,7 +333,7 @@ public class ActivityListActivity extends SyncableActivity{
 	 * This method sets up the UI for adding an activity to a frequently used activities list
 	 * Please refer to addFrequently for the subroutine which this method executes which adds the activity to the frequently used activities list
 	 */
-	public void onAddFrequently()
+	public void onAddActivityToFrequentlyUsedList()
 	{
 		ListView lv = (ListView) findViewById(R.id.activity_list);
 		if(lv.getCheckedItemCount() > 0)
