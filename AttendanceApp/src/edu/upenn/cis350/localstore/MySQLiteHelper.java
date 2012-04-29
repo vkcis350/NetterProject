@@ -79,7 +79,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int FREQUENT_ACTIVITY_ACTIVITY_ID_INDEX = 2;
 	
 	public static final String DATABASE_NAME = "attendance.db";
-	public static final int DATABASE_VERSION = 121;
+	public static final int DATABASE_VERSION = 125;
 
 	
 	
@@ -120,8 +120,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 				+ TABLE_FREQUENT_ACTIVITIES + "( " 
 				+ COL_FREQUENT_ACTIVITY_ID + " integer primary key autoincrement, " 
 				+ COL_USER_ID + " integer,"
-				+ COL_ACTIVITY_ID + " integer," 
-				+ COL_SITE_ID + " integer" 
+				+ COL_ACTIVITY_ID + " integer" 
 				+");");
 		
 		database.execSQL("create table "
@@ -156,6 +155,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_CHECKINS);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_USERS);
 		db.execSQL("DROP TABLE IF EXISTS " + TABLE_FREQUENT_ACTIVITIES);
+		db.execSQL("DROP TABLE IF EXISTS freq_activities");
 		onCreate(db);
 	}
 

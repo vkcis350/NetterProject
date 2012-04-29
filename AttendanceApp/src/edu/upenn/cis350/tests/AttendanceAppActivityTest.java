@@ -7,6 +7,7 @@ import edu.upenn.cis350.R;
 import edu.upenn.cis350.R.id;
 import edu.upenn.cis350.localstore.UserDataSource;
 import edu.upenn.cis350.models.SchoolActivity;
+import edu.upenn.cis350.models.User;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
@@ -16,7 +17,9 @@ import android.widget.ListView;
 public class AttendanceAppActivityTest extends
 	ActivityInstrumentationTestCase2<AttendanceAppActivity>
 {
-
+	final static String USERNAME = "tester1234somethingsomething";//Don't make a user with this username
+	final static String PASSWORD = "letmein";
+	final static String WRONG_PASSWORD = "wrong";
 
 	private Activity activity;
 	private Solo solo;
@@ -35,7 +38,10 @@ public class AttendanceAppActivityTest extends
 		
 		UserDataSource userData = new UserDataSource(activity.getApplicationContext());
 		userData.open();
-		userData.create("tester", "letmein");
+		User user = userData.get(USERNAME);
+		if (user!=null) 
+			userData.delete(user);
+		userData.create(USERNAME, PASSWORD);
 		userData.close();
 	}
 	 
@@ -50,8 +56,8 @@ public class AttendanceAppActivityTest extends
 	 {
 		 EditText userText = (EditText) solo.getView(R.id.user);
 		 EditText passwordText = (EditText) solo.getView(R.id.password);
-		 solo.enterText(userText, "tester");
-		 solo.enterText(passwordText, "wrongpassword");
+		 solo.enterText(userText, USERNAME);
+		 solo.enterText(passwordText, WRONG_PASSWORD);
 		 solo.clickOnButton("Login");
 		 assertTrue(solo.searchText("Login Failed"));
 	 }
@@ -60,10 +66,15 @@ public class AttendanceAppActivityTest extends
 	 {
 		 EditText userText = (EditText) solo.getView(R.id.user);
 		 EditText passwordText = (EditText) solo.getView(R.id.password);
-		 solo.enterText(userText, "tester");
-		 solo.enterText(passwordText, "letmein");
+		 solo.enterText(userText, USERNAME);
+		 solo.enterText(passwordText, PASSWORD);
 		 solo.clickOnButton("Login");
 		 assertTrue(solo.searchButton("View Activities"));
+	 }
+	 
+	 public void tearDown() throws Exception
+	 {
+		 super.tearDown();
 	 }
 	 
 }
