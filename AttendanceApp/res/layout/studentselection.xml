@@ -8,7 +8,7 @@
         android:id="@+id/student_view_activity_name"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="[Not hooked up to Activity List Yet]"
+        android:text="DEFAULT ACTIVITY"
         android:textColor="#75B2DD"
         android:textSize="20sp" />
 

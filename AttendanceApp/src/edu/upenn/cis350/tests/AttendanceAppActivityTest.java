@@ -33,7 +33,7 @@ public class AttendanceAppActivityTest extends
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		 solo = new Solo(getInstrumentation(), getActivity());
+		solo = new Solo(getInstrumentation(), getActivity());
 		activity = getActivity();
 		
 		UserDataSource userData = new UserDataSource(activity.getApplicationContext());
