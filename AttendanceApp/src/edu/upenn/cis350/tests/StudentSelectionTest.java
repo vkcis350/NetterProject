@@ -28,6 +28,7 @@ public class StudentSelectionTest extends
 
 	public StudentSelectionTest(String name) throws Exception {
 		super("edu.upenn.cis350", AttendanceAppActivity.class);
+		setName(name);
 	}
 
 	private Activity activity;
@@ -60,6 +61,8 @@ public class StudentSelectionTest extends
 		solo.clickOnText("Android Programming");
 		solo.clickOnButton("Continue");
 	}
+
+
 	
 	public void testCantContinue() throws Exception {
 		assertFalse(solo.searchText("DEFAULT ACTIVITY"));
@@ -67,7 +70,7 @@ public class StudentSelectionTest extends
 		assertTrue(solo.searchButton("Select All"));
 		assertTrue(solo.searchButton("Continue"));
 		
-		solo.clickOnButton("Continue");
+		/*solo.clickOnButton("Continue");
 		assertTrue(solo.searchText("Please select some students first."));
 		
 		solo.clickOnButton("Select All");
@@ -88,11 +91,11 @@ public class StudentSelectionTest extends
 		solo.clickOnText("12".trim());
 		solo.clickOnButton("Continue");
 		solo.clickOnText("View Student Info");
-		assertTrue(solo.searchText("Add New"));
+		assertTrue(solo.searchText("Add New"));*/
 		
 	}
 	
-	/*public void testEverythingPresent() throws Exception {
+	public void testEverythingPresent() throws Exception {
 		assertFalse(solo.searchText("DEFAULT ACTIVITY"));
 		assertTrue(solo.searchButton("Sort Students".trim()));
 		assertTrue(solo.searchButton("Select All"));
@@ -129,7 +132,7 @@ public class StudentSelectionTest extends
 		solo.clickOnButton("Continue");
 		solo.clickOnText("View Student Info");
 		assertTrue(solo.searchText("Add New:"));
-	}*/
+	}
 
 	public void tearDown() throws Exception {
 		super.tearDown();
