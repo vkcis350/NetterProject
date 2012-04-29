@@ -5,6 +5,7 @@ import com.jayway.android.robotium.solo.Solo;
 import edu.upenn.cis350.AttendanceAppActivity;
 import edu.upenn.cis350.R;
 import edu.upenn.cis350.R.id;
+import edu.upenn.cis350.localstore.UserDataSource;
 import edu.upenn.cis350.models.SchoolActivity;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
@@ -26,14 +27,16 @@ public class AttendanceAppActivityTest extends
 		setName(name);
 	}
 	
-	
-	
-	
 	public void setUp() throws Exception
 	{
 		super.setUp();
 		 solo = new Solo(getInstrumentation(), getActivity());
 		activity = getActivity();
+		
+		UserDataSource userData = new UserDataSource(activity.getApplicationContext());
+		userData.open();
+		userData.create("tester", "letmein");
+		userData.close();
 	}
 	 
 	 public void testDisplayLogin() throws Exception 
@@ -47,8 +50,8 @@ public class AttendanceAppActivityTest extends
 	 {
 		 EditText userText = (EditText) solo.getView(R.id.user);
 		 EditText passwordText = (EditText) solo.getView(R.id.password);
-		 solo.enterText(userText, "user");
-		 solo.enterText(passwordText, "2");
+		 solo.enterText(userText, "tester");
+		 solo.enterText(passwordText, "wrongpassword");
 		 solo.clickOnButton("Login");
 		 assertTrue(solo.searchText("Login Failed"));
 	 }
@@ -57,8 +60,8 @@ public class AttendanceAppActivityTest extends
 	 {
 		 EditText userText = (EditText) solo.getView(R.id.user);
 		 EditText passwordText = (EditText) solo.getView(R.id.password);
-		 solo.enterText(userText, "user");
-		 solo.enterText(passwordText, "1");
+		 solo.enterText(userText, "tester");
+		 solo.enterText(passwordText, "letmein");
 		 solo.clickOnButton("Login");
 		 assertTrue(solo.searchButton("View Activities"));
 	 }

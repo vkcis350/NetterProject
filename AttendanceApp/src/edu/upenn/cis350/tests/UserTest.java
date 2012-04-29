@@ -38,6 +38,13 @@ public class UserTest extends AbstractDataTest {
 		assertEquals(user2.getUsername(),"napoleon");
 	}
 	
+	public void testLogin() throws UnsupportedEncodingException, NoSuchAlgorithmException
+	{
+		User user = userData.create("napoleon", "leipzig");
+		user = userData.get("napoleon");
+		user.checkPassword("leipzig");
+	}
+	
 	public void tearDown()
 	{
 		userData.close();
