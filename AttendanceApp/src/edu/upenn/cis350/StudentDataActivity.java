@@ -55,7 +55,7 @@ public class StudentDataActivity extends SyncableActivity {
 	 * This method populates an activity which contains the profile of a student
 	 * with information from the locally stored database
 	 */
-	public void populateFields() {
+	private void populateFields() {
 		TextView nameField = (TextView) findViewById(R.id.student_name_field);
 		nameField.setText(curStudent.getLastName() + ", "
 				+ curStudent.getFirstName());

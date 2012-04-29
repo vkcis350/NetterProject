@@ -215,7 +215,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 		// what happens when you press the buttons
 		mDialog.setButton("Yes", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				checkInOutStudents(CheckinAction.IN);
+				markStudents(CheckinAction.IN);
 
 			}
 		});
@@ -236,7 +236,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 	 * @param true if the student is being checked in, false if being checked
 	 *        out
 	 */
-	public int checkInOutStudents(CheckinAction action) {
+	public int markStudents(CheckinAction action) {
 		String actionStr = "out";
 		if (action == CheckinAction.IN)
 			actionStr = "Checked in";
@@ -254,7 +254,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 			if (checked.get(i)) {
 				Student student = (Student) lv.getItemAtPosition(i);
 				Log.d("selected student", i + " " + lv.getCount() + "");
-				if (doCheckinOut(time, student.getId(), action))
+				if (doMarkStudent(time, student.getId(), action))
 					countSuccessful++;
 			}
 		}
@@ -276,7 +276,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 	 * @param action
 	 * @return true if successful, false if not
 	 */
-	public boolean doCheckinOut(long time, long studentID, CheckinAction action) {
+	public boolean doMarkStudent(long time, long studentID, CheckinAction action) {
 		Checkin checkin = checkinData.getOrCreate(time, currentActivityID,
 				studentID);
 		boolean success = false;
@@ -315,7 +315,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 		// what happens when you press the buttons
 		mDialog.setButton("Yes", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				checkInOutStudents(CheckinAction.OUT);
+				markStudents(CheckinAction.OUT);
 			}
 		});
 		mDialog.setButton2("No", new DialogInterface.OnClickListener() {
@@ -347,7 +347,7 @@ public class StudentSelectionActivity extends SyncableActivity {
 		// what happens when you press the buttons
 		mDialog.setButton("Yes", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
-				checkInOutStudents(CheckinAction.ABSENT);
+				markStudents(CheckinAction.ABSENT);
 			}
 		});
 		mDialog.setButton2("No", new DialogInterface.OnClickListener() {
@@ -514,15 +514,26 @@ public class StudentSelectionActivity extends SyncableActivity {
 	public void loadData() {
 		Log.d("StudentSelectionActivity", "current activity id "
 				+ currentActivityID);
-		SchoolActivity currentActivity;
-		if (currentActivityID != 0)
-			currentActivity = (SchoolActivity) actData.get(currentActivityID);
-
-		if (sortOrder == LAST_NAME_ORDER)
-			students = (ArrayList<Student>) studentData.getAll();
-		else if (sortOrder == GRADE_ORDER)
-			students = (ArrayList<Student>) studentData.getAllByGrade();
+		SchoolActivity currentActivity = loadSchoolActivityData(currentActivityID);
+		students = loadStudentListData(sortOrder);
 		sortStudents();
+	}
+	
+	public ArrayList<Student> loadStudentListData(int order) {
+		ArrayList<Student> studentList = new ArrayList<Student>();
+		if (order == LAST_NAME_ORDER)
+			studentList = (ArrayList<Student>) studentData.getAll();
+		else if (order == GRADE_ORDER)
+			studentList = (ArrayList<Student>) studentData.getAllByGrade();
+		return studentList;
+	}
+	
+	public SchoolActivity loadSchoolActivityData(long activityId)
+	{
+		SchoolActivity activity=null;
+		if (activityId != 0)
+			activity = (SchoolActivity) actData.get(currentActivityID);
+		return activity;
 	}
 
 	private void sortStudents() {
