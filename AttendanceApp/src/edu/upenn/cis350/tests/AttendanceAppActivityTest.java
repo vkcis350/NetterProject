@@ -1,13 +1,17 @@
 package edu.upenn.cis350.tests;
 
+import java.io.IOException;
+
 import com.jayway.android.robotium.solo.Solo;
 
 import edu.upenn.cis350.AttendanceAppActivity;
 import edu.upenn.cis350.R;
 import edu.upenn.cis350.R.id;
+import edu.upenn.cis350.localstore.TemporaryDbInsert;
 import edu.upenn.cis350.localstore.UserDataSource;
 import edu.upenn.cis350.models.SchoolActivity;
 import edu.upenn.cis350.models.User;
+import edu.upenn.cis350.util.FileBackup;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.Button;
@@ -17,17 +21,18 @@ import android.widget.ListView;
 public class AttendanceAppActivityTest extends
 	ActivityInstrumentationTestCase2<AttendanceAppActivity>
 {
-	final static String USERNAME = "tester1234somethingsomething";//Don't make a user with this username
-	final static String PASSWORD = "letmein";
+	final static String USERNAME = "user";//Don't make a user with this username
+	final static String PASSWORD = "1";
 	final static String WRONG_PASSWORD = "wrong";
 
 	private Activity activity;
 	private Solo solo;
 	
-	public AttendanceAppActivityTest(String name) 
+	public AttendanceAppActivityTest(String name) throws IOException 
 	{
 		super("edu.upenn.cis350",AttendanceAppActivity.class);
 		setName(name);
+		
 	}
 	
 	public void setUp() throws Exception
@@ -35,13 +40,14 @@ public class AttendanceAppActivityTest extends
 		super.setUp();
 		solo = new Solo(getInstrumentation(), getActivity());
 		activity = getActivity();
+		FileBackup.backupDB();
 		
 		UserDataSource userData = new UserDataSource(activity.getApplicationContext());
 		userData.open();
-		User user = userData.get(USERNAME);
-		if (user!=null) 
-			userData.delete(user);
-		userData.create(USERNAME, PASSWORD);
+		userData.create("temporary", "nothere");
+		userData.upgrade();
+		TemporaryDbInsert.insert(getActivity());
+		
 		userData.close();
 	}
 	 
@@ -75,6 +81,7 @@ public class AttendanceAppActivityTest extends
 	 public void tearDown() throws Exception
 	 {
 		 super.tearDown();
+		 FileBackup.restoreDB();
 	 }
 	 
 }

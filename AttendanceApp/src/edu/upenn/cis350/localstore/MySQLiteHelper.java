@@ -79,13 +79,20 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final int FREQUENT_ACTIVITY_ACTIVITY_ID_INDEX = 2;
 	
 	public static final String DATABASE_NAME = "attendance.db";
-	public static final int DATABASE_VERSION = 125;
+	public static final String TEST_DATABASE_NAME = "attendance_test.db";
+	public static final int DATABASE_VERSION = 126;
 
 	
 	
 	
 	public MySQLiteHelper(Context context) {
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+	}
+	
+	public MySQLiteHelper(Context context, String databaseName, boolean erase) {
+		super(context, databaseName, null, DATABASE_VERSION);	
+		if (erase)
+			onUpgrade(this.getWritableDatabase(),DATABASE_VERSION,DATABASE_VERSION+1);
 	}
 
 	@Override
