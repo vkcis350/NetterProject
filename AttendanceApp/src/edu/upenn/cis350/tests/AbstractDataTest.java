@@ -18,6 +18,7 @@ public abstract class AbstractDataTest extends AndroidTestCase {
 	/**
 	 * Supplies object with a MockContext capable of returning a temporary in-memory SQLite database.
 	 */
+	
 	public void makeDBContext() 
 	{
 		final SQLiteDatabase db = SQLiteDatabase.create(null);
