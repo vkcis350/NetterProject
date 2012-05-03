@@ -128,5 +128,13 @@ public abstract class DataSource<T extends Model>{
 			database.delete(tables[i], null, null);
 		}
 	}
+	
+	/*
+	 * Deletes and recreates the entire database this DataSource is in.
+	 */
+	public void upgrade()
+	{
+		dbHelper.onUpgrade(dbHelper.getWritableDatabase(), dbHelper.DATABASE_VERSION, dbHelper.DATABASE_VERSION+1);
+	}
 
 }

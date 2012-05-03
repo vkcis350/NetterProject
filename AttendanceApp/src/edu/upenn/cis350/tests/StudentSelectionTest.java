@@ -18,7 +18,7 @@ import android.widget.ListView;
 import com.jayway.android.robotium.solo.Solo;
 
 public class StudentSelectionTest extends
-		ActivityInstrumentationTestCase2<AttendanceAppActivity> {
+		ActivityInstrumentationTestCase2<StudentSelectionActivity> {
 
 	final static String USERNAME = "tester1234somethingsomething";// Don't make
 																	// a user
@@ -27,7 +27,7 @@ public class StudentSelectionTest extends
 	final static String PASSWORD = "letmein";
 
 	public StudentSelectionTest(String name) throws Exception {
-		super("edu.upenn.cis350", AttendanceAppActivity.class);
+		super("edu.upenn.cis350", StudentSelectionActivity.class);
 		setName(name);
 	}
 
