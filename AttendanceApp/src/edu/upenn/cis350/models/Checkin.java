@@ -110,10 +110,11 @@ public class Checkin extends Model {
 		return getInTime()<=0 && getOutTime()<=0;
 	}
 
-	public boolean markAbsent() {
+	public boolean markAbsent(long time) {
 		if (!absent()) {
 			inTime=-1;
 			outTime=-1;
+			setLastChangeTime(time);
 			return true;
 		}
 		return false;
@@ -122,6 +123,7 @@ public class Checkin extends Model {
 	public boolean checkIn(long time) {
 		if ( neverCheckedIn() ) {
 			setInTime(time);
+			setLastChangeTime(time);
 			return true;
 		}
 		return false;
@@ -130,6 +132,7 @@ public class Checkin extends Model {
 	public boolean checkOut(long time) {
 		if ( checkedIn() ) {
 			setOutTime(time);
+			setLastChangeTime(time);
 			return true;
 		}
 		return false;

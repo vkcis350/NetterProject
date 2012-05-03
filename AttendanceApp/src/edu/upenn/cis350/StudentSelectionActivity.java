@@ -280,14 +280,12 @@ public class StudentSelectionActivity extends SyncableActivity {
 		Checkin checkin = checkinData.getOrCreate(time, currentActivityID,
 				studentID);
 		boolean success = false;
-
-		checkin.setLastChangeTime(time);
 		if (action == CheckinAction.IN)
 			success = checkin.checkIn(time);
 		else if (action == CheckinAction.OUT)
 			success = checkin.checkOut(time);
 		else if (action == CheckinAction.ABSENT)
-			success = checkin.markAbsent();
+			success = checkin.markAbsent(time);
 
 		if (success)
 			checkinData.save(checkin); // save checkin data to database
