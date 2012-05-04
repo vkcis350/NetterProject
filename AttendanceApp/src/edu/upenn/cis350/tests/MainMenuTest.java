@@ -27,6 +27,10 @@ public class MainMenuTest extends
 	public MainMenuTest(String name) throws Exception {
 		super("edu.upenn.cis350", MainMenuActivity.class);
 		setName(name);
+		Intent i = new Intent();
+		i.putExtra("USER_NAME", "Test Smith");
+		i.putExtra("USER_ID", 100072);
+		setActivityIntent(i);
 	}
 
 	private Activity activity;
@@ -34,6 +38,10 @@ public class MainMenuTest extends
 
 	public void setUp() throws Exception {
 		super.setUp();
+		Intent i = new Intent();
+		i.putExtra("USER_NAME", "Test Smith");
+		i.putExtra("USER_ID", 100072);
+		setActivityIntent(i);
 		solo = new Solo(getInstrumentation(), getActivity());
 		activity = getActivity();
 
