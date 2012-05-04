@@ -96,6 +96,17 @@ public class CheckinDataSource extends DataSource {
 		return (Checkin)getFirstModel(c);
 	}
 	
+	public ArrayList<Checkin> getAllForDay(long time)
+	{
+		long beginTime=DateTimeHelper.todayStart();
+		long endTime=DateTimeHelper.plusOneDay(beginTime);
+		Cursor c=database.query(MySQLiteHelper.TABLE_CHECKINS, 
+				null, 
+				MySQLiteHelper.COL_LAST_CHANGE+" between ? and ?",
+				new String[]{beginTime+"",endTime+""}, null, null, null);
+		return (ArrayList<Checkin>)getAllModels(c);
+	}
+	
 	
 	public void save(Checkin checkin)
 	{
@@ -163,6 +174,13 @@ public class CheckinDataSource extends DataSource {
 		Type collectionType = new TypeToken<List<Checkin>>(){}.getType();
 		List<Checkin> deserialized = gson.fromJson(s, collectionType);
 		return deserialized;
+	}
+	
+	public String exportJson(){
+		List<Checkin> objList=getAllForDay(System.currentTimeMillis());
+		Gson gson = new Gson();
+		String json = gson.toJson(objList);
+		return json;
 	}
 	
 	/**assumes database has been emptied**/

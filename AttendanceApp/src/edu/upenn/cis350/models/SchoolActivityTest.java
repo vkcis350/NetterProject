@@ -33,7 +33,6 @@ public class SchoolActivityTest extends TestCase {
 	}
 
 	public void testCompareTo() {
-
 		test2.setId(id2);
 		test2.setName(n1);
 		assertFalse(test2.equals(test));

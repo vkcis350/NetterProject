@@ -1,8 +1,11 @@
 package edu.upenn.cis350.tests;
 
+import java.util.ArrayList;
+
 import edu.upenn.cis350.localstore.CheckinDataSource;
 import edu.upenn.cis350.localstore.StudentDataSource;
 import edu.upenn.cis350.models.Checkin;
+import edu.upenn.cis350.models.Student;
 
 public class CheckinDataTest extends AbstractDataTest {
 	Checkin checkin;
@@ -98,5 +101,31 @@ public class CheckinDataTest extends AbstractDataTest {
     {
     	checkinData.close();
     }
+	
+	public void testGetAllForDay()
+	{
+		long time = System.currentTimeMillis();
+		Checkin checkin0 = checkinData.create(time, 3, 3);
+		Checkin checkin1 = checkinData.create(time, 3,4);
+		Checkin checkin2 = checkinData.create(12030123, 2,5);
+		
+		Checkin checkin0copy=null;
+		Checkin checkin1copy=null;
+		Checkin checkin2copy = null;
+		ArrayList<Checkin> checkins = checkinData.getAllForDay(time);
+		for ( Checkin checkin : checkins )
+    	{
+    		if ( checkin.getId()==checkin0.getId() )
+    			checkin0copy = checkin;
+    		if ( checkin.getId()==checkin1.getId() )
+    			checkin1copy = checkin;
+    		if ( checkin.getId()==checkin2.getId() )
+    			checkin2copy = checkin;
+    	}
+		assertNotNull(checkin0copy);
+		assertNotNull(checkin1copy);
+		assertNull(checkin2copy);
+		
+	}
 
 }

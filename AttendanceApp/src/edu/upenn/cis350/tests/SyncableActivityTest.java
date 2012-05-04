@@ -111,25 +111,6 @@ ActivityInstrumentationTestCase2<MainMenuActivity>
 
 	}
 
-	public void testgetJSONFromDataSourceCheckin(){
-		studData.open();
-		Student s1 = studData.create(9136389, "Pomeroy", "Shanita", "215-123-1234", 
-				"?", "Neighbor", 0, 0,
-				2011, 3, "123 Some Street, Philadelphia");
-		studData.close();
-
-		checkinData.open();
-
-		c1 = checkinData.create(0,1,s1.getId());
-		c1.setComment("testComment");
-
-		checkinData.close(); 
-
-		String s = activity.getJSONFromDataSource(checkinData);
-		assertEquals("[{\"comment\":\"\",\"activityID\":1,\"inTime\":0,\"lastChangeTime\":0,\"outTime\":0,\"siteId\":0,\"studentID\":9136389,\"userId\":0,\"id\":1}]",s);
-	}
-
-
 	public void testgetJSONFromEmpty(){
 		String s = activity.getJSONFromDataSource(checkinData);
 		assertEquals("[]",s);
@@ -159,13 +140,11 @@ ActivityInstrumentationTestCase2<MainMenuActivity>
 		
 		String studJson=activity.getJSONFromDataSource(studData);
 		String actJson=activity.getJSONFromDataSource(actData);
-		String checkinJson=activity.getJSONFromDataSource(checkinData);
 		
 		activity.synchronize(true);
 		
 		assertEquals(studJson,activity.getJSONFromDataSource(studData));
 		assertEquals(actJson,activity.getJSONFromDataSource(actData));
-		assertEquals(checkinJson,activity.getJSONFromDataSource(checkinData));
 	}
 
 

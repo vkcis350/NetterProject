@@ -45,5 +45,4 @@ public class User extends Model {
 		String hash = Password.hashPassword(enteredPassword,this.salt);
 		return hash.equals(this.passwordHash);
 	}
-
 }
