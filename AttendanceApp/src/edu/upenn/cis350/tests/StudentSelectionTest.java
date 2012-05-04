@@ -58,10 +58,8 @@ public class StudentSelectionTest extends
 	}
 
 	public void testCantContinue() throws Exception {
-		assertFalse(solo.searchText("DEFAULT ACTIVITY"));
-		assertTrue(solo.searchButton("Sort Students".trim()));
-		assertTrue(solo.searchButton("Select All"));
-		assertTrue(solo.searchButton("Continue"));
+		solo.clickOnButton("Continue");
+		assertTrue(solo.searchText("Please select some students first."));
 	}
 
 	public void testEverythingPresent() throws Exception {
@@ -91,10 +89,14 @@ public class StudentSelectionTest extends
 		solo.clickOnText("View Student Info");
 		assertTrue(solo.searchText("Last Action:"));
 		solo.goBack();
+	}
+	
+	public void testComment() throws Exception {
 		solo.clickOnText("12".trim());
 		solo.clickOnButton("Continue");
 		solo.clickOnText("Leave Comment");
 		assertTrue(solo.searchText("Add New"));
+		solo.goBack();
 	}
 
 	public void tearDown() throws Exception {
