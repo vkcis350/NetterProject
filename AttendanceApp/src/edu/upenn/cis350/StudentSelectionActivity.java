@@ -83,8 +83,12 @@ public class StudentSelectionActivity extends SyncableActivity {
 		Bundle extras = getIntent().getExtras();
 		currentActivity = extras.getString("ACTIVITY_NAME");
 		String temp = extras.getString("ACTIVITY_ID"); 
-		currentActivityID = Long.parseLong(temp);
-		Log.d("StudentSelectionActivity", "!!! " + temp);
+		Long try2 = extras.getLong("ACTIVITY_ID"); 
+		Log.d("StudentSelectionActivity", "!!!_" + temp + "_" + try2 + "_");
+		if(temp != null)
+			currentActivityID = Long.parseLong(temp.trim());
+		else
+			currentActivityID = try2;
 
 		ListView lv = (ListView) findViewById(R.id.student_list);
 		lv.setTextFilterEnabled(true);

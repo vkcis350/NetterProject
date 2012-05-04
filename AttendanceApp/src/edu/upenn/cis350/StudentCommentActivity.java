@@ -45,7 +45,12 @@ public class StudentCommentActivity extends SyncableActivity{
 
 		Bundle extras = getIntent().getExtras();
 		studentID = extras.getLong("STUDENT_ID");
-		activityID = Long.parseLong(extras.getString("ACTIVITY_ID"));
+		String try1 = extras.getString("ACTIVITY_ID");
+		if(try1 != null)
+			activityID = Long.parseLong(try1);
+		else
+			activityID = extras.getLong("ACTIVITY_ID");
+			
 		Log.d("StudentCommentActivity", "___" + activityID);
 		ListView lv = (ListView) findViewById(R.id.comment_list);
 		lv.setTextFilterEnabled(true);
