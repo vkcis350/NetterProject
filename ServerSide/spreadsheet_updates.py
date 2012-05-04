@@ -49,6 +49,8 @@ def get_row_index_by_id(rows, id):
     '''Returns the index of the row with id, None if not found.'''
     ctr = 0
     for row in rows:
-        if row["id"] == id: 
+        if str(row["id"]) == str(id): 
             return ctr
         ctr += 1
+
+
