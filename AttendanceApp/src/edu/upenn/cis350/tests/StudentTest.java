@@ -1,5 +1,6 @@
-package edu.upenn.cis350.models;
+package edu.upenn.cis350.tests;
 
+import edu.upenn.cis350.models.Student;
 import junit.framework.TestCase;
 
 public class StudentTest extends TestCase {
@@ -12,19 +13,21 @@ public class StudentTest extends TestCase {
 		super.setUp();
 		test=new Student();
 		test.setFirstName(n1);
+		test2 = new Student();
+		test2.setFirstName(n2);
 	}
 
 	public void testGetSetID() {
-		assertEquals(test.getId(),-1);
+		assertEquals(test.getId(),0);
 		test.setId(id1);
 		assertEquals(test.getId(),id1);
 		test.setId(id2);
 		assertEquals(test.getId(),id2);
 		
-		assertEquals(test2.getId(),-1);
-		test.setId(id2);
+		assertEquals(test2.getId(),0);
+		test2.setId(id2);
 		assertEquals(test2.getId(),id2);
-		test.setId(id1);
+		test2.setId(id1);
 		assertEquals(test2.getId(),id1);
 	}
 
@@ -33,24 +36,15 @@ public class StudentTest extends TestCase {
 		test.setFirstName(n2);
 		assertEquals(test.getFirstName(),n2);
 		
-		assertEquals(test2.getFirstName(),n2);
 	}
 
 	public void testToString() {
-		assertEquals(test.toString(),n1);
-		assertEquals(test.toString(),test.getFirstName());
+		test.setFirstName("tester");
+		test.setLastName("aaa");
+		test.setGrade(32);
+		assertEquals(test.toString(),"32  aaa, tester");
 	}
 
-	public void testCompareTo() { //should match up on id primarily, right?
-		test.setId(id1);
-		test2.setId(id2);
-		test2.setFirstName(n1);
-		assertFalse(test2.equals(test));
-		test2.setId(id1);
-		assertTrue(test2.equals(test));
-		test2.setFirstName(n2);
-		assertFalse(test2.equals(test));
-	}
 	
 
 }

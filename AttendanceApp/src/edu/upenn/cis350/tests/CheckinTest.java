@@ -1,5 +1,6 @@
-package edu.upenn.cis350.models;
+package edu.upenn.cis350.tests;
 
+import edu.upenn.cis350.models.Checkin;
 import junit.framework.TestCase;
 
 public class CheckinTest extends TestCase {

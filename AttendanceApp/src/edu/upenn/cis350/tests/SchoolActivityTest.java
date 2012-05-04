@@ -1,5 +1,6 @@
-package edu.upenn.cis350.models;
+package edu.upenn.cis350.tests;
 
+import edu.upenn.cis350.models.SchoolActivity;
 import junit.framework.TestCase;
 
 public class SchoolActivityTest extends TestCase {
@@ -30,16 +31,6 @@ public class SchoolActivityTest extends TestCase {
 	public void testToString() {
 		assertEquals(test.toString(),n1);
 		assertEquals(test.toString(),test.getName());
-	}
-
-	public void testCompareTo() {
-		test2.setId(id2);
-		test2.setName(n1);
-		assertFalse(test2.equals(test));
-		test2.setId(id1);
-		assertTrue(test2.equals(test));
-		test2.setName(n2);
-		assertFalse(test2.equals(test));
 	}
 
 }
