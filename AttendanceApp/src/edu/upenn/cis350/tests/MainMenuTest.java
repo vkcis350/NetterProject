@@ -3,7 +3,7 @@ package edu.upenn.cis350.tests;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
-import edu.upenn.cis350.ActivityListActivity;
+import edu.upenn.cis350.MainMenuActivity;
 import edu.upenn.cis350.AttendanceAppActivity;
 import edu.upenn.cis350.R;
 import edu.upenn.cis350.StudentSelectionActivity;
@@ -21,11 +21,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import com.jayway.android.robotium.solo.Solo;
 
-public class ActivityListTest extends
-		ActivityInstrumentationTestCase2<ActivityListActivity> {
+public class MainMenuTest extends
+		ActivityInstrumentationTestCase2<MainMenuActivity> {
 
-	public ActivityListTest(String name) throws Exception {
-		super("edu.upenn.cis350", ActivityListActivity.class);
+	public MainMenuTest(String name) throws Exception {
+		super("edu.upenn.cis350", MainMenuActivity.class);
 		setName(name);
 		Intent i = new Intent();
 		i.putExtra("USER_NAME", "Test Smith");
@@ -57,43 +57,21 @@ public class ActivityListTest extends
 
 	}
 
-	public void testContinue() throws Exception {
-		solo.clickOnButton("View All Activities");
-		solo.clickOnText("Android Programming".trim());
-		solo.clickOnButton("Continue");
-		assertTrue(solo.searchButton("Sort Students"));
+	public void testEverythingPresent() throws Exception {
+		assertTrue(solo.searchButton("View Activities".trim()));
+		assertTrue(solo.searchButton("View Students"));
+	}
+
+	public void testViewActivities() throws Exception {
+		solo.clickOnButton("View Activities");
+		assertTrue(solo.searchButton("Add"));
 		solo.goBack();
 	}
 
-	public void testCantContinue() throws Exception {
-		solo.clickOnButton("Continue");
-		assertTrue(solo.searchText("Select Activity First"));
-		solo.clickOnButton("Continue");
-		assertTrue(solo.searchText("Select Activity First"));
-	}
-
-	public void testEverythingPresent() throws Exception {
-		assertTrue(solo.searchButton("Add".trim()));
-		assertTrue(solo.searchButton("Remove"));
-		assertTrue(solo.searchButton("Continue"));
-		solo.clickOnButton("Add");
-
-	}
-
-	public void testAddRemove() throws Exception {
-		solo.clickOnButton("View All Activities");
-		solo.clickOnText("Android Programming".trim());
-		solo.clickOnButton("Add");
-		solo.clickOnText("Add to Frequent");
-		solo.clickOnText("Yes");
-		solo.clickOnButton("View Only Frequent Activities");
-		assertTrue(solo.searchText("Android Programming"));
-		solo.clickOnText("Android Programming".trim());
-		solo.clickOnText("Remove");
-		solo.clickOnText("Remove from Frequent List");
-		solo.clickOnText("Yes");
-		solo.clickOnText("Remove");
-		assertFalse(solo.searchText("Android Programming"));
+	public void testViewStudents() throws Exception {
+		solo.clickOnButton("View Students");
+		assertTrue(solo.searchButton("Sort Students"));
+		solo.goBack();
 	}
 
 	public void tearDown() throws Exception {

@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import edu.upenn.cis350.ActivityListActivity;
 import edu.upenn.cis350.AttendanceAppActivity;
 import edu.upenn.cis350.R;
-import edu.upenn.cis350.StudentSelectionActivity;
+import edu.upenn.cis350.FullStudentListActivity;
 import edu.upenn.cis350.R.id;
 import edu.upenn.cis350.localstore.StudentDataSource;
 import edu.upenn.cis350.localstore.TemporaryDbInsert;
@@ -21,11 +21,11 @@ import android.widget.EditText;
 import android.widget.ListView;
 import com.jayway.android.robotium.solo.Solo;
 
-public class StudentSelectionTest extends
-		ActivityInstrumentationTestCase2<StudentSelectionActivity> {
+public class FullStudentListTest extends
+		ActivityInstrumentationTestCase2<FullStudentListActivity> {
 
-	public StudentSelectionTest(String name) throws Exception {
-		super("edu.upenn.cis350", StudentSelectionActivity.class);
+	public FullStudentListTest(String name) throws Exception {
+		super("edu.upenn.cis350", FullStudentListActivity.class);
 		setName(name);
 		Intent i = new Intent();
 		i.putExtra("ACTIVITY_NAME", "Test Activity");
@@ -58,47 +58,23 @@ public class StudentSelectionTest extends
 	}
 
 	public void testCantContinue() throws Exception {
-		solo.clickOnButton("Continue");
+		solo.clickOnButton("View Student's Info");
 		assertTrue(solo.searchText("Please select some students first."));
 	}
 
 	public void testEverythingPresent() throws Exception {
 		assertFalse(solo.searchText("DEFAULT ACTIVITY"));
-		assertTrue(solo.searchButton("Sort Students".trim()));
-		assertTrue(solo.searchButton("Select All"));
-		assertTrue(solo.searchButton("Deselect All"));
-		assertTrue(solo.searchButton("Continue"));
-	}
-
-	public void testSelectAll() throws Exception {
-		solo.clickOnButton("Select All");
-		solo.clickOnButton("Continue");
-		solo.clickOnText("View Student Info");
-		assertTrue(solo.searchText("Please select just one student."));
-	}
-
-	public void testDeselectAll() throws Exception {
-		solo.clickOnButton("Select All");
-		solo.clickOnButton("Deselect All");
-		solo.clickOnButton("Continue");
-		assertTrue(solo.searchText("Please select some students first."));
+		assertTrue(solo.searchButton("View Student's Info"));
+		assertTrue(solo.searchButton("Sort Students"));
 	}
 
 	public void testViewStudentInfo() throws Exception {
 		solo.clickOnText("12".trim());
-		solo.clickOnButton("Continue");
-		solo.clickOnText("View Student Info");
+		solo.clickOnButton("View Student's Info");
 		assertTrue(solo.searchText("Last Action:"));
 		solo.goBack();
 	}
-
-	public void testComment() throws Exception {
-		solo.clickOnText("12".trim());
-		solo.clickOnButton("Continue");
-		solo.clickOnText("Leave Comment");
-		assertTrue(solo.searchText("Add New"));
-		solo.goBack();
-	}
+	
 
 	public void tearDown() throws Exception {
 		super.tearDown();

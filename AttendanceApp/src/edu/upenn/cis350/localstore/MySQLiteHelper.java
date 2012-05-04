@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class MySQLiteHelper extends SQLiteOpenHelper {
 	public static final String TABLE_STUDENTS = "student";
-	public static final String COL_STUDENT_ID = "_id";
+	public static final String COL_STUDENT_ID = "student_id";
 	public static final String COL_STUDENT_LAST_NAME = "last_name";
 	public static final String COL_STUDENT_FIRST_NAME = "first_name";
 	public static final String COL_STUDENT_PHONE = "phone";
@@ -80,7 +80,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	
 	public static final String DATABASE_NAME = "attendance.db";
 	public static final String TEST_DATABASE_NAME = "attendance_test.db";
-	public static final int DATABASE_VERSION = 126;
+	public static final int DATABASE_VERSION = 127;
 
 	
 	
