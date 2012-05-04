@@ -41,11 +41,11 @@ public class AttendanceAppActivityTest extends
 		solo = new Solo(getInstrumentation(), getActivity());
 		activity = getActivity();
 		FileBackup.backupDB();
-		
 		UserDataSource userData = new UserDataSource(activity.getApplicationContext());
-		userData.open();
-		userData.create("temporary", "nothere");
 		userData.upgrade();
+		
+		userData.open();
+		
 		TemporaryDbInsert.insert(getActivity());
 		
 		userData.close();

@@ -22,14 +22,11 @@ public class StudentDataTest extends AbstractDataTest {
 	public void setUp() throws Exception
 	{
 		super.setUp();
-		final SQLiteDatabase db = SQLiteDatabase.create(null);
         studentData = new StudentDataSource(context);
         studentData.open();
 	}
 	
     public void testCreateStudent() throws Throwable {
-      
-       
        Student s1 = studentData.create(0, "Turing", "Alan", "123-456-7890", "von Neumann", 
     		   "another famous computer scientist", 0, 0, 1945, 12, "1 Computer St.");
        
