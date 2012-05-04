@@ -36,6 +36,7 @@ public class StudentDataActivity extends SyncableActivity {
 
 		Bundle extras = getIntent().getExtras();
 		long studentID = extras.getLong("STUDENT_ID");
+		Log.d("StudentDataActivity", "" + studentID);
 		// long studentID=Long.parseLong(preStudentID);
 		Log.d("StudentDataActivity", "Profile of Student with ID number"
 				+ studentID + "loaded");
