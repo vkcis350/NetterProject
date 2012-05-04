@@ -34,9 +34,9 @@ public class MainMenuActivity extends SyncableActivity
 	public void onViewAllActivitiesClick(View v)
 	{
 		Intent i = new Intent(this,ActivityListActivity.class);
+		Log.d("MainMenuActivity", ""+getIntent().getExtras() );
 		i.putExtras(getIntent().getExtras());
 		Bundle b = i.getExtras();
-		Log.d("MainMenuActivity", ""+b.getLong("USER_ID") );
 		startActivity(i);
 	}
 
