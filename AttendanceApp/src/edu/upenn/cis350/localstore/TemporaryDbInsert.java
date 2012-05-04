@@ -22,6 +22,7 @@ public class TemporaryDbInsert {
 	
 	public static void insert(Context context)
 	{
+		
 		String[] COMMENT_ARRAY = {"Behaved today.", 
 				"Fought well at Waterloo", 
 				"Lost Wuchang because of him today.", 
