@@ -35,9 +35,9 @@ class MainHandler(webapp.RequestHandler):
     def post(self):
         'Students, activities, checkins separated by new lines'
         self.saveDataFromRequest(self.request.body)
-        self.response.body = json.dumps(map(lambda x: x.to_dict(),
-                                            Student.all()))
-
+        self.response.out.write(json.dumps(gs.get_worksheet("Students").get_rows())
+                                +'\n'
+                                +json.dumps(gs.get_worksheet("Activities").get_rows()))
 
     def saveDataFromRequest(self, req_body):
         request_objs = req_body.splitlines()
