@@ -133,26 +133,9 @@ public class SyncableActivity extends Activity{
 		//BufferedReader in = null;
 		new Thread(new Runnable() {
 			public void run() {
-				synchronize();
+				synchronize(false);
 			}
-		}).start();
-
-		//setProp(net.dns1, 8.8.8.8);
-
-
-		//TODO: wait till server sends signal to update current databases
-		//TODO: populate databases with jsons sent by server
-		//TODO:clear all local databases according to pre-determined convention
-		//the following lines clear the local databases, additional fxnality needs to be added to populate database w/ current
-		/*
-				studentData.open();
-				studentData.deleteAll();
-				studentData.importFromjson(string from server)
-				studentData.close();
-				//repeat w/ checkin and act
-
-		 */
-
+		}).start();	
 	}
 	
 	
@@ -168,7 +151,7 @@ public class SyncableActivity extends Activity{
 	 * this method makes a JSON (essentially a string representing the database) of each local database stored within the application and sends it to the web server for permanent storage
 	 * StudentDataSource, CheckinDataSource, and SchoolActivityDataSource are all objects which allow the method to access databases on local storage.
 	 * **/
-	public void synchronize(){
+	public void synchronize(boolean test){
 		StudentDataSource studentData=new StudentDataSource(this);
 		String studString = getJSONFromDataSource(studentData);
 		Log.d("SyncableActivity","Json of students:"+studString);
@@ -188,21 +171,29 @@ public class SyncableActivity extends Activity{
 			allStrings.append(studString).append('\n').append(actString).append('\n').append(checkinString);
 			postMethod.setEntity(new StringEntity(allStrings.toString()));
 			
+			String respString;
 			
-			HttpResponse response = httpClient.execute(postMethod);
-			Log.d("SyncableActivity","response: "+response.getStatusLine().toString());
-			String respString = EntityUtils.toString(response.getEntity());
-
+			if(!test){
+				HttpResponse response = httpClient.execute(postMethod);
+				Log.d("SyncableActivity","response: "+response.getStatusLine().toString());
+				respString = EntityUtils.toString(response.getEntity());
+			}else{
+				respString=allStrings.toString();
+			}
+			
+			
 			Log.d("SyncableActivity","response body: "+respString);
 			
 			
-			//NOTE TO JOSE: REPLACE allStrings IN THE FOLLOWING LINE WITH respString ONCE RESPONSE IS WORKING CORRECTLY
-			String[] responseJSONs=allStrings.toString().split("\\n");
+			String[] responseJSONs=respString.toString().split("\\n");
 			
 			String newStud=responseJSONs[0];
+			//String newStud=respString.toString();
 			Log.d("SyncableActivity","newstud: "+newStud);
 			String newAct=responseJSONs[1];
-			String newCheck=responseJSONs[2];
+			Log.d("SyncableActivity","newact: "+newAct);
+			
+			//String newCheck=responseJSONs[2];
 			
 			studentData.open();
 			studentData.deleteAll();
@@ -216,10 +207,10 @@ public class SyncableActivity extends Activity{
 			
 			
 			//Comment/Uncomment following lines depending on how we plan to handle checkins
-			checkinData.open();
-			checkinData.deleteAll();
-			checkinData.importFromjson(newCheck);
-			checkinData.close();
+			//checkinData.open();
+			//checkinData.deleteAll();
+			//checkinData.importFromjson(newCheck);
+			//checkinData.close();
 			
 			
 
