@@ -2,69 +2,69 @@ package edu.upenn.cis350.models;
 
 public class Checkin extends Model {
 
-	private long studentID;
-	private long activityID;
-	private long inTime;
-	private long outTime;
-	private long userId;
-	private long lastChangeTime;
+	private long studentid;
+	private long activityid;
+	private long intime;
+	private long outtime;
+	private long userid;
+	private long lastchangetime;
 	private String comment;
-	private long siteId;
+	private long siteid;
 	
 	public Checkin()
 	{
 	}
 	
 	public long getUserID(){
-		return userId;
+		return userid;
 	}
 	
 	public void setUserID(long userId){
-		this.userId=userId;
+		this.userid=userId;
 	}
 	
 	public void setStudentID(long studentID)
 	{
-		this.studentID = studentID;
+		this.studentid = studentID;
 	}
 	
 	public void setActivityID(long activityID)
 	{
-		this.activityID = activityID;
+		this.activityid = activityID;
 	}
 
 	public long getActivityID() {
 		// TODO Auto-generated method stub
-		return activityID;
+		return activityid;
 	}
 
 	public long getStudentID() {
 		// TODO Auto-generated method stub
-		return studentID;
+		return studentid;
 	}
 	
 	public void setInTime(long time) {
-		this.inTime = time;
+		this.intime = time;
 	}
 
 	public void setOutTime(long time) {
-		this.outTime = time;
+		this.outtime = time;
 	}
 
 	public long getInTime() {
-		return inTime;
+		return intime;
 	}
 	
 	public long getOutTime() {
-		return outTime;
+		return outtime;
 	}
 	
 	public long getLastChangeTime() {
-		return lastChangeTime;
+		return lastchangetime;
 	}
 	
 	public void setLastChangeTime(long time) {
-		lastChangeTime = time;
+		lastchangetime = time;
 	}
 	
 	public String getComment() {
@@ -110,8 +110,8 @@ public class Checkin extends Model {
 
 	public boolean markAbsent(long time) {
 		if (!absent()) {
-			inTime=-1;
-			outTime=-1;
+			intime=-1;
+			outtime=-1;
 			setLastChangeTime(time);
 			return true;
 		}
@@ -138,12 +138,12 @@ public class Checkin extends Model {
 	
 	public void setSiteId(long siteId)
 	{
-		this.siteId = siteId;
+		this.siteid = siteId;
 	}
 	
 	public long getSiteId()
 	{
-		return siteId;
+		return siteid;
 	}
 
 

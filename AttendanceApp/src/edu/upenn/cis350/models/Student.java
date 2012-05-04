@@ -1,35 +1,35 @@
 package edu.upenn.cis350.models;
 //testing new branch
 public class Student extends Model implements Comparable {
-	private String firstName;
-	private String lastName;
+	private String firstname;
+	private String lastname;
 	private String address;
 	private String phone;
 	private int grade;
 	private String contact;
-	private String contactRelation;
-	private long schoolID;
-	private long siteID;
-	private long schoolYear;
+	private String contactrelation;
+	private long schoolid;
+	private long siteid;
+	private long schoolyear;
 	
 
 
 	public String getFirstName() {
-		return firstName;
+		return firstname;
 	}
 
 	public String getLastName() {
-		return lastName;
+		return lastname;
 	}
 
 
 	public void setFirstName(String name) {
-		this.firstName = name;
+		this.firstname = name;
 		
 	}
 	
 	public void setLastName(String name) {
-		this.lastName = name;
+		this.lastname = name;
 		
 	}
 	
@@ -51,7 +51,7 @@ public class Student extends Model implements Comparable {
 	
 	public String toString()
 	{
-		return getGrade()+"  "+lastName+", "+firstName;
+		return getGrade()+"  "+lastname+", "+firstname;
 	}
 
 
@@ -91,42 +91,42 @@ public class Student extends Model implements Comparable {
 	
 	public void setContactRelation(String contactRelation)
 	{
-		this.contactRelation = contactRelation;
+		this.contactrelation = contactRelation;
 	}
 	
 	public String getContactRelation()
 	{
-		return contactRelation;
+		return contactrelation;
 	}
 	
 	public void setSchoolID(long schoolID)
 	{
-		this.schoolID = schoolID;
+		this.schoolid = schoolID;
 	}
 	
 	public long getSchoolID()
 	{
-		return schoolID;
+		return schoolid;
 	}
 	
 	public void setSiteID(long siteID)
 	{
-		this.siteID = siteID;
+		this.siteid = siteID;
 	}
 	
 	public long getSiteID()
 	{
-		return siteID;
+		return siteid;
 	}
 	
 	public void setSchoolYear(long schoolYear)
 	{
-		this.schoolYear = schoolYear;
+		this.schoolyear = schoolYear;
 	}
 	
 	public long getSchoolYear()
 	{
-		return schoolYear;
+		return schoolyear;
 	}
 	
 
