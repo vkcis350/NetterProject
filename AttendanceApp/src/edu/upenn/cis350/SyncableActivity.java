@@ -61,9 +61,12 @@ public class SyncableActivity extends Activity{
 		case R.id.sync_option:
 			confirmSync();
 			return true;
+		/**
 		case R.id.logout_option:
 			confirmLogout();
 			return true;
+			**/
+			
 		default:
 			return super.onOptionsItemSelected(item);
 		}

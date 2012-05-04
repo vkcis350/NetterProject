@@ -25,7 +25,7 @@ public class AttendanceAppActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		//load data from sqlite
-		//TemporaryDbInsert.insert(this);
+		TemporaryDbInsert.insert(this);
 	}
 	
 	@Override

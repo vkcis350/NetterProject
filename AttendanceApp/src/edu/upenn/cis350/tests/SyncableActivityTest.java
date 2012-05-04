@@ -92,7 +92,7 @@ ActivityInstrumentationTestCase2<MainMenuActivity>
 		Student test=(Student) studData.get(9136389);
 		assertEquals(test.getLastName(), "Pomeroy");
 		String s = activity.getJSONFromDataSource(studData);
-		assertEquals("[{\"address\":\"123 Some Street, Philadelphia\",\"contact\":\"?\",\"contactRelation\":\"Neighbor\",\"firstName\":\"Shanita\",\"phone\":\"215-123-1234\",\"lastName\":\"Pomeroy\",\"siteID\":0,\"schoolID\":0,\"schoolYear\":2011,\"grade\":3,\"id\":9136389}]",s);
+		assertEquals("[{\"address\":\"123 Some Street, Philadelphia\",\"contact\":\"?\",\"contactrelation\":\"Neighbor\",\"firstname\":\"Shanita\",\"phone\":\"215-123-1234\",\"lastname\":\"Pomeroy\",\"siteid\":0,\"schoolid\":0,\"schoolyear\":2011,\"grade\":3,\"id\":9136389}]",s);
 		studData.close();
 
 	}
@@ -107,7 +107,7 @@ ActivityInstrumentationTestCase2<MainMenuActivity>
 		actData.close();
 
 		String s = activity.getJSONFromDataSource(actData);
-		assertEquals("[{\"name\":\"Android Programming\",\"siteId\":0,\"id\":1},{\"name\":\"Zambian Cultural Festival\",\"siteId\":0,\"id\":2}]",s);
+		assertEquals("[{\"name\":\"Android Programming\",\"siteid\":0,\"id\":1},{\"name\":\"Zambian Cultural Festival\",\"siteid\":0,\"id\":2}]",s);
 
 	}
 

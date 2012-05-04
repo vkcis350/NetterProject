@@ -80,7 +80,7 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 	
 	public static final String DATABASE_NAME = "attendance.db";
 	public static final String TEST_DATABASE_NAME = "attendance_test.db";
-	public static final int DATABASE_VERSION = 127;
+	public static final int DATABASE_VERSION = 129;
 
 	
 	
