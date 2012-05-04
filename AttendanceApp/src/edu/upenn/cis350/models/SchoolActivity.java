@@ -3,7 +3,7 @@ package edu.upenn.cis350.models;
 public class SchoolActivity extends Model implements Comparable {
 	//private long id;
 	private String name;
-	private long siteId;
+	private long siteid;
 	
 
 	public SchoolActivity(String name) {
@@ -42,12 +42,12 @@ public class SchoolActivity extends Model implements Comparable {
 	
 	public void setSiteId(long siteId)
 	{
-		this.siteId = siteId;
+		this.siteid = siteId;
 	}
 	
 	public long getSiteId()
 	{
-		return siteId;
+		return siteid;
 	}
 	
 }

@@ -201,8 +201,8 @@ public class SyncableActivity extends Activity{
 			studentData.close();
 			
 			actData.open();
-			actData.deleteAll();
-			actData.importFromjson(newAct);
+			//actData.deleteAll();
+			//actData.importFromjson(newAct);
 			actData.close();
 			
 			
