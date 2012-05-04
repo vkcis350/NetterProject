@@ -28,12 +28,10 @@ public class Checkin extends Model {
 		this.studentID = studentID;
 	}
 	
-	
 	public void setActivityID(long activityID)
 	{
 		this.activityID = activityID;
 	}
-	
 
 	public long getActivityID() {
 		// TODO Auto-generated method stub
