@@ -82,7 +82,9 @@ public class StudentSelectionActivity extends SyncableActivity {
 
 		Bundle extras = getIntent().getExtras();
 		currentActivity = extras.getString("ACTIVITY_NAME");
-		currentActivityID = extras.getLong("ACTIVITY_ID");
+		String temp = extras.getString("ACTIVITY_ID"); 
+		currentActivityID = Long.parseLong(temp);
+		Log.d("StudentSelectionActivity", "!!! " + temp);
 
 		ListView lv = (ListView) findViewById(R.id.student_list);
 		lv.setTextFilterEnabled(true);
@@ -372,7 +374,8 @@ public class StudentSelectionActivity extends SyncableActivity {
 			}
 			Intent i = new Intent(this, StudentCommentActivity.class);
 			i.putExtra("STUDENT_ID", new Long(studentID));
-			i.putExtra("ACTIVITY_ID", currentActivityID);
+			Log.d("StudentSelectionActivity", "" + currentActivityID);
+			i.putExtra("ACTIVITY_ID", "" + currentActivityID);
 			i.putExtras(getIntent().getExtras());
 			startActivityForResult(i, LEAVE_COMMENT_REQUEST);
 		} else if (lv.getCheckedItemCount() > 1) {
