@@ -197,12 +197,13 @@ public class SyncableActivity extends Activity{
 			
 			
 			//NOTE TO JOSE: REPLACE allStrings IN THE FOLLOWING LINE WITH respString ONCE RESPONSE IS WORKING CORRECTLY
-			String[] responseJSONs=allStrings.toString().split("\\n");
+			String[] responseJSONs=respString.toString().split("\\n");
 			
 			String newStud=responseJSONs[0];
+			//String newStud=respString.toString();
 			Log.d("SyncableActivity","newstud: "+newStud);
 			String newAct=responseJSONs[1];
-			String newCheck=responseJSONs[2];
+			//String newCheck=responseJSONs[2];
 			
 			studentData.open();
 			studentData.deleteAll();
@@ -216,10 +217,10 @@ public class SyncableActivity extends Activity{
 			
 			
 			//Comment/Uncomment following lines depending on how we plan to handle checkins
-			checkinData.open();
-			checkinData.deleteAll();
-			checkinData.importFromjson(newCheck);
-			checkinData.close();
+			//checkinData.open();
+			//checkinData.deleteAll();
+			//checkinData.importFromjson(newCheck);
+			//checkinData.close();
 			
 			
 
