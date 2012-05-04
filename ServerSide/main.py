@@ -26,11 +26,9 @@ from models import Student, Activity, Comment, Request
 
 class MainHandler(webapp.RequestHandler):
     def get(self):
-        '''For testing purposes only'''
-        s = Student(id='1', firstname='jose')
-        s.put()
-        obj_dict = s.to_dict()
-        gs.update_worksheet_row(obj_dict, "Students")
+        self.response.out.write(json.dumps(gs.get_worksheet("Students").get_rows())
+                                +'\n'
+                                +json.dumps(gs.get_worksheet("Activities").get_rows()))
 
     def post(self):
         'Students, activities, checkins separated by new lines'

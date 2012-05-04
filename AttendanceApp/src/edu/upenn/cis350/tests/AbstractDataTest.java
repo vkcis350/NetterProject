@@ -31,7 +31,6 @@ public abstract class AbstractDataTest extends AndroidTestCase {
                 	return db;
             }
         };
-        
 	}
 
 }

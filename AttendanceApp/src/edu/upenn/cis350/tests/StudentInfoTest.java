@@ -3,7 +3,7 @@ package edu.upenn.cis350.tests;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 
-import edu.upenn.cis350.MainMenuActivity;
+import edu.upenn.cis350.StudentDataActivity;
 import edu.upenn.cis350.AttendanceAppActivity;
 import edu.upenn.cis350.R;
 import edu.upenn.cis350.StudentSelectionActivity;
@@ -21,12 +21,17 @@ import android.widget.EditText;
 import android.widget.ListView;
 import com.jayway.android.robotium.solo.Solo;
 
-public class MainMenuTest extends
-		ActivityInstrumentationTestCase2<MainMenuActivity> {
+public class StudentInfoTest extends
+		ActivityInstrumentationTestCase2<StudentSelectionActivity> {
 
-	public MainMenuTest(String name) throws Exception {
-		super("edu.upenn.cis350", MainMenuActivity.class);
+	public StudentInfoTest(String name) throws Exception {
+		super("edu.upenn.cis350", StudentSelectionActivity.class);
 		setName(name);
+		Intent i = new Intent();
+		i.putExtra("ACTIVITY_NAME", "Test Activity");
+		i.putExtra("ACTIVITY_ID", 100072);
+		setActivityIntent(i);
+
 	}
 
 	private Activity activity;
@@ -34,6 +39,10 @@ public class MainMenuTest extends
 
 	public void setUp() throws Exception {
 		super.setUp();
+		Intent i = new Intent();
+		i.putExtra("ACTIVITY_NAME", "Test Activity");
+		i.putExtra("ACTIVITY_ID", 100072);
+		setActivityIntent(i);
 		solo = new Solo(getInstrumentation(), getActivity());
 		activity = getActivity();
 
@@ -49,19 +58,29 @@ public class MainMenuTest extends
 	}
 
 	public void testEverythingPresent() throws Exception {
-		assertTrue(solo.searchButton("View Activities".trim()));
-		assertTrue(solo.searchButton("View Students"));
-	}
-
-	public void testViewActivities() throws Exception {
-		solo.clickOnButton("View Activities");
-		assertTrue(solo.searchButton("Add"));
+		solo.clickOnText("12".trim());
+		solo.clickOnButton("Continue");
+		solo.clickOnText("View Student Info");
+		assertTrue(solo.searchText("Last Action:"));
+		assertTrue(solo.searchText("Grade Level:"));
+		assertTrue(solo.searchText("Contact:"));
+		assertTrue(solo.searchText("Contact Relationship:"));
+		assertTrue(solo.searchText("Phone Number:"));
+		assertTrue(solo.searchText("Address:"));
 		solo.goBack();
 	}
 
-	public void testViewStudents() throws Exception {
-		solo.clickOnButton("View Students");
-		assertTrue(solo.searchButton("Sort Students"));
+	public void testData() throws Exception {
+		solo.clickOnText("12".trim());
+		solo.clickOnButton("Continue");
+		solo.clickOnText("View Student Info");
+		assertTrue(solo.searchText("Sun, Yat-sen"));
+		assertTrue(solo.searchText("Checked"));
+		assertTrue(solo.searchText("12"));
+		assertTrue(solo.searchText("Chiang"));
+		assertTrue(solo.searchText("eventual"));
+		assertTrue(solo.searchText("PETMEDS"));
+		assertTrue(solo.searchText("Nanjing"));
 		solo.goBack();
 	}
 

@@ -13,7 +13,6 @@ public class FileBackup {
 
 	public static void copyFile(String source, String dest) throws IOException
 	{
-		File root = Environment.getExternalStorageDirectory();
 		File fileA = new File(source);
 		File fileB = new File(dest);
 		FileUtils.copyFile(fileA, fileB);
